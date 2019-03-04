@@ -259,7 +259,7 @@ export default class AppBarTop extends React.Component {
 					</IconButton>
 				</Link>
 			);
-		} else if (pathname === '/settings/email/templates/customer_registration') {
+		} else if (pathname === '/settings/email/templates/register_doi_en') {
 			title = messages.settings_customerRegistration;
 			leftButton = (
 				<Link to="/settings/email">
@@ -270,7 +270,7 @@ export default class AppBarTop extends React.Component {
 					</IconButton>
 				</Link>
 			);
-		} else if (pathname === '/settings/email/templates/customer_recovery') {
+		} else if (pathname === '/settings/email/templates/forgot_password_en') {
 			title = messages.settings_customerRecovery;
 			leftButton = (
 				<Link to="/settings/email">
