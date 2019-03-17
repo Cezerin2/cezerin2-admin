@@ -34,10 +34,6 @@ const CheckoutFieldItem = ({ name, status, path }) => {
 };
 
 export default class EmailSettings extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
