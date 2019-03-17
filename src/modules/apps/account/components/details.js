@@ -5,10 +5,6 @@ import Account from './account';
 import Developer from './developer';
 
 export default class WebStoreAccountDetails extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.fetchData();
 	}
