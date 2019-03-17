@@ -8,10 +8,6 @@ import FontIcon from 'material-ui/FontIcon';
 import { List, ListItem } from 'material-ui/List';
 
 export default class EmailSettings extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
