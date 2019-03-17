@@ -23,10 +23,6 @@ const DraftIcon = (
 );
 
 class Item extends React.PureComponent {
-	constructor(props) {
-		super(props);
-	}
-
 	handleCheck = (event, isInputChecked) => {
 		const { item } = this.props;
 		this.props.onCheck(item.id);
