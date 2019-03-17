@@ -33,10 +33,6 @@ const MethodItem = ({ method }) => {
 };
 
 export default class EmailSettings extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
