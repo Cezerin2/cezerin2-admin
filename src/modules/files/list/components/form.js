@@ -82,10 +82,6 @@ class FileItem extends React.Component {
 }
 
 export default class FileList extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
