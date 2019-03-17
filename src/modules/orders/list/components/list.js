@@ -9,10 +9,6 @@ import messages from 'lib/text';
 import style from './style.css';
 
 export default class OrdersList extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
