@@ -23,10 +23,6 @@ const validate = values => {
 };
 
 class EditRedirectForm extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
