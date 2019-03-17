@@ -38,10 +38,6 @@ const WebhookItem = ({ webhook }) => {
 };
 
 export default class WebhooksList extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
