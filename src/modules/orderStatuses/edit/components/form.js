@@ -23,10 +23,6 @@ const validate = values => {
 };
 
 class Form extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		let {
 			handleSubmit,
