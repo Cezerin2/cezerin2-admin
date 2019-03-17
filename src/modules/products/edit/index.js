@@ -9,10 +9,6 @@ import ProductGeneral from 'modules/products/edit/general';
 import ProductAdditional from 'modules/products/edit/additional';
 
 class ProductEditContainer extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.fetchData();
 	}
