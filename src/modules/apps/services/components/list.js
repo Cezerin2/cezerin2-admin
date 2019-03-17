@@ -8,10 +8,6 @@ import apps from 'src/apps';
 import RaisedButton from 'material-ui/RaisedButton';
 
 export default class ServicesList extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.fetchData();
 	}
