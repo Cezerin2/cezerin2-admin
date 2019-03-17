@@ -24,10 +24,6 @@ const validate = values => {
 };
 
 class CustomerAddressForm extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		let {
 			handleSubmit,
