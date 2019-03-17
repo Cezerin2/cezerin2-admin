@@ -24,10 +24,6 @@ const validate = values => {
 };
 
 class EditShippingMethodForm extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.onLoad();
 	}
