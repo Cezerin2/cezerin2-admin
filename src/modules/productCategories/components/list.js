@@ -22,10 +22,6 @@ const DraftIcon = (
 );
 
 class Item extends React.PureComponent {
-	constructor(props) {
-		super(props);
-	}
-
 	handleClick = () => {
 		const { item } = this.props;
 		this.props.onSelect(item.id);
