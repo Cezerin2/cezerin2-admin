@@ -31,10 +31,6 @@ const getShippingFieldLabel = ({ label, key }) => {
 };
 
 class ShippingAddressForm extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		let {
 			handleSubmit,
