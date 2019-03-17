@@ -8,10 +8,6 @@ import CustomerOrders from './orders';
 import CustomerAddresses from './addresses';
 
 export default class CustomerDetails extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	componentDidMount() {
 		this.props.fetchData();
 	}
