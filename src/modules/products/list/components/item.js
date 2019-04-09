@@ -99,7 +99,7 @@ const ProductItem = ({ product, onSelect, selected, settings }) => {
 							<div className={'row middle-xs center-xs ' + style.imageBox}>
 								<div className="col-xs-12">
 									<div className="box">
-										<ItemImage images={(product.images, settings)} />
+										<ItemImage images={product.images} />
 									</div>
 								</div>
 							</div>
