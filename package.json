@@ -79,7 +79,7 @@
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-react": "^7.11.1",
     "esm": "^3.0.80",
-    "handlebars": "^4.0.11",
+    "handlebars": "^4.1.2",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^0.14.3",
     "jsonwebtoken": "^8.3.0",
