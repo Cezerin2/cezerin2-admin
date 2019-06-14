@@ -248,6 +248,8 @@
   "orders_hold": "En attente",
   "orders_draft": "Brouillon",
   "orders_search": "Rechercher commandes",
+  "orders_date_placed_from": "Date placed from",
+  "orders_date_placed_to": "Date placed to",
   "pageNotFound": "Page non trouvée!",
   "skuTaken": "Le SKU produit doit être unique",
   "editProductOption": "Modifier option",

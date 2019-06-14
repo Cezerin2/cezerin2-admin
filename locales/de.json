@@ -248,6 +248,8 @@
   "orders_hold": "Pausiert",
   "orders_draft": "Entwurf",
   "orders_search": "Aufträge suchen",
+  "orders_date_placed_from": "Date placed from",
+  "orders_date_placed_to": "Date placed to",
   "pageNotFound": "Seite nicht gefunden!",
   "skuTaken": "Artikelnummer muss eindeutig sein",
   "editProductOption": "Varianten bearbeiten",

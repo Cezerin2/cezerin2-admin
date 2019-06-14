@@ -248,6 +248,8 @@
   "orders_hold": "Hold",
   "orders_draft": "Draft",
   "orders_search": "Search orders",
+  "orders_date_placed_from": "Date placed from",
+  "orders_date_placed_to": "Date placed to",
   "pageNotFound": "Page not found!",
   "skuTaken": "Product SKU must be unique",
   "editProductOption": "Edit option",

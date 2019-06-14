@@ -248,6 +248,8 @@
   "orders_hold": "等待批准",
   "orders_draft": "草稿",
   "orders_search": "搜索订单",
+  "orders_date_placed_from": "Date placed from",
+  "orders_date_placed_to": "Date placed to",
   "pageNotFound": "找不到页面！",
   "skuTaken": "产品SKU必须是唯一的",
   "editProductOption": "编辑选项",

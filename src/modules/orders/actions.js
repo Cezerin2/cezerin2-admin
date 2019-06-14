@@ -192,6 +192,14 @@ const getFilter = (state, offset = 0) => {
 		filter.draft = filterState.draft;
 	}
 
+	if (filterState.date_placed_min) {
+		filter.date_placed_min = filterState.date_placed_min;
+	}
+
+	if (filterState.date_placed_max) {
+		filter.date_placed_max = filterState.date_placed_max;
+	}
+
 	if (state.orderStatuses.selectedId) {
 		filter.status_id = state.orderStatuses.selectedId;
 	}

@@ -249,6 +249,8 @@
   "orders_hold": "In fermo",
   "orders_draft": "Bozza",
   "orders_search": "Cerca ordini",
+  "orders_date_placed_from": "Date placed from",
+  "orders_date_placed_to": "Date placed to",
   "pageNotFound": "Pagina non trovata",
   "skuTaken": "Product SKU must be unique",
   "editProductOption": "Edit option",

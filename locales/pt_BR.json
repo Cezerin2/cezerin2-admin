@@ -246,6 +246,8 @@
   "orders_hold": "Aguardando",
   "orders_draft": "Rascunho",
   "orders_search": "Pesquisar pedidos",
+  "orders_date_placed_from": "Date placed from",
+  "orders_date_placed_to": "Date placed to",
   "pageNotFound": "Página não encontrada!",
   "skuTaken": "O produto SKU deve ser único",
   "editProductOption": "Opção de edição",

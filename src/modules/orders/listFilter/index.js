@@ -4,6 +4,9 @@ import Filter from './components/fields';
 
 const mapStateToProps = state => {
 	return {
+		settings: state.settings.settings,
+		dateCreatedFrom: state.orders.filter.date_placed_min,
+		dateCreatedTo: state.orders.filter.date_placed_max,
 		isClosed: state.orders.filter.closed,
 		isCancelled: state.orders.filter.cancelled,
 		isDelivered: state.orders.filter.delivered,
@@ -15,6 +18,14 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
+		setDateCreatedFrom: value => {
+			dispatch(setFilter({ date_placed_min: value.format() }));
+			dispatch(fetchOrders());
+		},
+		setDateCreatedTo: value => {
+			dispatch(setFilter({ date_placed_max: value.format() }));
+			dispatch(fetchOrders());
+		},
 		setCancelled: value => {
 			dispatch(setFilter({ cancelled: value }));
 			dispatch(fetchOrders());
@@ -32,6 +43,7 @@ const mapDispatchToProps = dispatch => {
 			dispatch(fetchOrders());
 		},
 		setDraft: value => {
+			console.log(value)
 			dispatch(setFilter({ draft: value }));
 			dispatch(fetchOrders());
 		},

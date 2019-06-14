@@ -17,15 +17,15 @@ const initialState = {
 		delivered: null,
 		paid: null,
 		hold: null,
-		draft: false
+		draft: false,
+		date_placed_min: null,
+		date_placed_max: null
 		// status_id: null,
 		// customer_id: null,
 		// payment_method_id: null,
 		// shipping_method_id: null,
 		// grand_total_min: null,
 		// grand_total_max: null,
-		// date_created_min: null,
-		// date_created_max: null,
 		// date_closed_min: null,
 		// date_closed_max: null
 	}

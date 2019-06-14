@@ -248,6 +248,8 @@
   "orders_hold": "Остановлен",
   "orders_draft": "Черновик",
   "orders_search": "Поиск заказов",
+  "orders_date_placed_from": "Date placed from",
+  "orders_date_placed_to": "Date placed to",
   "pageNotFound": "Страница не найдена!",
   "skuTaken": "Артикул товара должен быть уникальный",
   "editProductOption": "Редактировать опцию",
