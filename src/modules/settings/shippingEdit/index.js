@@ -65,8 +65,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 				const countriesStr = method.conditions.countries;
 				method.conditions.countries = countriesStr
 					.split(',')
-					.map(item => item.trim().toUpperCase())
-					.filter(item => item.length === 2);
+					.map(item => item.trim().toUpperCase());
 			}
 
 			if (
