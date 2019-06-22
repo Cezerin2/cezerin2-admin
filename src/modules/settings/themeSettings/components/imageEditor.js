@@ -13,24 +13,20 @@ export default class ThemeImageUpload extends React.Component {
 
 	onUpload = formData => {
 		api.theme.assets.uploadFile(formData).then(({ status, json }) => {
-			const fileName = json.file;
-			this.props.input.onChange(fileName);
+			const imageUrl = json.url;
+			this.props.input.onChange(imageUrl);
 		});
 	};
 
 	render() {
 		const { input, label } = this.props;
-		const imageUrl =
-			input.value && input.value.length > 0
-				? `${settings.assetsBaseURL}/assets/images/${input.value}`
-				: null;
 
 		return (
 			<div>
 				<p>{label}</p>
 				<ImageUpload
 					uploading={false}
-					imageUrl={imageUrl}
+					imageUrl={input.value}
 					onDelete={this.onDelete}
 					onUpload={this.onUpload}
 				/>
