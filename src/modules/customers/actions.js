@@ -102,6 +102,12 @@ function setGroupSuccess() {
 	};
 }
 
+function createCustomerSuccess() {
+	return {
+		type: t.CUSTOMER_CREATE_SUCCESS
+	};
+}
+
 const getFilter = (state, offset = 0) => {
 	const filter = {
 		limit: 50,
@@ -156,6 +162,72 @@ export function fetchMoreCustomers() {
 				.catch(error => {
 					dispatch(receiveCustomersError(error));
 				});
+		}
+	};
+}
+
+export function createDraftCustomer(ownProps) {
+	const defaultEmail = 'temporary.email@localhost';
+	const firstName = 'Joe';
+	const lastName = 'Doe';
+
+	let filter = {
+		limit: 50,
+		offset: 0,
+		search: defaultEmail
+	};
+
+	return (dispatch, getState) => {
+		const state = getState();
+		api.customers
+			.list(filter)
+			.then(lookupResponse => {
+				// check if temporary user in the system
+				let customer =
+					lookupResponse.json.data.length > 0
+						? lookupResponse.json.data[0]
+						: {};
+
+				if (Object.keys(customer).length === 0) {
+					// Found no default user --> create
+					return api.customers
+						.create({
+							full_name: `${firstName} ${lastName}`,
+							first_name: firstName,
+							last_name: lastName,
+							email: defaultEmail
+						})
+						.catch(error => {
+							console.log(error);
+						});
+				} else {
+					return customer;
+				}
+			})
+			.then(customerResponse => {
+				let draftCustomerId;
+				// Case customer object
+				if (customerResponse.hasOwnProperty('id')) {
+					draftCustomerId = customerResponse.id;
+				} else {
+					draftCustomerId = customerResponse.json.id;
+				}
+
+				dispatch(createCustomerSuccess());
+				ownProps.history.push(`/customer/${draftCustomerId}`);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	};
+}
+
+export function editCustomer(ownProps) {
+	return (dispatch, getState) => {
+		const state = getState();
+		// When editing, you only selected single item. No bulk edit
+		if (state.customers.selected) {
+			ownProps.history.push(`/customer/${state.customers.selected}`);
 		}
 	};
 }

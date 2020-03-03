@@ -1,19 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import {
 	fetchCustomers,
 	deleteCustomers,
 	setGroup,
-	setFilterSearch
+	setFilterSearch,
+	createDraftCustomer,
+	editCustomer
 } from '../actions';
 import Buttons from './components/buttons';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
 	search: state.customers.search,
 	selectedCount: state.customers.selected.length
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
 	setSearch: value => {
 		dispatch(setFilterSearch(value));
 		dispatch(fetchCustomers());
@@ -23,10 +26,18 @@ const mapDispatchToProps = dispatch => ({
 	},
 	onSetGroup: group_id => {
 		dispatch(setGroup(group_id));
+	},
+	onCreate: () => {
+		dispatch(createDraftCustomer(ownProps));
+	},
+	onEdit: () => {
+		dispatch(editCustomer(ownProps));
 	}
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Buttons);
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(Buttons)
+);

@@ -13,6 +13,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Search from './search';
 
+const Fragment = React.Fragment;
+
 export default class Buttons extends React.Component {
 	constructor(props) {
 		super(props);
@@ -54,7 +56,14 @@ export default class Buttons extends React.Component {
 	};
 
 	render() {
-		const { search, setSearch, selectedCount, onDelete } = this.props;
+		const {
+			search,
+			setSearch,
+			selectedCount,
+			onDelete,
+			onCreate,
+			onEdit
+		} = this.props;
 
 		const actionsSetGroup = [
 			<FlatButton
@@ -71,10 +80,22 @@ export default class Buttons extends React.Component {
 		];
 
 		return (
-			<span>
+			<Fragment>
 				<Search value={search} setSearch={setSearch} />
 				{selectedCount > 0 && (
-					<span>
+					<Fragment>
+						{selectedCount == 1 && (
+							<IconButton
+								touch={true}
+								tooltipPosition="bottom-left"
+								tooltip={messages.actions_edit}
+								onClick={onEdit}
+							>
+								<FontIcon color="#fff" className="material-icons">
+									edit
+								</FontIcon>
+							</IconButton>
+						)}
 						<IconButton
 							touch
 							tooltipPosition="bottom-left"
@@ -117,9 +138,21 @@ export default class Buttons extends React.Component {
 								showAll={false}
 							/>
 						</Dialog>
-					</span>
+					</Fragment>
 				)}
-			</span>
+				{selectedCount < 1 && (
+					<IconButton
+						touch={true}
+						tooltipPosition="bottom-left"
+						tooltip={messages.customers_titleAdd}
+						onClick={onCreate}
+					>
+						<FontIcon color="#fff" className="material-icons">
+							add
+						</FontIcon>
+					</IconButton>
+				)}
+			</Fragment>
 		);
 	}
 }
