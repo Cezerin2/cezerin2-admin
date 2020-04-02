@@ -1,17 +1,17 @@
-import React from 'react';
-import messages from 'lib/text';
-import CezerinClient from 'cezerin2-client';
-import * as auth from 'lib/webstoreAuth';
+import React from "react";
+import messages from "lib/text";
+import CezerinClient from "cezerin2-client";
+import * as auth from "lib/webstoreAuth";
 
-import RaisedButton from 'material-ui/RaisedButton';
-import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
+import RaisedButton from "material-ui/RaisedButton";
+import Paper from "material-ui/Paper";
+import TextField from "material-ui/TextField";
 
 export default class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			email: localStorage.getItem('webstore_email') || '',
+			email: localStorage.getItem("webstore_email") || "",
 			isFetching: false,
 			emailIsSent: false,
 			error: null
@@ -83,7 +83,7 @@ export default class LoginForm extends React.Component {
 								onKeyPress={this.handleKeyPress}
 								label={messages.email}
 								fullWidth
-								hintStyle={{ width: '100%' }}
+								hintStyle={{ width: "100%" }}
 								hintText={messages.email}
 							/>
 						</div>

@@ -1,5 +1,5 @@
-import React from 'react';
-import Item from './item';
+import React from "react";
+import Item from "./item";
 
 const ServiceItem = ({ app }) => (
 	<Item

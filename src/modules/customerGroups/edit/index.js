@@ -1,7 +1,7 @@
-import { connect } from 'react-redux';
-import { reset } from 'redux-form';
-import { updateGroup, createGroup, deselectGroup } from '../actions';
-import Form from './components/form';
+import { connect } from "react-redux";
+import { reset } from "redux-form";
+import { updateGroup, createGroup, deselectGroup } from "../actions";
+import Form from "./components/form";
 
 const mapStateToProps = state => ({
 	groupId: state.customerGroups.selectedId,
@@ -22,11 +22,8 @@ const mapDispatchToProps = dispatch => ({
 	},
 	onCancel: () => {
 		dispatch(deselectGroup());
-		dispatch(reset('FormCustomerGroup'));
+		dispatch(reset("FormCustomerGroup"));
 	}
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

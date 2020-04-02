@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import messages from 'lib/text';
-import { List, ListItem } from 'material-ui/List';
-import FontIcon from 'material-ui/FontIcon';
+import React from "react";
+import { Link } from "react-router-dom";
+import messages from "lib/text";
+import { List, ListItem } from "material-ui/List";
+import FontIcon from "material-ui/FontIcon";
 
 const styles = {
 	selectedItem: {
-		backgroundColor: 'rgba(0, 0, 0, 0.1)'
+		backgroundColor: "rgba(0, 0, 0, 0.1)"
 	},
 	innerItem: {
 		paddingLeft: 55
@@ -50,11 +50,11 @@ export default class Groups extends React.Component {
 					<ListItem
 						className="treeItem"
 						primaryText={messages.customers_noGroup}
-						style={selectedId === 'root' ? styles.selectedItem : null}
+						style={selectedId === "root" ? styles.selectedItem : null}
 						innerDivStyle={styles.innerItem}
 						leftIcon={<FontIcon className="material-icons">clear</FontIcon>}
 						onClick={() => {
-							onSelect('root');
+							onSelect("root");
 						}}
 					/>
 				)}
@@ -63,11 +63,11 @@ export default class Groups extends React.Component {
 					<ListItem
 						className="treeItem"
 						primaryText={messages.customerGroups_all}
-						style={selectedId === 'all' ? styles.selectedItem : null}
+						style={selectedId === "all" ? styles.selectedItem : null}
 						innerDivStyle={styles.innerItem}
 						leftIcon={FolderIcon}
 						onClick={() => {
-							onSelect('all');
+							onSelect("all");
 						}}
 					/>
 				)}
@@ -75,7 +75,7 @@ export default class Groups extends React.Component {
 				{rows}
 
 				{showManage && (
-					<Link to="/customers/groups" style={{ textDecoration: 'none' }}>
+					<Link to="/customers/groups" style={{ textDecoration: "none" }}>
 						<ListItem
 							className="treeItem"
 							primaryText={messages.customerGroups_titleEditMany}

@@ -1,4 +1,4 @@
-import * as t from './actionTypes';
+import * as t from "./actionTypes";
 
 const initialState = {
 	items: [],
@@ -7,7 +7,7 @@ const initialState = {
 	isSaving: false,
 	errorFetch: null,
 	errorUpdate: null,
-	selectedId: 'all'
+	selectedId: "all"
 };
 
 export default (state = initialState, action) => {

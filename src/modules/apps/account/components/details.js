@@ -1,7 +1,7 @@
-import React from 'react';
-import style from './style.css';
-import Account from './account';
-import Developer from './developer';
+import React from "react";
+import style from "./style.css";
+import Account from "./account";
+import Developer from "./developer";
 
 export default class WebStoreAccountDetails extends React.Component {
 	componentDidMount() {

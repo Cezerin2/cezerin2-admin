@@ -1,4 +1,4 @@
-FROM node:8
+FROM node
 LABEL maintainer "Nitin Goyal <nitingoyal.dev@gmail.com>, Luke Busstra <luke.busstra@gmail.com>"
 
 ENV NGINX_CODENAME stretch
@@ -6,17 +6,16 @@ ENV NGINX_CODENAME stretch
 # install requirements and NGINX
 RUN echo "deb http://nginx.org/packages/debian/ ${NGINX_CODENAME} nginx" >> /etc/apt/sources.list \
 	&& apt-get update && apt-get install --no-install-recommends --no-install-suggests -y --force-yes \
-		bash \
-		zip \
-		unzip \
-		wget \
-		curl \
-		nano \
-		ca-certificates \
-		nginx
+	bash \
+	zip \
+	unzip \
+	wget \
+	curl \
+	nano \
+	ca-certificates \
+	nginx
 
 # copy project - LOCAL CODE
-RUN mkdir -p /var/www/cezerin2-admin
 ADD . /var/www/cezerin2-admin
 
 WORKDIR /var/www/cezerin2-admin
@@ -31,8 +30,7 @@ RUN chmod +x "/usr/local/bin/docker-entrypoint.sh"
 
 # build project
 RUN cd /var/www/cezerin2-admin \
-	&& npm install \
-	&& npm cache clean --force \
+	&& npm i \
 	&& npm run build
 
 EXPOSE 80

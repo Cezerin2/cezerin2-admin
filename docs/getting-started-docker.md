@@ -1,10 +1,10 @@
 # Getting Started with Docker
 
-* [Docker](#docker)
-* [Docker Local](#docker-local)
-* [Docker Compose](#docker-compose)
+- [Docker](#docker)
+- [Docker Local](#docker-local)
+- [Docker Compose](#docker-compose)
 
-## Docker 
+## Docker
 
 We'll use `cezerin2/cezerin2-admin` image. [About image](https://github.com/cezerin2/docker-cezerin2-admin).
 Still to be completed
@@ -19,7 +19,7 @@ cezerin2 docker (https://github.com/cezerin2/cezerin2)
 
 ```shell
 docker build \
--t admin \ 
+-t admin \
 .
 ```
 
@@ -37,7 +37,7 @@ docker run -d \
 admin
 ```
 
-Open http://localhost to see your admin.  
+Open http://localhost to see your admin.
 
 ## Docker Compose
 
@@ -48,7 +48,7 @@ Download and clone required projects
 Create `docker-compose.yml` in root directory by examples.
 
 ```yml
-version: '3'
+version: "3"
 
 services:
   api:
@@ -88,5 +88,4 @@ services:
     volumes:
       - ./db:/data/db
     restart: always
-  
 ```

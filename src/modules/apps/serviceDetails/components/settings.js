@@ -1,17 +1,17 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
-import { TextField } from 'redux-form-material-ui';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { Link } from "react-router-dom";
+import { TextField } from "redux-form-material-ui";
 
-import { CustomToggle } from 'modules/shared/form';
-import messages from 'lib/text';
+import { CustomToggle } from "modules/shared/form";
+import messages from "lib/text";
 
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
-import FontIcon from 'material-ui/FontIcon';
-import { List, ListItem } from 'material-ui/List';
-import style from './style.css';
+import Paper from "material-ui/Paper";
+import RaisedButton from "material-ui/RaisedButton";
+import Divider from "material-ui/Divider";
+import FontIcon from "material-ui/FontIcon";
+import { List, ListItem } from "material-ui/List";
+import style from "./style.css";
 
 const ServiceSettingsForm = ({
 	handleSubmit,
@@ -23,20 +23,20 @@ const ServiceSettingsForm = ({
 		const value = initialValues[key];
 		return (
 			<div key={index}>
-				{typeof value === 'boolean' && (
+				{typeof value === "boolean" && (
 					<div>
 						<Field
 							component={CustomToggle}
 							name={key}
 							fullWidth={false}
 							label={key}
-							style={{ paddingTop: 16, paddingBottom: 16, width: 'auto' }}
+							style={{ paddingTop: 16, paddingBottom: 16, width: "auto" }}
 						/>
 						<Divider />
 					</div>
 				)}
 
-				{typeof value === 'number' && (
+				{typeof value === "number" && (
 					<Field
 						component={TextField}
 						fullWidth
@@ -46,7 +46,7 @@ const ServiceSettingsForm = ({
 					/>
 				)}
 
-				{typeof value !== 'boolean' && typeof value !== 'number' && (
+				{typeof value !== "boolean" && typeof value !== "number" && (
 					<Field
 						component={TextField}
 						fullWidth
@@ -59,22 +59,22 @@ const ServiceSettingsForm = ({
 	});
 
 	return (
-		<div style={{ maxWidth: 720, width: '100%' }}>
-			<div className="gray-title" style={{ margin: '0 0 15px 20px' }}>
+		<div style={{ maxWidth: 720, width: "100%" }}>
+			<div className="gray-title" style={{ margin: "0 0 15px 20px" }}>
 				{messages.drawer_settings}
 			</div>
 			<form
 				onSubmit={handleSubmit}
 				style={{
-					display: 'initial',
-					width: '100%'
+					display: "initial",
+					width: "100%"
 				}}
 			>
-				<Paper style={{ margin: '0px 20px' }} zDepth={1}>
-					<div style={{ padding: '10px 30px 30px 30px' }}>{fields}</div>
+				<Paper style={{ margin: "0px 20px" }} zDepth={1}>
+					<div style={{ padding: "10px 30px 30px 30px" }}>{fields}</div>
 					<div
 						className="buttons-box"
-						style={{ display: pristine ? 'none' : 'block' }}
+						style={{ display: pristine ? "none" : "block" }}
 					>
 						<RaisedButton
 							type="submit"
@@ -91,6 +91,6 @@ const ServiceSettingsForm = ({
 };
 
 export default reduxForm({
-	form: 'WebStoreServiceSettingsForm',
+	form: "WebStoreServiceSettingsForm",
 	enableReinitialize: true
 })(ServiceSettingsForm);

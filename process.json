@@ -1,18 +1,17 @@
-
 {
-	"apps": [
-		{
-			"name": "admin",
-			"script": "serve",
-			"watch": ["./config/admin.js", "./dist/"],
-			"env": {
-				"PM2_SERVE_PATH": "./dist",
-				"PM2_SERVE_PORT": 3002
-			},
-			"watch_options": {
-				"persistent": true,
-				"ignoreInitial": false
-			}
-		}
-	]
+  "apps": [
+    {
+      "name": "admin",
+      "script": "serve",
+      "watch": ["./config/admin.js", "./dist/"],
+      "env": {
+        "PM2_SERVE_PATH": "./dist",
+        "PM2_SERVE_PORT": 3002
+      },
+      "watch_options": {
+        "persistent": true,
+        "ignoreInitial": false
+      }
+    }
+  ]
 }

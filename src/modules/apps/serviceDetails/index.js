@@ -1,12 +1,12 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import {
 	fetchService,
 	enableService,
 	disableService,
 	updateServiceSettings,
 	fetchServiceLogs
-} from '../actions';
-import Details from './components/details';
+} from "../actions";
+import Details from "./components/details";
 
 const mapStateToProps = (state, ownProps) => {
 	const { serviceId } = ownProps.match.params;
@@ -43,7 +43,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	}
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Details);
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

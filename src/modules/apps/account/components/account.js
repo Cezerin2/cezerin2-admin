@@ -1,28 +1,28 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { TextField } from "redux-form-material-ui";
 
-import { CustomToggle } from 'modules/shared/form';
-import messages from 'lib/text';
+import { CustomToggle } from "modules/shared/form";
+import messages from "lib/text";
 
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import style from './style.css';
+import Paper from "material-ui/Paper";
+import RaisedButton from "material-ui/RaisedButton";
+import style from "./style.css";
 
 const AccountForm = ({ handleSubmit, pristine, submitting, initialValues }) => (
-	<div style={{ maxWidth: 720, width: '100%' }}>
-		<div className="gray-title" style={{ margin: '15px 0 15px 20px' }}>
+	<div style={{ maxWidth: 720, width: "100%" }}>
+		<div className="gray-title" style={{ margin: "15px 0 15px 20px" }}>
 			{messages.account}
 		</div>
 		<form
 			onSubmit={handleSubmit}
 			style={{
-				display: 'initial',
-				width: '100%'
+				display: "initial",
+				width: "100%"
 			}}
 		>
-			<Paper style={{ margin: '0px 20px' }} zDepth={1}>
-				<div style={{ padding: '10px 30px 30px 30px' }}>
+			<Paper style={{ margin: "0px 20px" }} zDepth={1}>
+				<div style={{ padding: "10px 30px 30px 30px" }}>
 					<div>
 						<Field
 							component={TextField}
@@ -56,7 +56,7 @@ const AccountForm = ({ handleSubmit, pristine, submitting, initialValues }) => (
 				</div>
 				<div
 					className="buttons-box"
-					style={{ display: pristine ? 'none' : 'block' }}
+					style={{ display: pristine ? "none" : "block" }}
 				>
 					<RaisedButton
 						type="submit"
@@ -72,6 +72,6 @@ const AccountForm = ({ handleSubmit, pristine, submitting, initialValues }) => (
 );
 
 export default reduxForm({
-	form: 'WebStoreAccountForm',
+	form: "WebStoreAccountForm",
 	enableReinitialize: true
 })(AccountForm);

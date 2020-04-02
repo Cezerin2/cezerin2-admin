@@ -1,9 +1,9 @@
-import React from 'react';
-import ServiceDescription from './description';
-import ServiceSettings from './settings';
-import ServiceActions from './actions';
-import ServiceLogs from './logs';
-import style from './style.css';
+import React from "react";
+import ServiceDescription from "./description";
+import ServiceSettings from "./settings";
+import ServiceActions from "./actions";
+import ServiceLogs from "./logs";
+import style from "./style.css";
 
 export default class ServiceDetails extends React.Component {
 	constructor(props) {
@@ -63,7 +63,7 @@ export default class ServiceDetails extends React.Component {
 					disableService={disableService}
 				/>
 				{serviceError && (
-					<div style={{ color: '#FC3246', fontSize: '24px', margin: '30px' }}>
+					<div style={{ color: "#FC3246", fontSize: "24px", margin: "30px" }}>
 						Service error
 					</div>
 				)}

@@ -1,17 +1,17 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { TextField } from 'redux-form-material-ui';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { TextField } from "redux-form-material-ui";
 
-import messages from 'lib/text';
+import messages from "lib/text";
 
-import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import style from './style.css';
+import Paper from "material-ui/Paper";
+import FlatButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/RaisedButton";
+import style from "./style.css";
 
 const validate = values => {
 	const errors = {};
-	const requiredFields = ['name'];
+	const requiredFields = ["name"];
 
 	requiredFields.forEach(field => {
 		if (values && !values[field]) {
@@ -83,7 +83,7 @@ class Form extends React.Component {
 }
 
 export default reduxForm({
-	form: 'FormCustomerGroup',
+	form: "FormCustomerGroup",
 	validate,
 	enableReinitialize: true
 })(Form);

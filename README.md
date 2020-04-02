@@ -5,27 +5,30 @@
 Cezerin2 is React and Node.js based eCommerce platform. Allows creating a Progressive Web Apps. This is based from cezerin after project went dead. (https://github.com/cezerin/cezerin)
 
 Built with:
-* Node.js v8.9
-* React v16
-* Redux
-* Express
-* Babel
-* WebPack 4
-* MongoDB
+
+- Node.js v8.9
+- React v16
+- Redux
+- Express
+- Babel
+- WebPack 4
+- MongoDB
 
 ## Dashboard
+
 Client-side dashboard use JSON Web Token (JWT) to access REST API.
 
-![Cezerin Dashboard](https://cezerin.com/assets/images/cezerin-dashboard-products.png?)
+![Cezerin Dashboard](https://cezerin.org/assets/images/cezerin-dashboard-products.png?)
 
-![Signin email](https://cezerin.com/assets/images/cezerin-signin-email.png)
+![Signin email](https://cezerin.org/assets/images/cezerin-signin-email.png)
 
 ## Store
-Single-Page Application with React server-side rendering. [Demo store](https://store.cezerin.com)
 
-[![Cezerin Store](https://cezerin.com/assets/images/cezerin-mobile-product.png)](https://store.cezerin.com)
+Single-Page Application with React server-side rendering. [Demo store](https://demo.cezerin.org)
 
-[![Cezerin Store](https://cezerin.com/assets/images/cezerin-mobile-order-summary.png)](https://store.cezerin.com)
+[![Cezerin Store](https://cezerin.org/assets/images/cezerin-mobile-product.png)](https://store.cezerin.com)
+
+[![Cezerin Store](https://cezerin.org/assets/images/cezerin-mobile-order-summary.png)](https://store.cezerin.com)
 
 ## Installation
 
@@ -35,14 +38,13 @@ Single-Page Application with React server-side rendering. [Demo store](https://s
 - [How to deploy a Cezerin2 on Ubuntu 18.04.1 (from GitHub)](https://github.com/cezerin2/cezerin2/blob/master/docs/how-to-deploy-a-cezerin2-on-ubuntu-18-04-1-github.md)
 
 ### Requirements
-* Node.js >= 8
-* MongoDB >= 3.2
 
+- Node.js
+- MongoDB
 
 ## Documentation
 
 [Documentation](https://github.com/cezerin2/cezerin2/tree/master/docs)
-
 
 ## Application Structure
 
@@ -72,11 +74,9 @@ Single-Page Application with React server-side rendering. [Demo store](https://s
 └── process.json             # pm2 process file
 ```
 
-
 ## Contributing
 
 If you can, please contribute by reporting issues, discussing ideas, or submitting pull requests with patches and new features. We do our best to respond to all issues and pull requests within a day or two, and make patch releases to npm regularly.
-
 
 ## Licence
 

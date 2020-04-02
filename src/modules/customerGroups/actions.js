@@ -1,6 +1,6 @@
-import api from 'lib/api';
-import messages from 'lib/text';
-import * as t from './actionTypes';
+import api from "lib/api";
+import messages from "lib/text";
+import * as t from "./actionTypes";
 
 function requestGroups() {
 	return {
@@ -75,7 +75,7 @@ function fetchGroups() {
 				json = json.sort((a, b) => a.position - b.position);
 
 				json.forEach((element, index, theArray) => {
-					if (theArray[index].name === '') {
+					if (theArray[index].name === "") {
 						theArray[index].name = `<${messages.draft}>`;
 					}
 				});
