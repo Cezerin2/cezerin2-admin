@@ -1,5 +1,4 @@
 FROM node
-LABEL maintainer "Nitin Goyal <nitingoyal.dev@gmail.com>, Luke Busstra <luke.busstra@gmail.com>"
 
 ENV NGINX_CODENAME stretch
 

@@ -46,11 +46,11 @@
 .backorder {
   color: rgb(251, 184, 41);
 }
-
+/*
 .preorder {
-  /*color: rgb(228,86,53);*/
+  color: rgb(228,86,53);
 }
-
+*/
 .discontinued {
   color: rgba(0, 0, 0, 0.3);
 }
