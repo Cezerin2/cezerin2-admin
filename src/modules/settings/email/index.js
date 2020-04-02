@@ -1,18 +1,15 @@
-import { connect } from 'react-redux';
-import { fetchEmailSettings } from '../actions';
-import Form from './components/form';
+import { connect } from "react-redux";
+import { fetchEmailSettings } from "../actions";
+import Form from "./components/form";
 
 const mapStateToProps = state => ({
-	emailSettings: state.settings.emailSettings
+  emailSettings: state.settings.emailSettings
 });
 
 const mapDispatchToProps = dispatch => ({
-	onLoad: () => {
-		dispatch(fetchEmailSettings());
-	}
+  onLoad: () => {
+    dispatch(fetchEmailSettings());
+  }
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

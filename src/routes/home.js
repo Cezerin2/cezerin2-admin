@@ -14,7 +14,7 @@ defaults.global.tooltips.bodySpacing = 8;
 defaults.global.tooltips.titleMarginBottom = 16;
 
 export default () => (
-	<div className="scroll col-full-height">
-		<OrdersBar />
-	</div>
+  <div className="scroll col-full-height">
+    <OrdersBar />
+  </div>
 );

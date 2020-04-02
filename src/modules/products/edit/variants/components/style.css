@@ -2,9 +2,7 @@
   padding: 30px;
 }
 
-.grid {}
-
-.gridHeadRow{
+.gridHeadRow {
   display: flex;
   flex-flow: row wrap;
   width: 100%;

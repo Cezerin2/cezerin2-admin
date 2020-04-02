@@ -13,15 +13,15 @@ import apps from "modules/apps/reducer";
 import files from "modules/files/reducer";
 
 export default combineReducers({
-	form: formReducer,
-	productCategories,
-	products,
-	settings,
-	customerGroups,
-	customers,
-	orders,
-	orderStatuses,
-	pages,
-	apps,
-	files
+  form: formReducer,
+  productCategories,
+  products,
+  settings,
+  customerGroups,
+  customers,
+  orders,
+  orderStatuses,
+  pages,
+  apps,
+  files
 });

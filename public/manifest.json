@@ -7,14 +7,14 @@
   "theme_color": "#1976D2",
   "icons": [
     {
-      "src": "/assets/images/shortcut.png",
+      "src": "/assets/images/shortcut.webp",
       "sizes": "96x96",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
-      "src": "/assets/images/shortcut.png",
+      "src": "/assets/images/shortcut.webp",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/webp"
     }
   ]
 }

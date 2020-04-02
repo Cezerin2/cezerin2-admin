@@ -4,26 +4,26 @@ import { updateGroup, createGroup, deselectGroup } from "../actions";
 import Form from "./components/form";
 
 const mapStateToProps = state => ({
-	groupId: state.customerGroups.selectedId,
-	items: state.customerGroups.items,
-	initialValues: state.customerGroups.items.find(
-		item => item.id === state.customerGroups.selectedId
-	),
-	isSaving: state.customerGroups.isSaving
+  groupId: state.customerGroups.selectedId,
+  items: state.customerGroups.items,
+  initialValues: state.customerGroups.items.find(
+    item => item.id === state.customerGroups.selectedId
+  ),
+  isSaving: state.customerGroups.isSaving
 });
 
 const mapDispatchToProps = dispatch => ({
-	onSubmit: values => {
-		if (values.id) {
-			dispatch(updateGroup(values));
-		} else {
-			dispatch(createGroup(values));
-		}
-	},
-	onCancel: () => {
-		dispatch(deselectGroup());
-		dispatch(reset("FormCustomerGroup"));
-	}
+  onSubmit: values => {
+    if (values.id) {
+      dispatch(updateGroup(values));
+    } else {
+      dispatch(createGroup(values));
+    }
+  },
+  onCancel: () => {
+    dispatch(deselectGroup());
+    dispatch(reset("FormCustomerGroup"));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
