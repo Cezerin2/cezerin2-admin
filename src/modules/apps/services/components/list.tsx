@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import messages from "lib/text";
-import apps from "src/apps";
+import messages from "../../../../lib/text";
+import apps from "../index";
 import RaisedButton from "material-ui/RaisedButton";
 import ServiceItem from "./serviceItem";
 import AppItem from "./appItem";
-import style from "./style.css";
 
 class ServicesList extends React.Component {
   componentDidMount() {

@@ -1,9 +1,9 @@
 import React from "react";
-import style from "./style.css";
 import Account from "./account";
 import Developer from "./developer";
+import "./style.css";
 
-export default class WebStoreAccountDetails extends React.Component {
+class WebStoreAccountDetails extends React.Component {
   componentDidMount() {
     this.props.fetchData();
   }
@@ -28,3 +28,4 @@ export default class WebStoreAccountDetails extends React.Component {
     return null;
   }
 }
+export default WebStoreAccountDetails;

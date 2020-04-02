@@ -1,11 +1,11 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { TextField } from "redux-form-material-ui";
-import messages from "lib/text";
+import messages from "../../../../lib/text";
 
 import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
-import style from "./style.css";
+import "./style.css";
 
 const DeveloperForm = ({ handleSubmit, pristine, submitting }) => (
   <div style={{ maxWidth: 720, width: "100%" }}>
@@ -64,7 +64,7 @@ const DeveloperForm = ({ handleSubmit, pristine, submitting }) => (
             type="submit"
             label={messages.save}
             primary
-            className={style.button}
+            className="button"
             disabled={pristine || submitting}
           />
         </div>
