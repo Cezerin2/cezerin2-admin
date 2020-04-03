@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import messages from "../../../lib/text";
 
 import ProductVariants from "../../../modules/products/edit/variants";

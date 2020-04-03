@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import messages from "../../../../lib/text";
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation";
