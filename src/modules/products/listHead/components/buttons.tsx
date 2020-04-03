@@ -65,10 +65,10 @@ function Buttons(props) {
   ];
 
   return (
-    <Fragment>
+    <>
       <Search value={search} setSearch={setSearch} />
       {selectedCount > 0 && (
-        <Fragment>
+        <>
           <IconButton
             touch
             tooltipPosition="bottom-left"
@@ -100,7 +100,7 @@ function Buttons(props) {
           >
             <CategorySelect />
           </Dialog>
-        </Fragment>
+        </>
       )}
       <IconButton
         touch
@@ -112,7 +112,7 @@ function Buttons(props) {
           add
         </FontIcon>
       </IconButton>
-    </Fragment>
+    </>
   );
 }
 

@@ -486,7 +486,7 @@ const showLoader = {
 };
 function Remove() {
   return (
-    <Fragment>
+    <>
       <div style={{ width: "100%" }}>
         <div
           className="spread-sheet-container"
@@ -561,7 +561,7 @@ function Remove() {
           </Paper>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 }
 /*ProductImport.propTypes = {

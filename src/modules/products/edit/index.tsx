@@ -21,7 +21,7 @@ const ProductEditContainer = props => {
   }
 
   return (
-    <Fragment>
+    <>
       <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
         {messages.description}
       </div>
@@ -51,7 +51,7 @@ const ProductEditContainer = props => {
         {messages.images}
       </div>
       <ProductImages />
-    </Fragment>
+    </>
   );
 };
 

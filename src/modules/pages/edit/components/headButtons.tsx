@@ -30,7 +30,7 @@ const Buttons = () => {
 
   if (page && !page.is_system) {
     return (
-      <Fragment>
+      <>
         <IconButton
           touch
           tooltipPosition="bottom-left"
@@ -55,7 +55,7 @@ const Buttons = () => {
           </a>
         )}
         <DeleteConfirmation />
-      </Fragment>
+      </>
     );
   }
   return null;

@@ -67,10 +67,10 @@ const Buttons = () => {
   ];
 
   return (
-    <Fragment>
+    <>
       <Search value={search} setSearch={setSearch} />
       {selectedCount > 0 && (
-        <Fragment>
+        <>
           {selectedCount == 1 && (
             <IconButton
               touch={true}
@@ -114,7 +114,7 @@ const Buttons = () => {
           >
             <GroupSelect />
           </Dialog>
-        </Fragment>
+        </>
       )}
       {selectedCount < 1 && (
         <IconButton
@@ -128,7 +128,7 @@ const Buttons = () => {
           </FontIcon>
         </IconButton>
       )}
-    </Fragment>
+    </>
   );
 };
 

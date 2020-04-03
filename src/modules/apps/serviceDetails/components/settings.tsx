@@ -2,13 +2,13 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { TextField } from "redux-form-material-ui";
 
-import { CustomToggle } from "modules/shared/form";
-import messages from "lib/text";
+import { CustomToggle } from "../../../../modules/shared/form";
+import messages from "../../../../lib/text";
 
 import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
 import Divider from "material-ui/Divider";
-import style from "./style.css";
+import "./style.css";
 
 const ServiceSettingsForm = ({
   handleSubmit,
@@ -21,7 +21,7 @@ const ServiceSettingsForm = ({
     return (
       <div key={index}>
         {typeof value === "boolean" && (
-          <div>
+          <>
             <Field
               component={CustomToggle}
               name={key}
@@ -30,7 +30,7 @@ const ServiceSettingsForm = ({
               style={{ paddingTop: 16, paddingBottom: 16, width: "auto" }}
             />
             <Divider />
-          </div>
+          </>
         )}
 
         {typeof value === "number" && (
@@ -77,7 +77,7 @@ const ServiceSettingsForm = ({
               type="submit"
               label={messages.save}
               primary
-              className={style.button}
+              className="button"
               disabled={pristine || submitting}
             />
           </div>

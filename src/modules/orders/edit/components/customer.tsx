@@ -32,7 +32,7 @@ const ShippingFields = ({ order, shippingMethod }) => {
     });
   }
 
-  return <div>{rows}</div>;
+  return <>{rows}</>;
 };
 
 const ShippingFieldDiv = ({ label, value }) => (
@@ -49,14 +49,14 @@ const ShippingAddress = ({ order, settings }) => {
   return (
     <div className="address" style={{ marginBottom: 20 }}>
       <ShippingFields order={order} shippingMethod={shippingMethod} />
-      <div>
+      <>
         <label>{messages.city}: </label>
         {address.city}
         {address.state && address.state.length > 0 ? `, ${address.state}` : ""}
         {address.postal_code && address.postal_code.length > 0
           ? `, ${address.postal_code}`
           : ""}
-      </div>
+      </>
       <div>
         <label>{messages.country}: </label>
         {address.country}
@@ -102,7 +102,7 @@ const BillingAddress = ({ address, settings }) => {
     );
   }
   return (
-    <div>
+    <>
       <Divider
         style={{
           marginTop: 30,
@@ -115,21 +115,21 @@ const BillingAddress = ({ address, settings }) => {
         {messages.billingAddress}
       </div>
       <div className="address">
-        <div>{address.full_name}</div>
-        <div>{address.company}</div>
-        <div>{address.address1}</div>
-        <div>{address.address2}</div>
-        <div>
+        {address.full_name}
+        {address.company}
+        {address.address1}
+        {address.address2}
+        <>
           {address.city},{" "}
           {address.state && address.state.length > 0
             ? `${address.state}, `
             : ""}
           {address.postal_code}
-        </div>
-        <div>{address.country}</div>
-        <div>{address.phone}</div>
+        </>
+        {address.country}
+        {address.phone}
       </div>
-    </div>
+    </>
   );
 };
 

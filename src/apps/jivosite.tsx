@@ -47,7 +47,7 @@ export const App = () => {
   useEffect(() => fetchSettings());
 
   return (
-    <Fragment>
+    <>
       <p>Введите код JivoSite</p>
       <TextField
         type="text"
@@ -67,6 +67,6 @@ export const App = () => {
           onClick={this.updateSettings}
         />
       </div>
-    </Fragment>
+    </>
   );
 };

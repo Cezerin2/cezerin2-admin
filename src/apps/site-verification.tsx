@@ -96,7 +96,7 @@ export const App = () => {
   useEffect(() => fetchSettings());
 
   return (
-    <Fragment>
+    <>
       <TextField
         type="text"
         value={this.state.google}
@@ -141,6 +141,6 @@ export const App = () => {
           onClick={this.updateSettings}
         />
       </div>
-    </Fragment>
+    </>
   );
 };

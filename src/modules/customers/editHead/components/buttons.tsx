@@ -28,7 +28,7 @@ const Buttons = () => {
       : "Draft";
 
   return (
-    <Fragment>
+    <>
       <IconButton
         touch
         tooltipPosition="bottom-left"
@@ -40,7 +40,7 @@ const Buttons = () => {
         </FontIcon>
       </IconButton>
       <DeleteConfirmation />
-    </Fragment>
+    </>
   );
 };
 

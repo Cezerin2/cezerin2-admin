@@ -86,7 +86,7 @@ export const App = () => {
 
   useEffect(() => fetchSettings());
   return (
-    <Fragment>
+    <>
       <p>You can find App ID using the Facebook App Dashboard.</p>
 
       <TextField
@@ -112,6 +112,6 @@ export const App = () => {
           onClick={this.updateSettings}
         />
       </div>
-    </Fragment>
+    </>
   );
 };

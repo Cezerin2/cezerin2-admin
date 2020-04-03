@@ -167,7 +167,7 @@ const ProductsArray = () => {
   const { products } = this.state;
 
   return (
-    <Fragment>
+    <>
       <Paper className="relatedProducts" zDepth={1}>
         {fields.map((field, index) => {
           const actions = (
@@ -188,13 +188,8 @@ const ProductsArray = () => {
         <ProductSearchDialog />
       </Paper>
 
-      <div>
-        <RaisedButton
-          label={messages.addOrderItem}
-          onClick={this.showAddItem}
-        />
-      </div>
-    </Fragment>
+      <RaisedButton label={messages.addOrderItem} onClick={this.showAddItem} />
+    </>
   );
 };
 

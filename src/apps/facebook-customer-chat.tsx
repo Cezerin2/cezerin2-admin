@@ -74,7 +74,7 @@ export const App = () => {
   useEffect(() => fetchSettings());
 
   return (
-    <div>
+    <>
       <TextField
         type="text"
         fullWidth
@@ -100,6 +100,6 @@ export const App = () => {
           onClick={this.updateSettings}
         />
       </div>
-    </div>
+    </>
   );
 };

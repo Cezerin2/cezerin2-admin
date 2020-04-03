@@ -27,7 +27,7 @@ const Buttons = () => {
 
   if (webhook) {
     return (
-      <Fragment>
+      <>
         <IconButton
           touch
           tooltipPosition="bottom-left"
@@ -39,7 +39,7 @@ const Buttons = () => {
           </FontIcon>
         </IconButton>
         <DeleteConfirmation />
-      </Fragment>
+      </>
     );
   }
   return null;

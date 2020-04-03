@@ -29,7 +29,7 @@ const Buttons = () => {
   return (
     <span>
       {selected && (
-        <Fragment>
+        <>
           <IconButton
             touch
             tooltip={messages.actions_delete}
@@ -41,7 +41,7 @@ const Buttons = () => {
             </FontIcon>
           </IconButton>
           <DeleteConfirmation />
-        </Fragment>
+        </>
       )}
       <IconButton
         touch

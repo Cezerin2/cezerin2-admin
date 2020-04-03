@@ -39,7 +39,7 @@ const ProductCategorySelect = () => {
   ];
 
   return (
-    <Fragment>
+    <>
       <Dialog
         title={messages.category}
         actions={dialogButtons}
@@ -52,14 +52,13 @@ const ProductCategorySelect = () => {
       </Dialog>
       <FlatButton
         label={categoryName}
-        onClick={this.open}
         icon={
           <FontIcon color="#777" className="material-icons">
             create
           </FontIcon>
         }
       />
-    </Fragment>
+    </>
   );
 };
 

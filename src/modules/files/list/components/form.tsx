@@ -24,7 +24,7 @@ const iconButtonElement = (
 
 const FileList = () => {
   return (
-    <Fragment>
+    <>
       <div className="head" row--no-gutter>
         <div className="col-xs-5">{messages.fileName}</div>
         <div className="col-xs-3">{messages.fileModified}</div>
@@ -33,7 +33,7 @@ const FileList = () => {
       </div>
       <Paper className="paper-box" zDepth={1}></Paper>
       <FileUploader />
-    </Fragment>
+    </>
   );
 };
 

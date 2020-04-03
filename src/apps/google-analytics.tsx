@@ -75,11 +75,11 @@ export const App = () => {
   useEffect(() => fetchSettings());
 
   return (
-    <Fragment>
-      <Fragment>
+    <>
+      <>
         Enter your Google Analytics Tracking ID to track page views and other
         events.
-      </Fragment>
+      </>
 
       <TextField
         type="text"
@@ -97,6 +97,6 @@ export const App = () => {
           onClick={this.updateSettings}
         />
       </div>
-    </Fragment>
+    </>
   );
 };
