@@ -12,7 +12,6 @@ const AppDetails = ({ match }) => {
 
   return (
     <div className="detailsContainer" col-full-height>
-      <AppDescription {...appDescription} />
       <div style={{ maxWidth: 720, width: "100%" }}>
         <Paper className="paper-box" zDepth={1}>
           <div className="innerBox">

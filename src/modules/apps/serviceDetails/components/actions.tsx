@@ -1,21 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
-import messages from "lib/text";
-import api from "lib/api";
+import messages from "../../../../lib/text";
+import api from "../../../../lib/api";
 
 import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
-import style from "./style.css";
+import "./style.css";
 
-class ActionComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false
-    };
-  }
+const ActionComponent = () => {
+  const [loading, setLoading] = useState(false);
 
-  handleActionCall = () => {
+  const handleActionCall = () => {
     const { action, serviceId, fetchServiceLogs } = this.props;
     this.setState({ loading: true });
 
@@ -32,37 +27,26 @@ class ActionComponent extends React.Component {
       });
   };
 
-  render() {
-    const { action } = this.props;
-    return (
-      <div className={style.action}>
-        <div className="row middle-xs">
-          <div className="col-xs-7" style={{ fontSize: "14px" }}>
-            {action.description}
-          </div>
-          <div className="col-xs-5" style={{ textAlign: "right" }}>
-            <RaisedButton
-              label={action.name}
-              primary
-              disabled={this.state.loading}
-              onClick={this.handleActionCall}
-            />
-          </div>
+  return (
+    <div className="action">
+      <div className="row middle-xs">
+        <div className="col-xs-7" style={{ fontSize: "14px" }}>
+          action.description
+        </div>
+        <div className="col-xs-5" style={{ textAlign: "right" }}>
+          <RaisedButton
+            primary
+            disabled={this.state.loading}
+            onClick={this.handleActionCall}
+          />
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const ServiceActions = ({ actions, serviceId, fetchServiceLogs }) => {
-  const buttons = actions.map((action, index) => (
-    <ActionComponent
-      key={index}
-      action={action}
-      serviceId={serviceId}
-      fetchServiceLogs={fetchServiceLogs}
-    />
-  ));
+  const buttons = actions.map(index => <ActionComponent key={index} />);
 
   return (
     <div style={{ maxWidth: 720, width: "100%" }}>
