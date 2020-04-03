@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
 import { TextField, SelectField } from "redux-form-material-ui";
 import api from "../../../../lib/api";
@@ -21,11 +21,11 @@ const validate = values => {
 };
 
 const CustomerEditForm = () => {
-  function componentDidMount() {
+  useEffect(() => {
     api.customerGroups.list().then(({ status, json }) => {
       this.setState({ groups: json });
     });
-  }
+  });
 
   const {
     handleSubmit,

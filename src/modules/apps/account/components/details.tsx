@@ -1,12 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Account from "./account";
 import Developer from "./developer";
 import "./style.css";
 
-const WebStoreAccountDetails = () => {
-  function componentDidMount() {
-    this.props.fetchData();
-  }
+const WebStoreAccountDetails = props => {
+  useEffect(() => props.fetchData());
 
   const { account, onAccountSubmit, onDeveloperSubmit } = this.props;
   const developerData = account ? account.developer : null;

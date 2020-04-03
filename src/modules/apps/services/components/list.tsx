@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import messages from "../../../../lib/text";
 import apps from "../index";
@@ -6,10 +6,8 @@ import RaisedButton from "material-ui/RaisedButton";
 import ServiceItem from "./serviceItem";
 import AppItem from "./appItem";
 
-const ServicesList = () => {
-  function componentDidMount() {
-    this.props.fetchData();
-  }
+const ServicesList = props => {
+  useEffect(() => props.fetchData());
 
   const { services, webstoreAuthorized } = this.props;
 

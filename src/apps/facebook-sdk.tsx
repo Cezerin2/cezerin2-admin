@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import messages from "../lib/text";
 import api from "../lib/api";
 import TextField from "material-ui/TextField";
@@ -38,24 +38,19 @@ const FACEBOOK_CODE = `<script>
    }(document, 'script', 'facebook-jssdk'));
 </script>`;
 
-export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      appId: "",
-      locale: "en_US"
-    };
-  }
+export const App = () => {
+  const [appID, setAppID] = useState("");
+  const [locale, setLocale] = useState("");
 
-  handleAppIdChange = event => {
-    this.setState({ appId: event.target.value });
+  const handleAppIdChange = event => {
+    setAppID(event.target.value);
   };
 
-  handleLocaleChange = event => {
-    this.setState({ locale: event.target.value });
+  const handleLocaleChange = event => {
+    setLocale(event.target.value);
   };
 
-  fetchSettings = () => {
+  const fetchSettings = () => {
     api.apps.settings
       .retrieve("facebook-sdk")
       .then(({ status, json }) => {
@@ -72,7 +67,7 @@ export class App extends React.Component {
       });
   };
 
-  updateSettings = () => {
+  const updateSettings = () => {
     const { appId, locale } = this.state;
     const htmlCode =
       appId && appId.length > 0
@@ -89,41 +84,34 @@ export class App extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.fetchSettings();
-  }
+  useEffect(() => fetchSettings());
+  return (
+    <Fragment>
+      <p>You can find App ID using the Facebook App Dashboard.</p>
 
-  render() {
-    return (
-      <div>
-        <div>You can find App ID using the Facebook App Dashboard.</div>
+      <TextField
+        type="text"
+        fullWidth
+        onChange={this.handleAppIdChange}
+        floatingLabelText="App ID"
+      />
 
-        <TextField
-          type="text"
-          fullWidth
-          value={this.state.appId}
-          onChange={this.handleAppIdChange}
-          floatingLabelText="App ID"
+      <TextField
+        type="text"
+        fullWidth
+        onChange={this.handleLocaleChange}
+        floatingLabelText="Locale"
+        hintText="en_US"
+      />
+
+      <div style={{ textAlign: "right" }}>
+        <RaisedButton
+          label={messages.save}
+          primary
+          disabled={false}
+          onClick={this.updateSettings}
         />
-
-        <TextField
-          type="text"
-          fullWidth
-          value={this.state.locale}
-          onChange={this.handleLocaleChange}
-          floatingLabelText="Locale"
-          hintText="en_US"
-        />
-
-        <div style={{ textAlign: "right" }}>
-          <RaisedButton
-            label={messages.save}
-            primary
-            disabled={false}
-            onClick={this.updateSettings}
-          />
-        </div>
       </div>
-    );
-  }
-}
+    </Fragment>
+  );
+};

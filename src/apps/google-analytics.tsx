@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import messages from "../lib/text";
 import api from "../lib/api";
 import TextField from "material-ui/TextField";
@@ -33,21 +33,16 @@ const GTAG_CODE = `<!-- Global site tag (gtag.js) - Google Analytics -->
   gtag('config', 'GA_TRACKING_ID');
 </script>`;
 
-export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      trackingId: ""
-    };
-  }
+export const App = () => {
+  const [trackingID, setTrackingID] = useState("");
 
-  handleTrackingIdChange = event => {
+  const handleTrackingIdChange = event => {
     this.setState({
       trackingId: event.target.value
     });
   };
 
-  fetchSettings = () => {
+  const fetchSettings = () => {
     api.apps.settings
       .retrieve("google-analytics")
       .then(({ status, json }) => {
@@ -61,7 +56,7 @@ export class App extends React.Component {
       });
   };
 
-  updateSettings = () => {
+  const updateSettings = () => {
     const { trackingId } = this.state;
     const gtag =
       trackingId && trackingId.length > 0
@@ -77,35 +72,31 @@ export class App extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.fetchSettings();
-  }
+  useEffect(() => fetchSettings());
 
-  render() {
-    return (
-      <div>
-        <div>
-          Enter your Google Analytics Tracking ID to track page views and other
-          events.
-        </div>
+  return (
+    <Fragment>
+      <Fragment>
+        Enter your Google Analytics Tracking ID to track page views and other
+        events.
+      </Fragment>
 
-        <TextField
-          type="text"
-          value={this.state.trackingId}
-          onChange={this.handleTrackingIdChange}
-          floatingLabelText="Tracking ID"
-          hintText="UA-XXXXXXXX-X"
+      <TextField
+        type="text"
+        value={this.state.trackingId}
+        onChange={this.handleTrackingIdChange}
+        floatingLabelText="Tracking ID"
+        hintText="UA-XXXXXXXX-X"
+      />
+
+      <div style={{ textAlign: "right" }}>
+        <RaisedButton
+          label={messages.save}
+          primary
+          disabled={false}
+          onClick={this.updateSettings}
         />
-
-        <div style={{ textAlign: "right" }}>
-          <RaisedButton
-            label={messages.save}
-            primary
-            disabled={false}
-            onClick={this.updateSettings}
-          />
-        </div>
       </div>
-    );
-  }
-}
+    </Fragment>
+  );
+};

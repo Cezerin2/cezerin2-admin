@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import messages from "../../../../lib/text";
 import "./style.css";
@@ -7,10 +7,8 @@ import CustomerSummary from "./summary";
 import CustomerOrders from "./orders";
 import CustomerAddresses from "./addresses";
 
-const CustomerDetails = () => {
-  function componentDidMount() {
-    this.props.fetchData();
-  }
+const CustomerDetails = props => {
+  useEffect(() => props.fetchData());
 
   function componentWillUnmount() {
     this.props.clearData();

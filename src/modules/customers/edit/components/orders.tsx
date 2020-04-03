@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
@@ -103,20 +103,20 @@ const CustomerOrder = ({ order, settings }) => {
   );
 };
 
-const CustomerOrders = () => {
+const CustomerOrders = props => {
   this.state = {
     orders: []
   };
 
-  function componentDidMount() {
+  useEffect(() => {
     api.orders
       .list({ customer_id: this.props.customerId })
       .then(({ status, json }) => {
         this.setState({ orders: json.data });
       });
-  }
+  });
 
-  const { customerId, settings } = this.props;
+  const { customerId, settings } = props;
   const { orders } = this.state;
 
   let orderItems = [];

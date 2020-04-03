@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import messages from "../../../lib/text";
 import { List, ListItem } from "material-ui/List";
@@ -15,10 +15,8 @@ const styles = {
 
 const FolderIcon = <FontIcon className="material-icons">folder</FontIcon>;
 
-const Groups = () => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+const Groups = props => {
+  useEffect(() => props.onLoad());
 
   const {
     onSelect,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import messages from "../lib/text";
 import api from "../lib/api";
 import TextField from "material-ui/TextField";
@@ -22,24 +22,19 @@ export const Description = {
 
 const CHAT_CODE = `<div class="fb-customerchat" page_id="PAGE_ID" minimized="IS_MINIMIZED"></div>`;
 
-export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pageId: "",
-      minimized: "false"
-    };
-  }
+export const App = () => {
+  const [pageId, setPageeID] = useState("");
+  const [minimized, setMinimized] = useState(false);
 
-  handlePageIdChange = event => {
+  const handlePageIdChange = event => {
     this.setState({ pageId: event.target.value });
   };
 
-  handleMinimizedChange = event => {
+  const handleMinimizedChange = event => {
     this.setState({ minimized: event.target.value });
   };
 
-  fetchSettings = () => {
+  const fetchSettings = () => {
     api.apps.settings
       .retrieve("facebook-customer-chat")
       .then(({ status, json }) => {
@@ -56,7 +51,7 @@ export class App extends React.Component {
       });
   };
 
-  updateSettings = () => {
+  const updateSettings = () => {
     const { pageId, minimized } = this.state;
     const htmlCode =
       pageId && pageId.length > 0
@@ -76,39 +71,35 @@ export class App extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.fetchSettings();
-  }
+  useEffect(() => fetchSettings());
 
-  render() {
-    return (
-      <div>
-        <TextField
-          type="text"
-          fullWidth
-          value={this.state.pageId}
-          onChange={this.handlePageIdChange}
-          floatingLabelText="Page ID"
+  return (
+    <div>
+      <TextField
+        type="text"
+        fullWidth
+        value={this.state.pageId}
+        onChange={this.handlePageIdChange}
+        floatingLabelText="Page ID"
+      />
+
+      <TextField
+        type="text"
+        fullWidth
+        value={this.state.minimized}
+        onChange={this.handleMinimizedChange}
+        floatingLabelText="minimized"
+        hintText="false"
+      />
+
+      <div style={{ textAlign: "right" }}>
+        <RaisedButton
+          label={messages.save}
+          primary
+          disabled={false}
+          onClick={this.updateSettings}
         />
-
-        <TextField
-          type="text"
-          fullWidth
-          value={this.state.minimized}
-          onChange={this.handleMinimizedChange}
-          floatingLabelText="minimized"
-          hintText="false"
-        />
-
-        <div style={{ textAlign: "right" }}>
-          <RaisedButton
-            label={messages.save}
-            primary
-            disabled={false}
-            onClick={this.updateSettings}
-          />
-        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};

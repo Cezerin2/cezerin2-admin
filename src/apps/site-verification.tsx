@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import messages from "../lib/text";
 import api from "../lib/api";
 import TextField from "material-ui/TextField";
@@ -24,42 +24,37 @@ const BING_EXAMPLE = '<meta name="msvalidate.01" content="1234" />';
 const PINTEREST_EXAMPLE = '<meta name="p:domain_verify" content="1234" />';
 const YANDEX_EXAMPLE = '<meta name="yandex-verification" content="1234" />';
 
-export class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      google: "",
-      bing: "",
-      pinterest: "",
-      yandex: ""
-    };
-  }
+export const App = () => {
+  const [google, setGoogle] = useState("");
+  const [bing, setBing] = useState("");
+  const [pinterest, setPinterest] = useState("");
+  const [yandex, setYandex] = useState("");
 
-  handleGoogleChange = event => {
+  const handleGoogleChange = event => {
     this.setState({
       google: event.target.value
     });
   };
 
-  handleBingChange = event => {
+  const handleBingChange = event => {
     this.setState({
       bing: event.target.value
     });
   };
 
-  handlePinterestChange = event => {
+  const handlePinterestChange = event => {
     this.setState({
       pinterest: event.target.value
     });
   };
 
-  handleYandexChange = event => {
+  const handleYandexChange = event => {
     this.setState({
       yandex: event.target.value
     });
   };
 
-  fetchSettings = () => {
+  const fetchSettings = () => {
     api.apps.settings
       .retrieve("site-verification")
       .then(({ status, json }) => {
@@ -78,7 +73,7 @@ export class App extends React.Component {
       });
   };
 
-  updateSettings = () => {
+  const updateSettings = () => {
     const { google, bing, pinterest, yandex } = this.state;
     const metaTags = [google, bing, pinterest, yandex]
       .map(tag => (tag && tag.length > 0 ? tag : null))
@@ -98,58 +93,54 @@ export class App extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.fetchSettings();
-  }
+  useEffect(() => fetchSettings());
 
-  render() {
-    return (
-      <div>
-        <TextField
-          type="text"
-          value={this.state.google}
-          onChange={this.handleGoogleChange}
-          floatingLabelText="Google"
-          fullWidth
-          hintText={GOOGLE_EXAMPLE}
+  return (
+    <Fragment>
+      <TextField
+        type="text"
+        value={this.state.google}
+        onChange={this.handleGoogleChange}
+        floatingLabelText="Google"
+        fullWidth
+        hintText={GOOGLE_EXAMPLE}
+      />
+
+      <TextField
+        type="text"
+        value={this.state.bing}
+        onChange={this.handleBingChange}
+        floatingLabelText="Bing"
+        fullWidth
+        hintText={BING_EXAMPLE}
+      />
+
+      <TextField
+        type="text"
+        value={this.state.pinterest}
+        onChange={this.handlePinterestChange}
+        floatingLabelText="Pinterest"
+        fullWidth
+        hintText={PINTEREST_EXAMPLE}
+      />
+
+      <TextField
+        type="text"
+        value={this.state.yandex}
+        onChange={this.handleYandexChange}
+        floatingLabelText="Yandex"
+        fullWidth
+        hintText={YANDEX_EXAMPLE}
+      />
+
+      <div style={{ textAlign: "right", marginTop: 20 }}>
+        <RaisedButton
+          label={messages.save}
+          primary
+          disabled={false}
+          onClick={this.updateSettings}
         />
-
-        <TextField
-          type="text"
-          value={this.state.bing}
-          onChange={this.handleBingChange}
-          floatingLabelText="Bing"
-          fullWidth
-          hintText={BING_EXAMPLE}
-        />
-
-        <TextField
-          type="text"
-          value={this.state.pinterest}
-          onChange={this.handlePinterestChange}
-          floatingLabelText="Pinterest"
-          fullWidth
-          hintText={PINTEREST_EXAMPLE}
-        />
-
-        <TextField
-          type="text"
-          value={this.state.yandex}
-          onChange={this.handleYandexChange}
-          floatingLabelText="Yandex"
-          fullWidth
-          hintText={YANDEX_EXAMPLE}
-        />
-
-        <div style={{ textAlign: "right", marginTop: 20 }}>
-          <RaisedButton
-            label={messages.save}
-            primary
-            disabled={false}
-            onClick={this.updateSettings}
-          />
-        </div>
       </div>
-    );
-  }
-}
+    </Fragment>
+  );
+};
