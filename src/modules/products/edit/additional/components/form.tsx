@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Field, FieldArray, reduxForm } from "redux-form";
 import { TextField } from "redux-form-material-ui";
@@ -126,11 +126,10 @@ const ProductsArray = () => {
     this.hideAddItem();
     this.props.fields.push(productId);
   };
-
-  function componentDidMount() {
+  useEffect(() => {
     const ids = this.props.fields.getAll();
     this.fetchProducts(ids);
-  }
+  });
 
   function componentWillReceiveProps(nextProps) {
     const currentIds = this.props.fields.getAll();
@@ -168,7 +167,7 @@ const ProductsArray = () => {
   const { products } = this.state;
 
   return (
-    <div>
+    <Fragment>
       <Paper className="relatedProducts" zDepth={1}>
         {fields.map((field, index) => {
           const actions = (
@@ -195,7 +194,7 @@ const ProductsArray = () => {
           onClick={this.showAddItem}
         />
       </div>
-    </div>
+    </Fragment>
   );
 };
 

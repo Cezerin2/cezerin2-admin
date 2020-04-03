@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
 import { TextField } from "redux-form-material-ui";
 
@@ -57,9 +57,7 @@ const asyncValidate = (values /* , dispatch */) =>
   });
 
 const EditPageForm = props => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+  useEffect(() => props.onLoad());
 
   function componentWillUnmount() {
     this.props.eraseData();

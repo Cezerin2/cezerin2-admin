@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Paper from "material-ui/Paper";
@@ -38,9 +38,7 @@ const PageItem = ({ page }) => {
 };
 
 const PagesList = props => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+  useEffect(() => props.onLoad());
 
   const { pages } = props;
   const listItems = pages.map((page, index) => (

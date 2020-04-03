@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import messages from "../../../lib/text";
 import { List, ListItem } from "material-ui/List";
@@ -46,10 +46,8 @@ const Item = props => {
   );
 };
 
-const Categories = () => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+const Categories = props => {
+  useEffect(() => props.onLoad());
 
   function getItem(selectedId, allItems, item, opened) {
     const nestedItems = this.getChildren(selectedId, allItems, item.id, opened);

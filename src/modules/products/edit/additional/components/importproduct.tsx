@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FlatButton from "material-ui/FlatButton";
 import Paper from "material-ui/Paper";
 import messages from "../../../../../lib/text";
@@ -375,7 +375,7 @@ function uploadImages() {
   });
 }
 
-function componentDidMount() {
+useEffect(() => {
   let spreadsheetApiCredentials = null;
   // document.getElementsByClassName("product-list")[0] = "none";
 
@@ -418,7 +418,7 @@ function componentDidMount() {
         this.setState({ dashboardsettings: false });
       });
   });
-}
+});
 
 let keyCounter = 0;
 const listHeader = this.state.product_items.map((p, j) => {

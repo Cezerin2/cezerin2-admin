@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { List } from "material-ui/List";
 import Divider from "material-ui/Divider";
 import RaisedButton from "material-ui/RaisedButton";
@@ -8,10 +8,8 @@ import ProductsListItem from "./item";
 import Head from "./head";
 import "./style.css";
 
-function ProductsList(props) {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+const ProductsList = props => {
+  useEffect(() => props.onLoad());
   const {
     items,
     selected,
@@ -54,6 +52,6 @@ function ProductsList(props) {
       </List>
     </div>
   );
-}
+};
 
 export default ProductsList;

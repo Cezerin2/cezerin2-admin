@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import messages from "../../../lib/text";
 import api from "../../../lib/api";
 import moment from "moment";
 import BarChart from "./barChart";
 import * as utils from "./utils";
 
-function OrdersBar(state) {
-  function componentDidMount() {
-    this.fetchData();
-  }
+const OrdersBar = state => {
+  useEffect(() => fetchData());
 
   const fetchData = () => {
     const filter = {
@@ -52,6 +50,6 @@ function OrdersBar(state) {
       />
     </div>
   );
-}
+};
 
 export default OrdersBar;

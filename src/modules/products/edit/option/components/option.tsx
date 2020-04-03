@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Field, reduxForm } from "redux-form";
 import { TextField, SelectField } from "redux-form-material-ui";
-import { CustomToggle } from "modules/shared/form";
+import { CustomToggle } from "../../../../../modules/shared/form";
 
-import messages from "lib/text";
+import messages from "../../../../../lib/text";
 
 import Paper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
 import RaisedButton from "material-ui/RaisedButton";
 import MenuItem from "material-ui/MenuItem";
-import style from "./style.css";
+import "./style.css";
 import OptionValues from "./values";
 
 const validate = values => {
@@ -26,105 +26,97 @@ const validate = values => {
   return errors;
 };
 
-class ProductOptionForm extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const ProductOptionForm = props => {
+  useEffect(() => props.fetchData());
 
-  componentDidMount() {
-    this.props.fetchData();
-  }
+  const {
+    handleSubmit,
+    pristine,
+    reset,
+    submitting,
+    initialValues,
+    deleteOption,
+    optionValues,
+    createOptionValue,
+    updateOptionValue,
+    deleteOptionValue
+  } = this.props;
 
-  render() {
-    const {
-      handleSubmit,
-      pristine,
-      reset,
-      submitting,
-      initialValues,
-      deleteOption,
-      optionValues,
-      createOptionValue,
-      updateOptionValue,
-      deleteOptionValue
-    } = this.props;
-
-    return (
-      <div>
-        <form onSubmit={handleSubmit}>
-          <Paper className="paper-box" zDepth={1}>
-            <div className={style.innerBox}>
-              <Field
-                name="name"
-                component={TextField}
-                floatingLabelText={messages.optionName}
-                fullWidth
-              />
-              <div className="row">
-                <div className="col-xs-6">
-                  <Field
-                    name="position"
-                    component={TextField}
-                    type="number"
-                    floatingLabelText={messages.position}
-                    fullWidth
-                  />
-                </div>
-                <div className="col-xs-6">
-                  <Field
-                    component={SelectField}
-                    autoWidth
-                    fullWidth
-                    name="control"
-                    floatingLabelText={messages.optionControl}
-                  >
-                    <MenuItem
-                      value="select"
-                      primaryText={messages.optionControlSelect}
-                    />
-                  </Field>
-                </div>
-              </div>
-              <div className={style.shortControl}>
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <Paper className="paper-box" zDepth={1}>
+          <div className="innerBox">
+            <Field
+              name="name"
+              component={TextField}
+              floatingLabelText={messages.optionName}
+              fullWidth
+            />
+            <div className="row">
+              <div className="col-xs-6">
                 <Field
-                  name="required"
-                  component={CustomToggle}
-                  label={messages.settings_fieldRequired}
+                  name="position"
+                  component={TextField}
+                  type="number"
+                  floatingLabelText={messages.position}
+                  fullWidth
                 />
               </div>
+              <div className="col-xs-6">
+                <Field
+                  component={SelectField}
+                  autoWidth
+                  fullWidth
+                  name="control"
+                  floatingLabelText={messages.optionControl}
+                >
+                  <MenuItem
+                    value="select"
+                    primaryText={messages.optionControlSelect}
+                  />
+                </Field>
+              </div>
             </div>
-            <div className="buttons-box">
-              <RaisedButton
-                label={messages.actions_delete}
-                secondary
-                onClick={deleteOption}
-              />
-              <FlatButton
-                label={messages.cancel}
-                style={{ marginLeft: 12 }}
-                onClick={reset}
-                disabled={pristine || submitting}
-              />
-              <RaisedButton
-                type="submit"
-                label={messages.save}
-                primary
-                className={style.button}
-                disabled={pristine || submitting}
+            <div className="shortControl">
+              <Field
+                name="required"
+                component={CustomToggle}
+                label={messages.settings_fieldRequired}
               />
             </div>
-          </Paper>
-        </form>
-        <OptionValues
-          optionValues={optionValues}
-          createOptionValue={createOptionValue}
-          updateOptionValue={updateOptionValue}
-          deleteOptionValue={deleteOptionValue}
-        />
-      </div>
-    );
-  }
-}
+          </div>
+          <div className="buttons-box">
+            <RaisedButton
+              label={messages.actions_delete}
+              secondary
+              onClick={deleteOption}
+            />
+            <FlatButton
+              label={messages.cancel}
+              style={{ marginLeft: 12 }}
+              onClick={reset}
+              disabled={pristine || submitting}
+            />
+            <RaisedButton
+              type="submit"
+              label={messages.save}
+              primary
+              className="button"
+              disabled={pristine || submitting}
+            />
+          </div>
+        </Paper>
+      </form>
+      <OptionValues
+        optionValues={optionValues}
+        createOptionValue={createOptionValue}
+        updateOptionValue={updateOptionValue}
+        deleteOptionValue={deleteOptionValue}
+      />
+    </div>
+  );
+};
 
 export default reduxForm({
   form: "ProductOptionForm",

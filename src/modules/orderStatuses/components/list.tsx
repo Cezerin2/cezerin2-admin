@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import messages from "../../../lib/text";
 import { List, ListItem } from "material-ui/List";
@@ -16,9 +16,7 @@ const styles = {
 const FolderIcon = <FontIcon className="material-icons">folder</FontIcon>;
 
 const StatusesList = props => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+  useEffect(() => props.onLoad());
 
   const { onSelect, selectedId, items, showAll, showManage } = props;
 

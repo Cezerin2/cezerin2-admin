@@ -17,9 +17,7 @@ const LoginForm = () => {
   const [error, setError] = useState(null);
 
   const handleChange = event => {
-    this.setState({
-      email: event.target.value
-    });
+    setEmail(event.target.value);
   };
 
   const handleKeyPress = e => {
@@ -58,8 +56,6 @@ const LoginForm = () => {
   function componentWillMount() {
     auth.checkTokenFromUrl();
   }
-
-  function componentDidMount() {}
 
   let response = null;
   if (isFetching) {
