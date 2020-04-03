@@ -1,13 +1,11 @@
-import React from "react";
-import * as auth from "lib/auth";
+import * as auth from "./../lib/auth";
 
-class Logout extends React.Component {
-  componentWillMount() {
+const Logout = () => {
+  function componentWillMount() {
     auth.removeToken();
   }
+  componentWillMount();
+  return null;
+};
 
-  render() {
-    return null;
-  }
-}
 export default Logout;

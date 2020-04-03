@@ -1,5 +1,5 @@
 import * as t from "./actionTypes";
-import api from "lib/api";
+import api from "../../lib/api";
 
 export function exportRequest() {
   return {
@@ -283,7 +283,7 @@ export function updateEmailTemplate(emailTemplate) {
     return api.settings
       .updateEmailTemplate(emailTemplate.templateName, emailTemplate)
       .then(({ status, json }) => {
-        json.templateName = templateName;
+        json.templateName = api;
         dispatch(receiveEmailTemplate(json));
       })
       .catch(error => {});
@@ -319,10 +319,9 @@ export function updateCheckoutField(checkoutField) {
     return api.checkoutFields
       .update(checkoutField.fieldName, checkoutField)
       .then(({ status, json }) => {
-        json.fieldName = fieldName;
+        json.fieldName = api;
         dispatch(receiveCheckoutField(json));
-      })
-      .catch(error => {});
+      });
   };
 }
 

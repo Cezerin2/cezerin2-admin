@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import messages from "lib/text";
+import messages from "../../../lib/text";
 import { List, ListItem } from "material-ui/List";
 import FontIcon from "material-ui/FontIcon";
 import Checkbox from "material-ui/Checkbox";
@@ -22,59 +22,42 @@ const DraftIcon = (
   <FontIcon className="material-icons">visibility_off</FontIcon>
 );
 
-class Item extends React.PureComponent {
-  handleCheck = (event, isInputChecked) => {
+const Item = props => {
+  const handleCheck = (event, isInputChecked) => {
     const { item } = this.props;
     this.props.onCheck(item.id);
   };
 
-  render() {
-    const { item, opened, selectedIds, nestedItems } = this.props;
-    const isChecked =
-      selectedIds && selectedIds.length > 0 && selectedIds.includes(item.id);
-    // const style = isChecked ? styles.selectedItem : null;
+  const { item, opened, selectedIds, nestedItems } = props;
+  const isChecked =
+    selectedIds && selectedIds.length > 0 && selectedIds.includes(item.id);
+  // const style = isChecked ? styles.selectedItem : null;
 
-    return (
-      <ListItem
-        className="treeItem"
-        initiallyOpen={opened}
-        innerDivStyle={styles.innerItem}
-        primaryText={item.name}
-        nestedItems={nestedItems}
-        leftCheckbox={
-          <Checkbox checked={isChecked} onCheck={this.handleCheck} />
-        }
-        nestedListStyle={styles.nestedListStyle}
-      />
-    );
-  }
-}
+  return (
+    <ListItem
+      className="treeItem"
+      initiallyOpen={opened}
+      innerDivStyle={styles.innerItem}
+      primaryText={item.name}
+      nestedItems={nestedItems}
+      leftCheckbox={<Checkbox checked={isChecked} onCheck={this.handleCheck} />}
+      nestedListStyle={styles.nestedListStyle}
+    />
+  );
+};
 
-export default class Categories extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  getItem(selectedIds, allItems, item, opened) {
+const Categories = props => {
+  function getItem(selectedIds, allItems, item, opened) {
     const nestedItems = this.getChildren(
       selectedIds,
       allItems,
       item.id,
       opened
     );
-    return (
-      <Item
-        key={item.id}
-        item={item}
-        opened={opened}
-        selectedIds={selectedIds}
-        nestedItems={nestedItems}
-        onCheck={this.props.onCheck}
-      />
-    );
+    return <Item key={item.id} />;
   }
 
-  getChildren(selectedIds, allItems, id, opened) {
+  function getChildren(selectedIds, allItems, id, opened) {
     if (allItems && id) {
       return allItems
         .filter(item => item.parent_id === id)
@@ -83,13 +66,13 @@ export default class Categories extends React.Component {
     return [];
   }
 
-  render() {
-    const { selectedIds, items, opened = false } = this.props;
+  const { selectedIds, items, opened = false } = props;
 
-    const rows = items
-      .filter(item => item.parent_id === null)
-      .map(item => this.getItem(selectedIds, items, item, opened));
+  const rows = items
+    .filter(item => item.parent_id === null)
+    .map(item => this.getItem(selectedIds, items, item, opened));
 
-    return <List>{rows}</List>;
-  }
-}
+  return <List>{rows}</List>;
+};
+
+export default Categories;

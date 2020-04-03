@@ -8,36 +8,17 @@ const applicationText = require(`./locales/${applicationConfig.language}.json`);
 const copyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  // TS Webpack
-  entry: "./src/index.ts",
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/
-      }
-    ]
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"]
-  },
-  output: {
-    filename: "index.js",
-    path: path.resolve(__dirname, "src/")
-  },
-  // Rest
   entry: {
-    app: path.resolve(__dirname, "src/index.js"),
+    app: path.resolve(__dirname, "src/index.tsx"),
     vendor: [
       "react",
       "react-dom",
-      "react-redux",
-      "redux-thunk",
+      "@types/react-redux",
+      "@types/redux-thunk",
       "react-router-dom",
       "react-dropzone",
-      "redux",
-      "redux-form",
+      "@types/redux",
+      "@types/redux-form",
       "redux-form-material-ui",
       "material-ui"
     ]
@@ -78,6 +59,11 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/
+      },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,

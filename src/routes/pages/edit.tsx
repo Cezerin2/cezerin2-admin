@@ -1,5 +1,5 @@
 import React from "react";
-import PageEdit from "modules/pages/edit";
+import PageEdit from "../../modules/pages/edit";
 
 const ProductDetails = props => (
   <div className="row row--no-gutter col-full-height scroll">

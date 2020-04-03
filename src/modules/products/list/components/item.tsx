@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Divider from "material-ui/Divider";
 import FontIcon from "material-ui/FontIcon";
-import messages from "lib/text";
-import * as helper from "lib/helper";
-import style from "./style.css";
+import messages from "../../../../lib/text";
+import * as helper from "../../../../lib/helper";
+import "./style.css";
 
 const THUMBNAIL_WIDTH = 100;
 const ImagePlaceholder = (
@@ -19,7 +19,7 @@ const ImagePlaceholder = (
 const ItemImage = ({ images }) => {
   if (images && images.length > 0) {
     const imageUrl = helper.getThumbnailUrl(images[0].url, THUMBNAIL_WIDTH);
-    return <img src={`${imageUrl}`} className={style.image} />;
+    return <img src={`${imageUrl}`} className="image" />;
   }
   return ImagePlaceholder;
 };
@@ -44,24 +44,24 @@ const ItemStock = ({ status, quantity }) => {
   switch (status) {
     case "discontinued":
       stockValue = messages.products_discontinued;
-      stockClass = style.discontinued;
+      stockClass = "discontinued";
       break;
     case "backorder":
       stockValue = messages.products_backorder;
-      stockClass = style.backorder;
+      stockClass = "backorder";
       break;
     case "preorder":
       stockValue = messages.products_preorder;
-      stockClass = style.preorder;
+      stockClass = "preorder";
       break;
     case "available":
       stockValue = quantity;
-      stockClass = style.inStock;
+      stockClass = "inStock";
       break;
     case "out_of_stock":
     default:
       stockValue = messages.products_outOfStock;
-      stockClass = style.outOfStock;
+      stockClass = "outOfStock";
       break;
   }
 
@@ -69,21 +69,16 @@ const ItemStock = ({ status, quantity }) => {
 };
 
 const ProductItem = ({ product, onSelect, selected, settings }) => {
-  let productClass = style.productName;
+  let productClass = "productName";
   if (!product.enabled || product.discontinued) {
-    productClass += ` ${style.productInactive}`;
+    productClass += "productInactive";
   } else {
-    productClass += ` ${style.productActive}`;
+    productClass += "productActive";
   }
-
-  const productName =
-    product.name && product.name.length > 0
-      ? product.name
-      : `<${messages.draft}>`;
 
   return (
     <div className={`products-item${selected === true ? " selected" : ""}`}>
-      <div className={`row row--no-gutter middle-xs ${style.innerItem}`}>
+      <div className="innerItem" row--no-gutter middle-xs>
         <div className="col-xs-6 col--no-gutter">
           <div className="row row--no-gutter middle-xs">
             <div className="col-xs-1 col--no-gutter">
@@ -95,7 +90,7 @@ const ProductItem = ({ product, onSelect, selected, settings }) => {
               />
             </div>
             <div className="col-xs-3">
-              <div className={`row middle-xs center-xs ${style.imageBox}`}>
+              <div className="imageBox" middle-xs center-xs>
                 <div className="col-xs-12">
                   <div className="box">
                     <ItemImage images={product.images} />
@@ -105,21 +100,23 @@ const ProductItem = ({ product, onSelect, selected, settings }) => {
             </div>
             <div className="col-xs-8">
               <Link to={`/product/${product.id}`} className={productClass}>
-                {productName}
+                {/*productName*/}
                 <br />
                 <small>{product.category_name}</small>
               </Link>
             </div>
           </div>
         </div>
-        <div className={`col-xs-2 ${style.sku}`}>{product.sku}</div>
-        <div className={`col-xs-2 ${style.stock}`}>
+        <div className="sku" col-xs-2>
+          {product.sku}
+        </div>
+        <div className="stock" col-xs-2>
           <ItemStock
             status={product.stock_status}
             quantity={product.stock_quantity}
           />
         </div>
-        <div className={`col-xs-2 ${style.price}`}>
+        <div className="price" col-xs-2>
           <ItemPrice product={product} settings={settings} />
         </div>
       </div>

@@ -1,5 +1,5 @@
-import api from "lib/api";
-import messages from "lib/text";
+import api from "../../lib/api";
+import messages from "../../lib/text";
 import * as t from "./actionTypes";
 
 function requestCategories() {
@@ -73,7 +73,7 @@ function successMoveUpDownCategory(newPosition) {
   };
 }
 
-function successReplaceCategory(newParentId) {
+function successReplaceCategory() {
   return {
     type: t.CATEGORY_REPLACE_SUCCESS
   };

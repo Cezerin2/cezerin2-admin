@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import ProductEdit from "modules/products/edit";
-import ProductOption from "modules/products/edit/option";
+import ProductEdit from "../../modules/products/edit";
+import ProductOption from "../../modules/products/edit/option";
 
 const ProductDetails = () => (
   <div className="row row--no-gutter col-full-height scroll">

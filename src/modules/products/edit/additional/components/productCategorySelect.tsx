@@ -1,82 +1,66 @@
-import React from "react";
-import messages from "lib/text";
-import CategorySelect from "modules/productCategories/select";
+import React, { useState, Fragment } from "react";
+import messages from "../../../../../lib/text";
+import CategorySelect from "../../../../../modules/productCategories/select";
 import FontIcon from "material-ui/FontIcon";
 import Dialog from "material-ui/Dialog";
 import FlatButton from "material-ui/FlatButton";
-const { Fragment } = React;
 
-export default class ProductCategorySelect extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false
-    };
-  }
+const ProductCategorySelect = () => {
+  const [open, setOpen] = useState(false);
 
-  close = () => {
-    this.setState({ open: false });
+  const close = () => {
+    setOpen(false);
   };
 
-  open = () => {
-    this.setState({ open: true });
+  const opens = () => {
+    setOpen(true);
   };
 
-  handleSelect = categoryId => {
+  const handleSelect = categoryId => {
     this.props.input.onChange(categoryId);
   };
 
-  render() {
-    const {
-      categories,
-      input,
-      meta: { touched, error }
-    } = this.props;
-    const { open } = this.state;
-    const selectedCategoryId = input.value;
-    const category = categories.find(item => item.id === selectedCategoryId);
-    const categoryName = category ? category.name : "";
+  const selectedCategoryId = "value";
+  const category = "category.find(item => item.id === selectedCategoryId);";
+  const categoryName = category ? category : "";
 
-    const dialogButtons = [
+  const dialogButtons = [
+    <FlatButton
+      label={messages.cancel}
+      onClick={this.close}
+      style={{ marginRight: 10 }}
+    />,
+    <FlatButton
+      label={messages.save}
+      primary
+      keyboardFocused
+      onClick={this.close}
+    />
+  ];
+
+  return (
+    <Fragment>
+      <Dialog
+        title={messages.category}
+        actions={dialogButtons}
+        modal={false}
+        open={open}
+        onRequestClose={this.close}
+        autoScrollBodyContent
+      >
+        <CategorySelect />
+      </Dialog>
       <FlatButton
-        label={messages.cancel}
-        onClick={this.close}
-        style={{ marginRight: 10 }}
-      />,
-      <FlatButton
-        label={messages.save}
-        primary
-        keyboardFocused
-        onClick={this.close}
+        label={categoryName}
+        onClick={this.open}
+        icon={
+          <FontIcon color="#777" className="material-icons">
+            create
+          </FontIcon>
+        }
       />
-    ];
+    </Fragment>
+  );
+};
 
-    return (
-      <Fragment>
-        <Dialog
-          title={messages.category}
-          actions={dialogButtons}
-          modal={false}
-          open={open}
-          onRequestClose={this.close}
-          autoScrollBodyContent
-        >
-          <CategorySelect
-            onSelect={this.handleSelect}
-            selectedId={selectedCategoryId}
-            opened={false}
-          />
-        </Dialog>
-        <FlatButton
-          label={categoryName}
-          onClick={this.open}
-          icon={
-            <FontIcon color="#777" className="material-icons">
-              create
-            </FontIcon>
-          }
-        />
-      </Fragment>
-    );
-  }
-}
+export default ProductCategorySelect;

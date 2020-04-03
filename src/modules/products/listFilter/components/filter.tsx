@@ -1,9 +1,9 @@
 import React from "react";
-import messages from "lib/text";
+import messages from "../../../../lib/text";
 
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
-import style from "./style.css";
+import "./style.css";
 
 const Filter = ({
   filter,
@@ -15,10 +15,10 @@ const Filter = ({
   const { enabled, discontinued, onSale, stockStatus } = filter;
 
   return (
-    <div className={style.filter}>
+    <div className={filter}>
       <SelectField
         value={enabled}
-        onChange={(event, index, value) => {
+        onChange={value => {
           setEnabled(value);
         }}
         floatingLabelText={messages.enabled}

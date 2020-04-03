@@ -56,9 +56,11 @@
 .relatedProductImage {
   min-width: 120px;
 }
+
 .relatedProductText {
   flex-grow: 1;
 }
+
 .relatedProductActions {
   min-width: 60px;
   text-align: center;

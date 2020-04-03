@@ -15,9 +15,6 @@ const mapDispatchToProps = dispatch => ({
   onSelect: categoryId => {
     dispatch(selectCategory(categoryId));
     dispatch(fetchProducts());
-  },
-  onCreate: () => {
-    dispatch(createCategory());
   }
 });
 

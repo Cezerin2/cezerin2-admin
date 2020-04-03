@@ -1,4 +1,4 @@
-import messages from "lib/text";
+import messages from "../../../lib/text";
 import moment from "moment";
 
 const chartColors = {
@@ -13,7 +13,7 @@ const chartColors = {
 
 const transparentize = (color, opacity) => {
   const alpha = opacity === undefined ? 0.5 : 1 - opacity;
-  return Color(color)
+  return color(color)
     .alpha(alpha)
     .rgbString();
 };

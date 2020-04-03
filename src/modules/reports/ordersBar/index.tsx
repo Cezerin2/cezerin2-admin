@@ -1,24 +1,16 @@
 import React from "react";
-import messages from "lib/text";
-import api from "lib/api";
+import messages from "../../../lib/text";
+import api from "../../../lib/api";
 import moment from "moment";
 import BarChart from "./barChart";
 import * as utils from "./utils";
 
-class OrdersBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ordersData: null,
-      salesData: null
-    };
-  }
-
-  componentDidMount() {
+function OrdersBar(state) {
+  function componentDidMount() {
     this.fetchData();
   }
 
-  fetchData = () => {
+  const fetchData = () => {
     const filter = {
       draft: false,
       cancelled: false,
@@ -32,7 +24,7 @@ class OrdersBar extends React.Component {
 
     api.orders
       .list(filter)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         const reportData = utils.getReportDataFromOrders(json);
         const ordersData = utils.getOrdersDataFromReportData(reportData);
         const salesData = utils.getSalesDataFromReportData(reportData);
@@ -43,22 +35,23 @@ class OrdersBar extends React.Component {
       });
   };
 
-  render() {
-    const { ordersData, salesData } = this.state;
-    return (
-      <div>
-        <BarChart
-          data={ordersData}
-          legendDisplay
-          title={messages.drawer_orders}
-        />
-        <BarChart
-          data={salesData}
-          legendDisplay={false}
-          title={messages.salesReport}
-        />
-      </div>
-    );
-  }
+  const { ordersData, salesData } = state;
+  return (
+    <div>
+      <BarChart
+        subTitle="Empty"
+        data={ordersData}
+        legendDisplay
+        title={messages.drawer_orders}
+      />
+      <BarChart
+        subTitle="Empty"
+        data={salesData}
+        legendDisplay={false}
+        title={messages.salesReport}
+      />
+    </div>
+  );
 }
+
 export default OrdersBar;

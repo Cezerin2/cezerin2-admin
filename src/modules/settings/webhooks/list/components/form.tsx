@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import messages from "lib/text";
+import messages from "../../../../../lib/text";
 import Paper from "material-ui/Paper";
 import Divider from "material-ui/Divider";
 import FontIcon from "material-ui/FontIcon";
@@ -37,28 +37,28 @@ const WebhookItem = ({ webhook }) => {
   );
 };
 
-export default class WebhooksList extends React.Component {
-  componentDidMount() {
+const WebhooksList = () => {
+  function componentDidMount() {
     this.props.onLoad();
   }
 
-  render() {
-    const { webhooks } = this.props;
-    const listItems = webhooks.map((webhook, index) => (
-      <WebhookItem key={index} webhook={webhook} />
-    ));
+  const { webhooks } = this.props;
+  const listItems = webhooks.map((webhook, index) => (
+    <WebhookItem key={index} webhook={webhook} />
+  ));
 
-    return (
-      <div>
-        <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
-          {messages.webhooksAbout}
-        </div>
-        <Paper className="paper-box" zDepth={1}>
-          <div style={{ width: "100%" }}>
-            <List style={{ padding: 0 }}>{listItems}</List>
-          </div>
-        </Paper>
+  return (
+    <div>
+      <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
+        {messages.webhooksAbout}
       </div>
-    );
-  }
-}
+      <Paper className="paper-box" zDepth={1}>
+        <div style={{ width: "100%" }}>
+          <List style={{ padding: 0 }}>{listItems}</List>
+        </div>
+      </Paper>
+    </div>
+  );
+};
+
+export default WebhooksList;

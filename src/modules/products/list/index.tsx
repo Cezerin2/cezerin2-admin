@@ -10,7 +10,7 @@ import {
 } from "../actions";
 import List from "./components/list";
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   settings: state.settings.settings,
   items: state.products.items,
   selected: state.products.selected,

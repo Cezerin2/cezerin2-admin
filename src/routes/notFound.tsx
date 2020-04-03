@@ -1,5 +1,5 @@
 import React from "react";
-import messages from "lib/text";
+import messages from "./../lib/text";
 
 export default () => (
   <div className="block404">

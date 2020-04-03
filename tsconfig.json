@@ -3,6 +3,7 @@
     "outDir": "./src/",
     "target": "es3",
     "jsx": "react",
-    "allowJs": true
+    "allowJs": true,
+    "experimentalDecorators": true
   }
 }

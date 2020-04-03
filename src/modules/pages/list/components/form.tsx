@@ -37,23 +37,23 @@ const PageItem = ({ page }) => {
   );
 };
 
-export default class PagesList extends React.Component {
-  componentDidMount() {
+const PagesList = props => {
+  function componentDidMount() {
     this.props.onLoad();
   }
 
-  render() {
-    const { pages } = this.props;
-    const listItems = pages.map((page, index) => (
-      <PageItem key={index} page={page} />
-    ));
+  const { pages } = props;
+  const listItems = pages.map((page, index) => (
+    <PageItem key={index} page={page} />
+  ));
 
-    return (
-      <Paper className="paper-box" zDepth={1}>
-        <div style={{ width: "100%" }}>
-          <List style={{ padding: 0 }}>{listItems}</List>
-        </div>
-      </Paper>
-    );
-  }
-}
+  return (
+    <Paper className="paper-box" zDepth={1}>
+      <div style={{ width: "100%" }}>
+        <List style={{ padding: 0 }}>{listItems}</List>
+      </div>
+    </Paper>
+  );
+};
+
+export default PagesList;

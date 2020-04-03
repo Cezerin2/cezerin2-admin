@@ -1,4 +1,4 @@
-import api from "lib/api";
+import api from "../../lib/api";
 import moment from "moment";
 import * as t from "./actionTypes";
 
@@ -186,23 +186,23 @@ const getFilter = (state, offset = 0) => {
     state.productCategories.selectedId !== null &&
     state.productCategories.selectedId !== "all"
   ) {
-    filter.category_id = state.productCategories.selectedId;
+    const filtercategory_id = state.productCategories.selectedId;
   }
 
   if (state.products.filter.stockStatus !== null) {
-    filter.stock_status = state.products.filter.stockStatus;
+    const filterstock_status = state.products.filter.stockStatus;
   }
 
   if (state.products.filter.enabled !== null) {
-    filter.enabled = state.products.filter.enabled;
+    const filterenabled = state.products.filter.enabled;
   }
 
   if (state.products.filter.discontinued !== null) {
-    filter.discontinued = state.products.filter.discontinued;
+    const filterdiscontinued = state.products.filter.discontinued;
   }
 
   if (state.products.filter.onSale !== null) {
-    filter.on_sale = state.products.filter.onSale;
+    const filteron_sale = state.products.filter.onSale;
   }
 
   return filter;
@@ -242,7 +242,7 @@ export function fetchMoreProducts() {
 
       return api.products
         .list(filter)
-        .then(({ status, json }) => {
+        .then(({ json }) => {
           dispatch(receiveProductsMore(json));
         })
         .catch(error => {
@@ -253,7 +253,7 @@ export function fetchMoreProducts() {
 }
 
 export function deleteCurrentProduct() {
-  return (dispatch, getState) => {
+  return getState => {
     const state = getState();
     const product = state.products.editProduct;
     if (product && product.id) {
@@ -275,7 +275,7 @@ export function deleteProducts() {
     );
 
     return Promise.all(promises)
-      .then(values => {
+      .then(() => {
         dispatch(deleteProductsSuccess());
         dispatch(deselectAllProduct());
         dispatch(fetchProducts());
@@ -306,7 +306,7 @@ export function setCategory(category_id) {
 }
 
 export function updateProduct(data) {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(requestUpdateProduct());
 
     return api.products
@@ -330,13 +330,10 @@ export function createProduct(history) {
       category_id: state.productCategories.selectedId
     };
 
-    return api.products
-      .create(productDraft)
-      .then(({ status, json }) => {
-        dispatch(successCreateProduct(json.id));
-        history.push(`/product/${json.id}`);
-      })
-      .catch(error => {});
+    return api.products.create(productDraft).then(({ json }) => {
+      dispatch(successCreateProduct(json.id));
+      history.push(`/product/${json.id}`);
+    });
   };
 }
 
@@ -355,12 +352,12 @@ const fixProductData = product => {
 };
 
 export function fetchProduct(id) {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(requestProduct());
 
     return api.products
       .retrieve(id)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         const product = fixProductData(json);
         dispatch(receiveProduct(product));
       })
@@ -371,33 +368,24 @@ export function fetchProduct(id) {
 }
 
 export function fetchImages(productId) {
-  return (dispatch, getState) =>
-    api.products.images
-      .list(productId)
-      .then(({ status, json }) => {
-        dispatch(receiveImages(json));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.images.list(productId).then(({ json }) => {
+      dispatch(receiveImages(json));
+    });
 }
 
 export function fetchOptions(productId) {
-  return (dispatch, getState) =>
-    api.products.options
-      .list(productId)
-      .then(({ status, json }) => {
-        dispatch(receiveOptions(json));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.options.list(productId).then(({ json }) => {
+      dispatch(receiveOptions(json));
+    });
 }
 
 export function fetchVariants(productId) {
-  return (dispatch, getState) =>
-    api.products.variants
-      .list(productId)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.variants.list(productId).then(({ json }) => {
+      dispatch(receiveVariants(json));
+    });
 }
 
 export function createVariant(productId) {
@@ -414,143 +402,117 @@ export function createVariant(productId) {
       weight
     };
 
-    return api.products.variants
-      .create(productId, variant)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json));
-      })
-      .catch(error => {});
+    return api.products.variants.create(productId, variant).then(({ json }) => {
+      dispatch(receiveVariants(json));
+    });
   };
 }
 
 export function updateVariant(productId, variantId, variant) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.products.variants
       .update(productId, variantId, variant)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         dispatch(receiveVariants(json));
-      })
-      .catch(error => {});
+      });
 }
 
 export function setVariantOption(productId, variantId, optionId, valueId) {
-  return (dispatch, getState) => {
+  return dispatch => {
     const option = { option_id: optionId, value_id: valueId };
     return api.products.variants
       .setOption(productId, variantId, option)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         dispatch(receiveVariants(json));
-      })
-      .catch(error => {});
+      });
   };
 }
 
 export function createOptionValue(productId, optionId, valueName) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.products.options.values
       .create(productId, optionId, { name: valueName })
-      .then(({ status, json }) => {
+      .then(({}) => {
         dispatch(fetchOptions(productId));
-      })
-      .catch(error => {});
+      });
 }
 
 export function createOption(productId, option) {
-  return (dispatch, getState) =>
-    api.products.options
-      .create(productId, option)
-      .then(({ status, json }) => {
-        dispatch(receiveOptions(json));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.options.create(productId, option).then(({ json }) => {
+      dispatch(receiveOptions(json));
+    });
 }
 
 export function updateOptionValue(productId, optionId, valueId, valueName) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.products.options.values
       .update(productId, optionId, valueId, { name: valueName })
-      .then(({ status, json }) => {
+      .then(({}) => {
         dispatch(fetchOptions(productId));
-      })
-      .catch(error => {});
+      });
 }
 
 export function updateOption(productId, optionId, option) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.products.options
       .update(productId, optionId, option)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         dispatch(receiveOptions(json));
-      })
-      .catch(error => {});
+      });
 }
 
 export function deleteOptionValue(productId, optionId, valueId) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.products.options.values
       .delete(productId, optionId, valueId)
-      .then(({ status, json }) => {
+      .then(({}) => {
         dispatch(fetchOptions(productId));
-      })
-      .catch(error => {});
+      });
 }
 
 export function deleteOption(productId, optionId) {
-  return (dispatch, getState) =>
-    api.products.options
-      .delete(productId, optionId)
-      .then(({ status, json }) => {
-        dispatch(receiveOptions(json));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.options.delete(productId, optionId).then(({ json }) => {
+      dispatch(receiveOptions(json));
+    });
 }
 
 export function deleteVariant(productId, variantId) {
-  return (dispatch, getState) =>
-    api.products.variants
-      .delete(productId, variantId)
-      .then(({ status, json }) => {
-        dispatch(receiveVariants(json));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.variants.delete(productId, variantId).then(({ json }) => {
+      dispatch(receiveVariants(json));
+    });
 }
 
 export function deleteImage(productId, imageId) {
-  return (dispatch, getState) =>
-    api.products.images
-      .delete(productId, imageId)
-      .then(({ status, json }) => {
-        dispatch(fetchImages(productId));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.images.delete(productId, imageId).then(({}) => {
+      dispatch(fetchImages(productId));
+    });
 }
 
 export function updateImage(productId, image) {
-  return (dispatch, getState) =>
-    api.products.images
-      .update(productId, image.id, image)
-      .then(() => {
-        dispatch(fetchImages(productId));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.products.images.update(productId, image.id, image).then(() => {
+      dispatch(fetchImages(productId));
+    });
 }
 
 export function updateImages(productId, images) {
-  return (dispatch, getState) => {
+  return dispatch => {
     const promises = images.map(image =>
       api.products.images.update(productId, image.id, image)
     );
 
-    return Promise.all(promises)
-      .then(() => {
-        dispatch(fetchImages(productId));
-      })
-      .catch(error => {});
+    return Promise.all(promises).then(() => {
+      dispatch(fetchImages(productId));
+    });
   };
 }
 
 export function uploadImages(productId, form) {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(imagesUploadStart());
     return api.products.images
       .upload(productId, form)
@@ -558,7 +520,7 @@ export function uploadImages(productId, form) {
         dispatch(imagesUploadEnd());
         dispatch(fetchImages(productId));
       })
-      .catch(error => {
+      .catch(() => {
         dispatch(imagesUploadEnd());
       });
   };

@@ -1,5 +1,4 @@
-import api from "lib/api";
-import messages from "lib/text";
+import api from "../../lib/api";
 import * as t from "./actionTypes";
 
 function receiveFiles(files) {
@@ -22,17 +21,14 @@ function filesUploadEnd() {
 }
 
 export function fetchFiles() {
-  return (dispatch, getState) =>
-    api.files
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receiveFiles(json));
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.files.list().then(({ json }) => {
+      dispatch(receiveFiles(json));
+    });
 }
 
 export function uploadFiles(form) {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(filesUploadStart());
     return api.files
       .upload(form)
@@ -47,11 +43,8 @@ export function uploadFiles(form) {
 }
 
 export function deleteFile(fileName) {
-  return (dispatch, getState) =>
-    api.files
-      .delete(fileName)
-      .then(() => {
-        dispatch(fetchFiles());
-      })
-      .catch(error => {});
+  return dispatch =>
+    api.files.delete(fileName).then(() => {
+      dispatch(fetchFiles());
+    });
 }

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Field, FieldArray, reduxForm } from "redux-form";
 import { TextField } from "redux-form-material-ui";
 
-import api from "lib/api";
-import * as helper from "lib/helper";
-import messages from "lib/text";
+import api from "../../../../../lib/api";
+import * as helper from "../../../../../lib/helper";
+import messages from "../../../../../lib/text";
 
 import TagsInput from "react-tagsinput";
-import ProductSearchDialog from "modules/shared/productSearch";
+import ProductSearchDialog from "../../../../../modules/shared/productSearch";
 
 import Paper from "material-ui/Paper";
 import FontIcon from "material-ui/FontIcon";
@@ -19,8 +19,7 @@ import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
 import ProductCategoryMultiSelect from "./productCategoryMultiSelect";
 import ProductCategorySelect from "./productCategorySelect";
-import style from "./style.css";
-const { Fragment } = React;
+import "./style.css";
 
 const TagsField = ({ input, placeholder }) => {
   const tagsArray =
@@ -45,23 +44,16 @@ const ProductShort = ({
   discontinued,
   actions
 }) => (
-  <div
-    className={
-      style.relatedProduct +
-      (enabled === false || discontinued === true
-        ? ` ${style.relatedProductDisabled}`
-        : "")
-    }
-  >
-    <div className={style.relatedProductImage}>
+  <div className="relatedProduct">
+    <div className="relatedProductImage">
       {thumbnailUrl && thumbnailUrl !== "" && <img src={`${thumbnailUrl}`} />}
     </div>
-    <div className={style.relatedProductText}>
+    <div className="relatedProductText">
       <Link to={`/product/${id}`}>{name}</Link>
       <br />
       <div>{priceFormatted}</div>
     </div>
-    <div className={style.relatedProductActions}>{actions}</div>
+    <div className="relatedProductActions">{actions}</div>
   </div>
 );
 
@@ -115,45 +107,32 @@ const RelatedProduct = ({ settings, product, actions }) => {
     );
   }
   // product doesn't exist
-  return (
-    <ProductShort
-      id="-"
-      name=""
-      thumbnailUrl=""
-      priceFormatted=""
-      actions={actions}
-    />
-  );
+  return <p>Not Available</p>;
 };
 
-class ProductsArray extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showAddItem: false,
-      products: []
-    };
-  }
+const ProductsArray = () => {
+  showAddItem: false;
+  products: [];
 
-  showAddItem = () => {
+  const showAddItem = () => {
     this.setState({ showAddItem: true });
   };
 
-  hideAddItem = () => {
+  const hideAddItem = () => {
     this.setState({ showAddItem: false });
   };
 
-  addItem = productId => {
+  const addItem = productId => {
     this.hideAddItem();
     this.props.fields.push(productId);
   };
 
-  componentDidMount() {
+  function componentDidMount() {
     const ids = this.props.fields.getAll();
     this.fetchProducts(ids);
   }
 
-  componentWillReceiveProps(nextProps) {
+  function componentWillReceiveProps(nextProps) {
     const currentIds = this.props.fields.getAll();
     const newIds = nextProps.fields.getAll();
 
@@ -162,7 +141,7 @@ class ProductsArray extends React.Component {
     }
   }
 
-  fetchProducts = ids => {
+  const fetchProducts = ids => {
     if (ids && Array.isArray(ids) && ids.length > 0) {
       api.products
         .list({
@@ -181,67 +160,56 @@ class ProductsArray extends React.Component {
     }
   };
 
-  render() {
-    const {
-      settings,
-      fields,
-      meta: { touched, error, submitFailed }
-    } = this.props;
-    const { products } = this.state;
+  const {
+    settings,
+    fields,
+    meta: { touched, error, submitFailed }
+  } = this.props;
+  const { products } = this.state;
 
-    return (
+  return (
+    <div>
+      <Paper className="relatedProducts" zDepth={1}>
+        {fields.map((field, index) => {
+          const actions = (
+            <RelatedProductActions fields={fields} index={index} />
+          );
+          const productId = fields.get(index);
+          const product = products.find(item => item.id === productId);
+          return (
+            <RelatedProduct
+              key={index}
+              settings={settings}
+              product={product}
+              actions={actions}
+            />
+          );
+        })}
+
+        <ProductSearchDialog />
+      </Paper>
+
       <div>
-        <Paper className={style.relatedProducts} zDepth={1}>
-          {fields.map((field, index) => {
-            const actions = (
-              <RelatedProductActions fields={fields} index={index} />
-            );
-            const productId = fields.get(index);
-            const product = products.find(item => item.id === productId);
-            return (
-              <RelatedProduct
-                key={index}
-                settings={settings}
-                product={product}
-                actions={actions}
-              />
-            );
-          })}
-
-          <ProductSearchDialog
-            open={this.state.showAddItem}
-            title={messages.addOrderItem}
-            settings={settings}
-            onSubmit={this.addItem}
-            onCancel={this.hideAddItem}
-            submitLabel={messages.add}
-            cancelLabel={messages.cancel}
-          />
-        </Paper>
-
-        <div>
-          <RaisedButton
-            label={messages.addOrderItem}
-            onClick={this.showAddItem}
-          />
-        </div>
+        <RaisedButton
+          label={messages.addOrderItem}
+          onClick={this.showAddItem}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 const ProductAdditionalForm = ({
   handleSubmit,
   pristine,
   reset,
   submitting,
-  initialValues,
   settings,
   categories
 }) => (
   <form onSubmit={handleSubmit}>
     <Paper className="paper-box" zDepth={1}>
-      <div className={style.innerBox}>
+      <div className="innerBox">
         <div
           className="row middle-xs"
           style={{
@@ -270,13 +238,6 @@ const ProductAdditionalForm = ({
         >
           <div className="col-xs-12 col-sm-4">
             {messages.additionalCategories}
-          </div>
-          <div className="col-xs-12 col-sm-8">
-            <FieldArray
-              name="category_ids"
-              component={ProductCategoryMultiSelect}
-              categories={categories}
-            />
           </div>
         </div>
 
@@ -325,7 +286,7 @@ const ProductAdditionalForm = ({
       >
         <FlatButton
           label={messages.cancel}
-          className={style.button}
+          className="button"
           onClick={reset}
           disabled={pristine || submitting}
         />
@@ -333,7 +294,7 @@ const ProductAdditionalForm = ({
           type="submit"
           label={messages.save}
           primary
-          className={style.button}
+          className="button"
           disabled={pristine || submitting}
         />
       </div>
@@ -341,7 +302,4 @@ const ProductAdditionalForm = ({
   </form>
 );
 
-export default reduxForm({
-  form: "ProductAdditionalForm",
-  enableReinitialize: true
-})(ProductAdditionalForm);
+export default ProductAdditionalForm;

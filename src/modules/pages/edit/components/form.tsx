@@ -2,15 +2,15 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { TextField } from "redux-form-material-ui";
 
-import { CustomToggle } from "modules/shared/form";
-import Editor from "modules/shared/editor";
+import { CustomToggle } from "../../../../modules/shared/form";
+import Editor from "../../../../modules/shared/editor";
 import TagsInput from "react-tagsinput";
-import messages from "lib/text";
-import api from "lib/api";
+import messages from "../../../../lib/text";
+import api from "../../../../lib/api";
 
 import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
-import style from "./style.css";
+import "./style.css";
 
 const TagsField = ({ input, placeholder }) => {
   const tagsArray =
@@ -56,93 +56,84 @@ const asyncValidate = (values /* , dispatch */) =>
     }
   });
 
-class EditPageForm extends React.Component {
-  componentDidMount() {
+const EditPageForm = props => {
+  function componentDidMount() {
     this.props.onLoad();
   }
 
-  componentWillUnmount() {
+  function componentWillUnmount() {
     this.props.eraseData();
   }
+  const { handleSubmit, pristine, submitting, initialValues, pageId } = props;
+  const isAdd = pageId === null || pageId === undefined;
 
-  render() {
-    const {
-      handleSubmit,
-      pristine,
-      submitting,
-      initialValues,
-      pageId
-    } = this.props;
-    const isAdd = pageId === null || pageId === undefined;
-
-    if (initialValues) {
-      return (
-        <form onSubmit={handleSubmit}>
-          <Paper className="paper-box" zDepth={1}>
-            <div className={style.innerBox}>
+  if (initialValues) {
+    return (
+      <form onSubmit={handleSubmit}>
+        <Paper className="paper-box" zDepth={1}>
+          <div className="innerBox">
+            <Field
+              name="meta_title"
+              component={TextField}
+              floatingLabelText={messages.pageTitle}
+              fullWidth
+            />
+            <br />
+            <Field
+              name="slug"
+              component={TextField}
+              floatingLabelText={messages.slug}
+              fullWidth
+              disabled={initialValues.is_system}
+            />
+            <p className="field-hint">{messages.help_slug}</p>
+            <Field
+              name="meta_description"
+              component={TextField}
+              floatingLabelText={messages.metaDescription}
+              fullWidth
+            />
+            <div className="field-hint" style={{ marginTop: 40 }}>
+              {messages.content}
+            </div>
+            <div style={{ marginBottom: 50 }}>
+              <Field name="content" component={Editor} />
+            </div>
+            {messages.tags}
+            <Field
+              name="tags"
+              component={TagsField}
+              placeholder={messages.newTag}
+            />
+            <div style={{ maxWidth: 256 }}>
               <Field
-                name="meta_title"
-                component={TextField}
-                floatingLabelText={messages.pageTitle}
-                fullWidth
-              />
-              <br />
-              <Field
-                name="slug"
-                component={TextField}
-                floatingLabelText={messages.slug}
-                fullWidth
+                component={CustomToggle}
+                name="enabled"
+                label={messages.enabled}
+                style={{ paddingTop: 16, paddingBottom: 16 }}
                 disabled={initialValues.is_system}
               />
-              <p className="field-hint">{messages.help_slug}</p>
-              <Field
-                name="meta_description"
-                component={TextField}
-                floatingLabelText={messages.metaDescription}
-                fullWidth
-              />
-              <div className="field-hint" style={{ marginTop: 40 }}>
-                {messages.content}
-              </div>
-              <div style={{ marginBottom: 50 }}>
-                <Field name="content" component={Editor} />
-              </div>
-              {messages.tags}
-              <Field
-                name="tags"
-                component={TagsField}
-                placeholder={messages.newTag}
-              />
-              <div style={{ maxWidth: 256 }}>
-                <Field
-                  component={CustomToggle}
-                  name="enabled"
-                  label={messages.enabled}
-                  style={{ paddingTop: 16, paddingBottom: 16 }}
-                  disabled={initialValues.is_system}
-                />
-              </div>
             </div>
-            <div
-              className={`buttons-box ${
-                pristine && !isAdd ? "buttons-box-pristine" : "buttons-box-show"
-              }`}
-            >
-              <RaisedButton
-                type="submit"
-                label={isAdd ? messages.add : messages.save}
-                primary
-                className={style.button}
-                disabled={pristine || submitting}
-              />
-            </div>
-          </Paper>
-        </form>
-      );
-    }
-    return null;
+          </div>
+          <div
+            className={`buttons-box ${
+              pristine && !isAdd ? "buttons-box-pristine" : "buttons-box-show"
+            }`}
+          >
+            <RaisedButton
+              type="submit"
+              label={isAdd ? messages.add : messages.save}
+              primary
+              className="button"
+              disabled={pristine || submitting}
+            />
+          </div>
+        </Paper>
+      </form>
+    );
   }
-}
+  return null;
+};
 
 export default reduxForm({
   form: "EditPageForm",
