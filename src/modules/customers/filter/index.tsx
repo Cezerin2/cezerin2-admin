@@ -1,10 +1,9 @@
 import { connect } from "react-redux";
 import {
-  fetchProducts,
-  setFilterActive,
-  setFilterDiscontinued,
-  setFilterOnSale,
-  setFilterStock
+  fetchCustomers,
+  setDefaultBillingAddress,
+  setDefaultShippingAddress,
+  setFilterSearch
 } from "../actions";
 import Filter from "./components/fields";
 
@@ -17,20 +16,20 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setActive: value => {
-    dispatch(setFilterActive(value));
-    dispatch(fetchProducts());
+    dispatch(setDefaultBillingAddress(value, ""));
+    dispatch(fetchCustomers());
   },
   setDiscontinued: value => {
-    dispatch(setFilterDiscontinued(value));
-    dispatch(fetchProducts());
+    dispatch(setDefaultShippingAddress(value, ""));
+    dispatch(fetchCustomers());
   },
   setOnSale: value => {
-    dispatch(setFilterOnSale(value));
-    dispatch(fetchProducts());
+    dispatch(setFilterSearch(value));
+    dispatch(fetchCustomers());
   },
   setStock: value => {
-    dispatch(setFilterStock(value));
-    dispatch(fetchProducts());
+    dispatch(setFilterSearch(value));
+    dispatch(fetchCustomers());
   }
 });
 

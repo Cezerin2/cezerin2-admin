@@ -4,9 +4,9 @@ import Checkbox from "material-ui/Checkbox";
 import { ListItem } from "material-ui/List";
 import Divider from "material-ui/Divider";
 import FontIcon from "material-ui/FontIcon";
-import messages from "lib/text";
-import * as helper from "lib/helper";
-import style from "./style.css";
+import messages from "../../../../lib/text";
+import * as helper from "../../../../lib/helper";
+import "./style.css";
 
 const CustomersListItem = ({ customer, onSelect, selected, settings }) => {
   const checked = selected.includes(customer.id);
@@ -30,16 +30,13 @@ const CustomersListItem = ({ customer, onSelect, selected, settings }) => {
               />
             </div>
             <div className="col-xs-5">
-              <Link
-                to={`/customer/${customer.id}`}
-                className={style.customerName}
-              >
+              <Link to={`/customer/${customer.id}`} className="customerName">
                 {customer.full_name}
                 <br />
                 <small>{customer.group_name}</small>
               </Link>
             </div>
-            <div className={`col-xs-3 ${style.location}`}>
+            <div className="col-xs-3 location">
               {customer.shipping && customer.shipping.city && (
                 <span>
                   <FontIcon
@@ -58,7 +55,7 @@ const CustomersListItem = ({ customer, onSelect, selected, settings }) => {
             </div>
             <div className="col-xs-1">{customer.orders_count || 0}</div>
             <div className="col-xs-2">
-              <div className={style.price}>{totalSpentFormatted}</div>
+              <div className="price">{totalSpentFormatted}</div>
             </div>
           </div>
         }

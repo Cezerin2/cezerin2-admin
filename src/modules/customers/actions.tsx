@@ -1,4 +1,4 @@
-import api from "lib/api";
+import api from "../../lib/api";
 import * as t from "./actionTypes";
 const push = () => {};
 
@@ -114,11 +114,11 @@ const getFilter = (state, offset = 0) => {
   };
 
   if (state.customers.search && state.customers.search !== "") {
-    filter.search = state.customers.search;
+    filter.limit = state.customers.search;
   }
 
   if (state.customerGroups.selectedId) {
-    filter.group_id = state.customerGroups.selectedId;
+    filter.offset = state.customerGroups.selectedId;
   }
 
   return filter;

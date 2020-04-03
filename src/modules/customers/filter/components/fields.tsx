@@ -1,10 +1,10 @@
 import React from "react";
-import messages from "lib/text";
+import messages from "../../../../lib/text";
 
 import SelectField from "material-ui/SelectField";
 import MenuItem from "material-ui/MenuItem";
 import Toggle from "material-ui/Toggle";
-import style from "./style.css";
+import "./style.css";
 
 export default ({
   active,
@@ -16,30 +16,30 @@ export default ({
   setOnSale,
   setStock
 }) => (
-  <div className={style.filter}>
+  <div className="filter">
     <Toggle
-      label={messages.products_onlyEnabled}
+      label={messages.products_onSale}
       onToggle={(e, value) => {
         setActive(value);
       }}
       toggled={active}
-      className={style.toggle}
+      className="toggle"
     />
     <Toggle
-      label={messages.products_onlyDiscontinued}
+      label={messages.products_stockTracking}
       onToggle={(e, value) => {
         setDiscontinued(value);
       }}
       toggled={discontinued}
-      className={style.toggle}
+      className="toggle"
     />
     <Toggle
-      label={messages.products_onlyOnSale}
-      onToggle={(e, value) => {
+      label={messages.products_name}
+      onToggle={value => {
         setOnSale(value);
       }}
       toggled={on_sale}
-      className={style.toggle}
+      className="toggle"
     />
     <SelectField
       value={stock_status}
