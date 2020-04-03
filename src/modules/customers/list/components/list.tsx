@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { List } from "material-ui/List";
 import Divider from "material-ui/Divider";
 import RaisedButton from "material-ui/RaisedButton";
@@ -8,10 +8,8 @@ import CustomersListItem from "./item";
 import Head from "./head";
 import "./style.css";
 
-const CustomersList = () => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+const CustomersList = props => {
+  useEffect(() => props.onLoa());
 
   const {
     items,

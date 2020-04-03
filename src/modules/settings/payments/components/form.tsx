@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Paper from "material-ui/Paper";
 import Divider from "material-ui/Divider";
@@ -29,28 +29,21 @@ const MethodItem = ({ method }) => (
     </Link>
   </div>
 );
+const EmailSettings = props => {
+  useEffect(() => props.onLoad());
 
-export default class EmailSettings extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  const { paymentMethods } = this.props;
+  const methods = paymentMethods.map((method, index) => (
+    <MethodItem key={index} method={method} />
+  ));
 
-  componentDidMount() {
-    this.props.onLoad();
-  }
+  return (
+    <Paper className="paper-box" zDepth={1}>
+      <div style={{ width: "100%" }}>
+        <List style={{ padding: 0 }}>{methods}</List>
+      </div>
+    </Paper>
+  );
+};
 
-  render() {
-    const { paymentMethods } = this.props;
-    const methods = paymentMethods.map((method, index) => (
-      <MethodItem key={index} method={method} />
-    ));
-
-    return (
-      <Paper className="paper-box" zDepth={1}>
-        <div style={{ width: "100%" }}>
-          <List style={{ padding: 0 }}>{methods}</List>
-        </div>
-      </Paper>
-    );
-  }
-}
+export default EmailSettings;
