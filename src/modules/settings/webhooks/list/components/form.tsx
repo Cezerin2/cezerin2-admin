@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import messages from "../../../../../lib/text";
 import Paper from "material-ui/Paper";
@@ -37,10 +37,8 @@ const WebhookItem = ({ webhook }) => {
   );
 };
 
-const WebhooksList = () => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+const WebhooksList = props => {
+  useEffect(() => props.onLoad());
 
   const { webhooks } = this.props;
   const listItems = webhooks.map((webhook, index) => (

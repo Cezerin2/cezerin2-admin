@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Paper from "material-ui/Paper";
 import Divider from "material-ui/Divider";
@@ -30,23 +30,21 @@ const MethodItem = ({ method }) => (
   </div>
 );
 
-export default class EmailSettings extends React.Component {
-  componentDidMount() {
-    this.props.onLoad();
-  }
+const EmailSettings = props => {
+  useEffect(() => props.onLoad());
 
-  render() {
-    const { shippingMethods } = this.props;
-    const methods = shippingMethods.map((method, index) => (
-      <MethodItem key={index} method={method} />
-    ));
+  const { shippingMethods } = this.props;
+  const methods = shippingMethods.map((method, index) => (
+    <MethodItem key={index} method={method} />
+  ));
 
-    return (
-      <Paper className="paper-box" zDepth={1}>
-        <div style={{ width: "100%" }}>
-          <List style={{ padding: 0 }}>{methods}</List>
-        </div>
-      </Paper>
-    );
-  }
-}
+  return (
+    <Paper className="paper-box" zDepth={1}>
+      <div style={{ width: "100%" }}>
+        <List style={{ padding: 0 }}>{methods}</List>
+      </div>
+    </Paper>
+  );
+};
+
+export default EmailSettings;

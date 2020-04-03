@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
 import { TextField, RadioButtonGroup } from "redux-form-material-ui";
 
@@ -15,9 +15,7 @@ const radioButtonStyle = {
 };
 
 const CheckoutFieldForm = props => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+  useEffect(() => props.onLoad());
 
   const { handleSubmit, pristine, submitting, initialValues } = this.props;
 

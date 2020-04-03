@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import messages from "lib/text";
+import messages from "../../../../../lib/text";
 import Paper from "material-ui/Paper";
 import Divider from "material-ui/Divider";
 import FontIcon from "material-ui/FontIcon";
@@ -29,29 +29,26 @@ const TokenItem = ({ token }) => (
     </Link>
   </div>
 );
+const TokensList = props => {
+  useEffect(() => props.onLoad());
 
-export default class TokensList extends React.Component {
-  componentDidMount() {
-    this.props.onLoad();
-  }
+  const { tokens } = this.props;
+  const listItems = tokens.map((token, index) => (
+    <TokenItem key={index} token={token} />
+  ));
 
-  render() {
-    const { tokens } = this.props;
-    const listItems = tokens.map((token, index) => (
-      <TokenItem key={index} token={token} />
-    ));
-
-    return (
-      <div>
-        <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
-          {messages.settings_tokenHelp}
-        </div>
-        <Paper className="paper-box" zDepth={1}>
-          <div style={{ width: "100%" }}>
-            <List style={{ padding: 0 }}>{listItems}</List>
-          </div>
-        </Paper>
+  return (
+    <div>
+      <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
+        {messages.settings_tokenHelp}
       </div>
-    );
-  }
-}
+      <Paper className="paper-box" zDepth={1}>
+        <div style={{ width: "100%" }}>
+          <List style={{ padding: 0 }}>{listItems}</List>
+        </div>
+      </Paper>
+    </div>
+  );
+};
+
+export default TokensList;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import messages from "lib/text";
+import messages from "../../../../../lib/text";
 import Paper from "material-ui/Paper";
 import Divider from "material-ui/Divider";
 import FontIcon from "material-ui/FontIcon";
@@ -31,32 +31,25 @@ const RedirectItem = ({ redirect }) => (
   </div>
 );
 
-export default class RedirectsList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const RedirectsList = props => {
+  useEffect(() => props.onLoad());
+  const { redirects } = this.props;
+  const listItems = redirects.map((redirect, index) => (
+    <RedirectItem key={index} redirect={redirect} />
+  ));
 
-  componentDidMount() {
-    this.props.onLoad();
-  }
-
-  render() {
-    const { redirects } = this.props;
-    const listItems = redirects.map((redirect, index) => (
-      <RedirectItem key={index} redirect={redirect} />
-    ));
-
-    return (
-      <div>
-        <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
-          {messages.redirectsAbout}
-        </div>
-        <Paper className="paper-box" zDepth={1}>
-          <div style={{ width: "100%" }}>
-            <List style={{ padding: 0 }}>{listItems}</List>
-          </div>
-        </Paper>
+  return (
+    <div>
+      <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
+        {messages.redirectsAbout}
       </div>
-    );
-  }
-}
+      <Paper className="paper-box" zDepth={1}>
+        <div style={{ width: "100%" }}>
+          <List style={{ padding: 0 }}>{listItems}</List>
+        </div>
+      </Paper>
+    </div>
+  );
+};
+
+export default RedirectsList;

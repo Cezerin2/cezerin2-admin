@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { findDOMNode } from "react-dom";
 import isEqual from "lodash/isEqual";
 import clone from "lodash/clone";
@@ -73,25 +73,20 @@ const EVENTS = [
 
 const HANDLER_NAMES = EVENTS.map(event => `on${ucFirst(event)}`);
 
-export default class TinyMCE extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      config: {},
-      content: props.content
-    };
-  }
+const TinyMCE = props => {
+  const config = useState({});
+  const content = useState(props.content);
 
-  componentWillMount() {
+  function componentWillMount() {
     this.id = this.id || this.props.id || uuid();
   }
 
-  componentDidMount() {
+  useEffect(() => {
     const config = clone(this.props.config);
     this._init(config, this.props.content);
-  }
+  });
 
-  componentWillReceiveProps(nextProps) {
+  function componentWillReceiveProps(nextProps) {
     if (
       !isEqual(this.props.config, nextProps.config) ||
       !isEqual(this.props.id, nextProps.id)
@@ -101,77 +96,77 @@ export default class TinyMCE extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
+  function shouldComponentUpdate(nextProps) {
     return (
       !isEqual(this.props.config, nextProps.config) ||
       !isEqual(this.props.entityId, nextProps.entityId)
     );
   }
 
-  componentWillUnmount() {
+  function componentWillUnmount() {
     this._remove();
   }
 
-  render() {
-    return this.props.config.inline ? (
-      <div
-        id={this.id}
-        className={this.props.className}
-        dangerouslySetInnerHTML={{ __html: this.props.content }}
-      />
-    ) : (
-      <textarea
-        id={this.id}
-        className={this.props.className}
-        name={this.props.name}
-        defaultValue={this.props.content}
-      />
-    );
+  return this.props.config.inline ? (
+    <div
+      id={this.id}
+      className={this.props.className}
+      dangerouslySetInnerHTML={{ __html: this.props.content }}
+    />
+  ) : (
+    <textarea
+      id={this.id}
+      className={this.props.className}
+      name={this.props.name}
+      defaultValue={this.props.content}
+    />
+  );
+};
+
+function _init(config, content) {
+  if (this._isInit) {
+    this._remove();
   }
 
-  _init(config, content) {
-    if (this._isInit) {
-      this._remove();
-    }
+  // hide the textarea that is me so that no one sees it
+  findDOMNode(this).style.hidden = "hidden";
 
-    // hide the textarea that is me so that no one sees it
-    findDOMNode(this).style.hidden = "hidden";
+  const setupCallback = config.setup;
+  const hasSetupCallback = typeof setupCallback === "function";
 
-    const setupCallback = config.setup;
-    const hasSetupCallback = typeof setupCallback === "function";
-
-    config.selector = `#${this.id}`;
-    config.setup = editor => {
-      EVENTS.forEach((eventType, index) => {
-        editor.on(eventType, e => {
-          const handler = this.props[HANDLER_NAMES[index]];
-          if (typeof handler === "function") {
-            // native DOM events don't have access to the editor so we pass it here
-            handler(e, editor);
-          }
-        });
+  config.selector = `#${this.id}`;
+  config.setup = editor => {
+    EVENTS.forEach((eventType, index) => {
+      editor.on(eventType, e => {
+        const handler = this.props[HANDLER_NAMES[index]];
+        if (typeof handler === "function") {
+          // native DOM events don't have access to the editor so we pass it here
+          handler(e, editor);
+        }
       });
-      // need to set content here because the textarea will still have the
-      // old `this.props.content`
-      if (typeof content !== "undefined") {
-        editor.on("init", () => {
-          editor.setContent(content);
-        });
-      }
-      if (hasSetupCallback) {
-        setupCallback(editor);
-      }
-    };
+    });
+    // need to set content here because the textarea will still have the
+    // old `this.props.content`
+    if (typeof content !== "undefined") {
+      editor.on("init", () => {
+        editor.setContent(content);
+      });
+    }
+    if (hasSetupCallback) {
+      setupCallback(editor);
+    }
+  };
 
-    tinymce.init(config);
+  // function tinymce.init(config);
 
-    findDOMNode(this).style.hidden = "";
+  findDOMNode(this).style.hidden = "";
 
-    this._isInit = true;
-  }
-
-  _remove() {
-    tinymce.EditorManager.execCommand("mceRemoveEditor", true, this.id);
-    this._isInit = false;
-  }
+  this._isInit = true;
 }
+
+function _remove() {
+  // function  tinymce.EditorManager.execCommand("mceRemoveEditor", true, this.id);
+  this._isInit = false;
+}
+
+export default TinyMCE;

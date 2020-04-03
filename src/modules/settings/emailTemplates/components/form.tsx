@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Field, reduxForm } from "redux-form";
 import { TextField } from "redux-form-material-ui";
 
@@ -8,10 +8,8 @@ import Paper from "material-ui/Paper";
 import RaisedButton from "material-ui/RaisedButton";
 import "./style.css";
 
-const EmailTemplate = () => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+const EmailTemplate = props => {
+  useEffect(() => props.onLoad());
 
   const { handleSubmit, pristine, submitting } = this.props;
 

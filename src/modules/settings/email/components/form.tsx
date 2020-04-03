@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, Fragment } from "react";
 import { Link } from "react-router-dom";
 import messages from "../../../../lib/text";
 
@@ -7,9 +7,7 @@ import FontIcon from "material-ui/FontIcon";
 import { List, ListItem } from "material-ui/List";
 
 const EmailSettings = props => {
-  function componentDidMount() {
-    this.props.onLoad();
-  }
+  useEffect(() => props.onLoad());
 
   const { emailSettings } = this.props;
   const smtpHint =
@@ -18,7 +16,7 @@ const EmailSettings = props => {
       : "none";
 
   return (
-    <div>
+    <>
       <Paper className="paper-box" zDepth={1}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
@@ -147,7 +145,7 @@ const EmailSettings = props => {
           </List>
         </div>
       </Paper>
-    </div>
+    </>
   );
 };
 
