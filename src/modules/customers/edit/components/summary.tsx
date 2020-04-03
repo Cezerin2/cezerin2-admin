@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-import messages from "lib/text";
-import * as helper from "lib/helper";
+import messages from "../../../../lib/text";
+import * as helper from "../../../../lib/helper";
 
 import Paper from "material-ui/Paper";
 import Divider from "material-ui/Divider";
@@ -16,102 +16,95 @@ import MenuItem from "material-ui/MenuItem";
 import SelectField from "material-ui/SelectField";
 import Dialog from "material-ui/Dialog";
 import SummaryForm from "./summaryForm.js";
-import style from "./style.css";
+import "./style.css";
 
-class CustomerSummary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openSummaryEdit: false
-    };
-  }
+const CustomerSummary = () => {
+  openSummaryEdit: false;
 
-  showSummaryEdit = () => {
+  const showSummaryEdit = () => {
     this.setState({ openSummaryEdit: true });
   };
 
-  hideSummaryEdit = () => {
+  const hideSummaryEdit = () => {
     this.setState({ openSummaryEdit: false });
   };
 
-  saveSummaryEdit = customer => {
+  const saveSummaryEdit = customer => {
     this.props.onCustomerSummaryUpdate(customer);
     this.hideSummaryEdit();
   };
 
-  render() {
-    const { customer, settings } = this.props;
-    const totalSpent = helper.formatCurrency(customer.total_spent, settings);
+  const { customer, settings } = this.props;
+  const totalSpent = helper.formatCurrency(customer.total_spent, settings);
 
-    return (
-      <Paper className="paper-box" zDepth={1}>
-        <div className={style.innerBox}>
-          <div
-            className={style.customerName}
-            style={{ paddingBottom: 26, paddingTop: 0 }}
-          >
-            {customer.full_name}
-            <div>
-              <small>{customer.group_name}</small>
-            </div>
+  return (
+    <Paper className="paper-box" zDepth={1}>
+      <div className="innerBox">
+        <div
+          className="customerName"
+          style={{ paddingBottom: 26, paddingTop: 0 }}
+        >
+          {customer.full_name}
+          <div>
+            <small>{customer.group_name}</small>
           </div>
-
-          <div className={`${style.summaryRow} row`}>
-            <div className="col-xs-5">
-              <span>{messages.email}</span>
-            </div>
-            <div className="col-xs-7">
-              <a href={`MailTo:${customer.email}`} className={style.link}>
-                {customer.email}
-              </a>
-            </div>
-          </div>
-
-          <div className={`${style.summaryRow} row`}>
-            <div className="col-xs-5">
-              <span>{messages.mobile}</span>
-            </div>
-            <div className="col-xs-7">{customer.mobile}</div>
-          </div>
-
-          <div className={`${style.summaryRow} row`}>
-            <div className="col-xs-5">
-              <span>{messages.customers_totalSpent}</span>
-            </div>
-            <div className="col-xs-7">{totalSpent}</div>
-          </div>
-
-          <div className={`${style.summaryRow} row`}>
-            <div className="col-xs-5">
-              <span>{messages.note}</span>
-            </div>
-            <div className="col-xs-7">{customer.note}</div>
-          </div>
-
-          <div style={{ marginTop: 20 }}>
-            <RaisedButton
-              label="Edit"
-              style={{ marginRight: 15 }}
-              onClick={this.showSummaryEdit}
-            />
-          </div>
-
-          <Dialog
-            title={messages.customers_titleEdit}
-            modal={false}
-            open={this.state.openSummaryEdit}
-            onRequestClose={this.hideSummaryEdit}
-            contentStyle={{ width: 600 }}
-          >
-            <SummaryForm
-              initialValues={customer}
-              onCancel={this.hideSummaryEdit}
-              onSubmit={this.saveSummaryEdit}
-            />
-          </Dialog>
         </div>
-      </Paper>
-    );
-  }
-}
+
+        <div className="summaryRow row">
+          <div className="col-xs-5">
+            <span>{messages.email}</span>
+          </div>
+          <div className="col-xs-7">
+            <a href={`MailTo:${customer.email}`} className="link">
+              {customer.email}
+            </a>
+          </div>
+        </div>
+
+        <div className="summaryRow row">
+          <div className="col-xs-5">
+            <span>{messages.mobile}</span>
+          </div>
+          <div className="col-xs-7">{customer.mobile}</div>
+        </div>
+
+        <div className="summaryRow row">
+          <div className="col-xs-5">
+            <span>{messages.customers_totalSpent}</span>
+          </div>
+          <div className="col-xs-7">{totalSpent}</div>
+        </div>
+
+        <div className="summaryRow row">
+          <div className="col-xs-5">
+            <span>{messages.note}</span>
+          </div>
+          <div className="col-xs-7">{customer.note}</div>
+        </div>
+
+        <div style={{ marginTop: 20 }}>
+          <RaisedButton
+            label="Edit"
+            style={{ marginRight: 15 }}
+            onClick={this.showSummaryEdit}
+          />
+        </div>
+
+        <Dialog
+          title={messages.customers_titleEdit}
+          modal={false}
+          open={this.state.openSummaryEdit}
+          onRequestClose={this.hideSummaryEdit}
+          contentStyle={{ width: 600 }}
+        >
+          <SummaryForm
+            initialValues={customer}
+            onSubmit={this.saveSummaryEdit}
+          />
+        </Dialog>
+      </div>
+    </Paper>
+  );
+};
+
 export default CustomerSummary;

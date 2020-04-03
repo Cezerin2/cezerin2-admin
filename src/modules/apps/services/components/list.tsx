@@ -6,49 +6,48 @@ import RaisedButton from "material-ui/RaisedButton";
 import ServiceItem from "./serviceItem";
 import AppItem from "./appItem";
 
-class ServicesList extends React.Component {
-  componentDidMount() {
+const ServicesList = () => {
+  function componentDidMount() {
     this.props.fetchData();
   }
 
-  render() {
-    const { services, webstoreAuthorized } = this.props;
+  const { services, webstoreAuthorized } = this.props;
 
-    let serviceItems = null;
-    if (services && services.data) {
-      serviceItems = services.data.map((service, index) => (
-        <ServiceItem key={index} service={service} />
-      ));
-    }
-
-    const appItems = apps.map((app, index) => (
-      <AppItem key={index} app={app.Description} />
+  let serviceItems = null;
+  if (services && services.data) {
+    serviceItems = services.data.map((service, index) => (
+      <ServiceItem key={index} service={service} />
     ));
-
-    return (
-      <div
-        className="row row--no-gutter scroll col-full-height"
-        style={{ padding: 20, alignContent: "flex-start" }}
-      >
-        {appItems}
-        {!webstoreAuthorized && (
-          <div
-            style={{
-              width: "100%",
-              marginTop: 30,
-              color: "rgba(0, 0, 0, 0.52)"
-            }}
-          >
-            {messages.loadFromWebstore}
-            &nbsp;&nbsp;
-            <Link to="/apps/login">
-              <RaisedButton label={messages.loginTitle} />
-            </Link>
-          </div>
-        )}
-        {serviceItems}
-      </div>
-    );
   }
-}
+
+  const appItems = apps.map((app, index) => (
+    <AppItem key={index} app={app.Description} />
+  ));
+
+  return (
+    <div
+      className="row row--no-gutter scroll col-full-height"
+      style={{ padding: 20, alignContent: "flex-start" }}
+    >
+      {appItems}
+      {!webstoreAuthorized && (
+        <div
+          style={{
+            width: "100%",
+            marginTop: 30,
+            color: "rgba(0, 0, 0, 0.52)"
+          }}
+        >
+          {messages.loadFromWebstore}
+          &nbsp;&nbsp;
+          <Link to="/apps/login">
+            <RaisedButton label={messages.loginTitle} />
+          </Link>
+        </div>
+      )}
+      {serviceItems}
+    </div>
+  );
+};
+
 export default ServicesList;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import messages from "lib/text";
+import messages from "../../../../lib/text";
 import { Card, CardMedia, CardTitle } from "material-ui/Card";
 import FontIcon from "material-ui/FontIcon";
-import style from "./style.css";
+import "./style.css";
 
 const styles = {
   card: {
@@ -41,10 +41,10 @@ const Item = ({ path, coverUrl, title, developer, enabled }) => (
     <Card
       style={styles.card}
       containerStyle={styles.textContainer}
-      className={style.card}
+      className="card"
     >
       <CardMedia
-        className={style.servicesCover}
+        className="servicesCover"
         style={{ backgroundImage: `url(${coverUrl})` }}
       />
       <CardTitle
