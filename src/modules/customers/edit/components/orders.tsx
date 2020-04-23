@@ -1,145 +1,132 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import moment from 'moment'
+import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
+import moment from "moment"
 
-import api from '../../../../lib/api'
-import messages from '../../../../lib/text'
-import * as helper from '../../../../lib/helper'
+import api from "../../../../lib/api"
+import messages from "../../../../lib/text"
+import * as helper from "../../../../lib/helper"
 
-import Paper from 'material-ui/Paper'
-import Divider from 'material-ui/Divider'
-import FontIcon from 'material-ui/FontIcon'
-import { List, ListItem } from 'material-ui/List'
-import './style.sass'
+import Paper from "material-ui/Paper"
+import Divider from "material-ui/Divider"
+import FontIcon from "material-ui/FontIcon"
+import { List, ListItem } from "material-ui/List"
+import "./style.sass"
 
-const getOrderStates = (order) => {
-	const states = []
+const getOrderStates = order => {
+  const states = []
 
-	if (order.hold) {
-		states.push(
-			<span key="hold" className="holdState">
-				{messages.orders_hold}
-			</span>
-		)
-	}
+  if (order.hold) {
+    states.push(
+      <span key="hold" className="holdState">
+        {messages.orders_hold}
+      </span>
+    )
+  }
 
-	if (order.paid) {
-		states.push(
-			<span key="paid" className="paidState">
-				{messages.orders_paid}
-			</span>
-		)
-	}
+  if (order.paid) {
+    states.push(
+      <span key="paid" className="paidState">
+        {messages.orders_paid}
+      </span>
+    )
+  }
 
-	if (order.delivered) {
-		states.push(
-			<span key="delivered" className="deliveredState">
-				{messages.orders_delivered}
-			</span>
-		)
-	}
+  if (order.delivered) {
+    states.push(
+      <span key="delivered" className="deliveredState">
+        {messages.orders_delivered}
+      </span>
+    )
+  }
 
-	if (order.cancelled) {
-		return [
-			<span key="cancelled" className="cancelledState">
-				{messages.orders_cancelled}
-			</span>,
-		]
-	}
+  if (order.cancelled) {
+    return [
+      <span key="cancelled" className="cancelledState">
+        {messages.orders_cancelled}
+      </span>,
+    ]
+  }
 
-	if (order.closed) {
-		return [
-			<span key="closed" className="closedState">
-				{messages.orders_closed}
-			</span>,
-		]
-	}
+  if (order.closed) {
+    return [
+      <span key="closed" className="closedState">
+        {messages.orders_closed}
+      </span>,
+    ]
+  }
 
-	if (states.length === 0 && order.draft) {
-		states.unshift(
-			<span key="draft" className="draftState">
-				{messages.orders_draft}
-			</span>
-		)
-	}
+  if (states.length === 0 && order.draft) {
+    states.unshift(
+      <span key="draft" className="draftState">
+        {messages.orders_draft}
+      </span>
+    )
+  }
 
-	return states
+  return states
 }
 
 const CustomerOrder = ({ order, settings }) => {
-	const grandTotalFormatted = helper.formatCurrency(
-		order.grand_total,
-		settings
-	)
-	const dateCreated = moment(order.date_placed || order.date_created)
-	const dateCreatedFormated = dateCreated.format(settings.date_format)
+  const grandTotalFormatted = helper.formatCurrency(order.grand_total, settings)
+  const dateCreated = moment(order.date_placed || order.date_created)
+  const dateCreatedFormated = dateCreated.format(settings.date_format)
 
-	return (
-		<>
-			<Divider />
-			<Link to={`/order/${order.id}`} style={{ textDecoration: 'none' }}>
-				<ListItem
-					rightIcon={
-						<FontIcon className="material-icons">
-							keyboard_arrow_right
-						</FontIcon>
-					}
-					primaryText={
-						<div className="row">
-							<div className="col-xs-2">{order.number}</div>
-							<div
-								className="col-xs-3"
-								style={{ color: 'rgba(0, 0, 0, 0.4)' }}
-							>
-								{dateCreatedFormated}
-							</div>
-							<div className="col-xs-4">
-								<div className="states}>{states}</div>
-							</div>
-							<div
-								className="col-xs-3"
-								style={{ textAlign: 'right' }}
-							>
-								{grandTotalFormatted}
-							</div>
-						</div>
-					}
-				/>
-			</Link>
-		</>
-	)
+  return (
+    <>
+      <Divider />
+      <Link to={`/order/${order.id}`} style={{ textDecoration: "none" }}>
+        <ListItem
+          rightIcon={
+            <FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
+          }
+          primaryText={
+            <div className="row">
+              <div className="col-xs-2">{order.number}</div>
+              <div className="col-xs-3" style={{ color: "rgba(0, 0, 0, 0.4)" }}>
+                {dateCreatedFormated}
+              </div>
+              <div className="col-xs-4">
+                <div className="states">{states}</div>
+              </div>
+              <div className="col-xs-3" style={{ textAlign: "right" }}>
+                {grandTotalFormatted}
+              </div>
+            </div>
+          }
+        />
+      </Link>
+    </>
+  )
 }
 
-const CustomerOrders = (props) => {
-	const [oders, setOders] = useState([])
+const CustomerOrders = props => {
+  const [oders, setOders] = useState([])
 
-	useEffect(() => {
-		api.orders
-			.list({ customer_id: props.customerId })
-			.then(({  json }) => {
-				setOrders(json.data )
-			})
-	}, [])
-	const {  settings } = props
+  useEffect(() => {
+    api.orders.list({ customer_id: props.customerId }).then(({ json }) => {
+      setOrders(json.data)
+    })
+  }, [])
+  const { settings } = props
 
-	let orderItems = []
-	if (orders.length > 0) {
-		orderItems = orders.map((order, index) => (
-			<CustomerOrder key={index} order={order} settings={settings} />
-		))
-	}
+  let orderItems = []
+  if (orders.length > 0) {
+    orderItems = orders.map((order, index) => (
+      <CustomerOrder key={index} order={order} settings={settings} />
+    ))
+  }
 
-	return (
-		<Paper className="paper-box" zDepth={1}>
-			<div
-				className="blue-title"
-				style={{ paddingLeft: 16, paddingBottom: 16 }}
-			>
-				{messages.customers_orders}
-			</div>
-			<List style={{ padding: 0 }}>{orderItems}</List>
-		</Paper>
-	)
+  return (
+    <Paper className="paper-box" zDepth={1}>
+      <div
+        className="blue-title"
+        style={{ paddingLeft: 16, paddingBottom: 16 }}
+      >
+        {messages.customers_orders}
+      </div>
+      <List style={{ padding: 0 }}>{orderItems}</List>
+    </Paper>
+  )
 }
 
 export default CustomerOrders
