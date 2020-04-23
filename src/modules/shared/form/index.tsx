@@ -1,8 +1,8 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Toggle from 'material-ui/Toggle'
 import TextField from 'material-ui/TextField'
 import Checkbox from 'material-ui/Checkbox'
-import { List, ListItem } from 'material-ui/List'
+import {  ListItem } from 'material-ui/List'
 
 export const CustomToggle = ({
 	input,
@@ -26,9 +26,7 @@ export const CustomToggle = ({
 export const NumberField = ({
 	input,
 	label,
-	className = '',
 	disabled = false,
-	style,
 }) => (
 	<TextField
 		floatingLabelText={label}
@@ -36,7 +34,7 @@ export const NumberField = ({
 		disabled={disabled}
 		value={input.value}
 		type="number"
-		onChange={(event, value) => {
+		onChange={( value) => {
 			let number = parseFloat(value)
 			number = number || 0
 			input.onChange(number)
@@ -44,15 +42,14 @@ export const NumberField = ({
 	/>
 )
 
-export const ColorField = ({ input, meta: { touched, error } }) => (
+export const ColorField = ({ input }) => (
 	<input {...input} type="color" />
 )
 
 export const MultiSelect = () => {
 	
-		
 		const values = Array.isArray(props.input.value) ? props.input.value : []
-		state = {
+		const state = {
 			selectedItems: values,
 		}
 	}
@@ -68,7 +65,7 @@ export const MultiSelect = () => {
 		}
 	}
 
-	onCheckboxChecked = (item) => {
+	const onCheckboxChecked = (item) => {
 		const { selectedItems } = state
 		let newSelectedItems = []
 		if (selectedItems.includes(item)) {
@@ -81,7 +78,7 @@ export const MultiSelect = () => {
 		props.input.onChange(newSelectedItems)
 	}
 
-	isCheckboxChecked = (item) => state.selectedItems.includes(item)
+	const isCheckboxChecked = (item) => state.selectedItems.includes(item)
 
 	
 		const { items, disabled, columns = 2 } = props
@@ -112,4 +109,4 @@ export const MultiSelect = () => {
 			</List>
 		)
 	}
-}
+
