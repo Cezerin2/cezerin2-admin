@@ -1,14 +1,14 @@
-import React from 'react'
-import Item from './item'
+import React from "react"
+import Item from "./item"
 
 const ServiceItem = ({ service }) => (
-	<Item
-		path={`/apps/service/${service.id}`}
-		coverUrl={service.cover_url}
-		title={service.name}
-		developer={service.developer.name}
-		enabled={service.enabled}
-	/>
+  <Item
+    path={`/apps/service/${service.id}`}
+    coverUrl={service.cover_url}
+    title={service.name}
+    developer={service.developer.name}
+    enabled={service.enabled}
+  />
 )
 
 export default ServiceItem
