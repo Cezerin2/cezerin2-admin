@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import messages from 'lib/text'
-import api from 'lib/api'
+import messages from '../lib/text'
+import api from '../lib/api'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
