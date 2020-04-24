@@ -3,7 +3,7 @@ import { withRouter } from "react-router"
 import { deletePage } from "../actions"
 import Buttons from "./components/headButtons"
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   page: state.pages.pageEdit,
 })
 
