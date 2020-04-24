@@ -9,7 +9,7 @@ import Paper from "material-ui/Paper"
 import RaisedButton from "material-ui/RaisedButton"
 import "./style.sass"
 
-const AccountForm = ({ handleSubmit, pristine, submitting, initialValues }) => (
+const AccountForm = ({ handleSubmit, pristine, submitting }) => (
   <div style={{ maxWidth: 720, width: "100%" }}>
     <div className="gray-title" style={{ margin: "15px 0 15px 20px" }}>
       {messages.account}
