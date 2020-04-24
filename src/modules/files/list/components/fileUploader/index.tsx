@@ -6,8 +6,8 @@ import Snackbar from "material-ui/Snackbar"
 import FlatButton from "material-ui/FlatButton"
 import "./style.sass"
 
-const MultiUploader = () => {
-  onDrop = files => {
+const MultiUploader = props => {
+  const onDrop = files => {
     const form = new FormData()
     files.map(file => {
       form.append("file", file)
@@ -46,7 +46,6 @@ const MultiUploader = () => {
           </div>
         )}
       </Dropzone>
-
       <Snackbar open={uploading} message={messages.messages_uploading} />
     </>
   )
