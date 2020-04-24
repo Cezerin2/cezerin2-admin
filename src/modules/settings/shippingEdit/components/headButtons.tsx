@@ -1,61 +1,53 @@
-import React,{useState} from 'react'
-import messages from '../../../../lib/text'
-import DeleteConfirmation from '../../../../modules/shared/deleteConfirmation'
-import FontIcon from 'material-ui/FontIcon'
-import IconButton from 'material-ui/IconButton'
+import React, { useState } from "react"
+import messages from "../../../../lib/text"
+import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
+import FontIcon from "material-ui/FontIcon"
+import IconButton from "material-ui/IconButton"
 
-const Buttons = () => {
-	
-		
-		state = {
-			const[openDelete]=useState(false)
-		}
-	}
+const Buttons = props => {
+  const [openDelete, setOpenDelete] = useState(false)
 
-const	showDelete = () => {
-		set( openDelete: true })
-	}
+  const showDelete = () => {
+    setOpenDelete(true)
+  }
 
-const	closeDelete = () => {
-		setOpenDelete: false })
-	}
+  const closeDelete = () => {
+    setOpenDelete(false)
+  }
 
-const	deleteGroup = () => {
-		setOpenDelete (false)
-		props.onDelete(props.shippingMethod.id)
-	}
+  const deleteGroup = () => {
+    setOpenDelete(false)
+    props.onDelete(props.shippingMethod.id)
+  }
 
-	
-		const { shippingMethod, onDelete } = props
-		const methodName =
-			shippingMethod &&
-			shippingMethod.name &&
-			shippingMethod.name.length > 0
-				? shippingMethod.name
-				: 'Draft'
+  const { shippingMethod, onDelete } = props
+  const methodName =
+    shippingMethod && shippingMethod.name && shippingMethod.name.length > 0
+      ? shippingMethod.name
+      : "Draft"
 
-		return (
-			<span>
-				<IconButton
-					touch
-					tooltipPosition="bottom-left"
-					tooltip={messages.actions_delete}
-					onClick={showDelete}
-				>
-					<FontIcon color="#fff" className="material-icons">
-						delete
-					</FontIcon>
-				</IconButton>
-				<DeleteConfirmation
-					open={state.openDelete}
-					isSingle
-					itemsCount={1}
-					itemName={methodName}
-					onCancel={closeDelete}
-					onDelete={deleteGroup}
-				/>
-			</span>
-		)
-	}
+  return (
+    <span>
+      <IconButton
+        touch
+        tooltipPosition="bottom-left"
+        tooltip={messages.actions_delete}
+        onClick={showDelete}
+      >
+        <FontIcon color="#fff" className="material-icons">
+          delete
+        </FontIcon>
+      </IconButton>
+      <DeleteConfirmation
+        open={state.openDelete}
+        isSingle
+        itemsCount={1}
+        itemName={methodName}
+        onCancel={closeDelete}
+        onDelete={deleteGroup}
+      />
+    </span>
+  )
+}
 
 export default Buttons
