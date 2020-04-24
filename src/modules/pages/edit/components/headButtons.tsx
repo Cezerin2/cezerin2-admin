@@ -1,80 +1,69 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import messages from 'lib/text'
-import DeleteConfirmation from 'modules/shared/deleteConfirmation'
-import FontIcon from 'material-ui/FontIcon'
-import IconButton from 'material-ui/IconButton'
-import FlatButton from 'material-ui/FlatButton'
-const { Fragment } = React
+import React, { useState } from "react"
+import messages from "../../../../lib/text"
+import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
+import FontIcon from "material-ui/FontIcon"
+import IconButton from "material-ui/IconButton"
 
-export default const Buttons = () => {
-	
-		
-		state = {
-			openDelete: false,
-		}
-	}
+const Buttons = props => {
+  const [openDelete, setOpenDelete] = useState(false)
 
-	openDelete = () => {
-		set( openDelete: true })
-	}
+  const openDeletes = () => {
+    setOpenDelete(true)
+  }
 
-	closeDelete = () => {
-		set( openDelete: false })
-	}
+  const closeDelete = () => {
+    setOpenDelete(false)
+  }
 
-	deletePage = () => {
-		set( openDelete: false })
-		props.onDelete(props.page.id)
-	}
+  const deletePage = () => {
+    setOpenDelete(false)
+    props.onDelete(props.page.id)
+  }
 
-	
-		const { page } = props
-		const pageName =
-			page && page.meta_title && page.meta_title.length > 0
-				? page.meta_title
-				: 'Draft'
+  const { page } = props
+  const pageName =
+    page && page.meta_title && page.meta_title.length > 0
+      ? page.meta_title
+      : "Draft"
 
-		if (page && !page.is_system) {
-			return (
-				<Fragment>
-					<IconButton
-						touch
-						tooltipPosition="bottom-left"
-						tooltip={messages.actions_delete}
-						onClick={openDelete}
-					>
-						<FontIcon color="#fff" className="material-icons">
-							delete
-						</FontIcon>
-					</IconButton>
-					{page.enabled && (
-						<a href={page.url} target="_blank">
-							<IconButton
-								touch
-								tooltipPosition="bottom-left"
-								tooltip={messages.viewOnWebsite}
-							>
-								<FontIcon
-									color="#fff"
-									className="material-icons"
-								>
-									open_in_new
-								</FontIcon>
-							</IconButton>
-						</a>
-					)}
-					<DeleteConfirmation
-						open={state.openDelete}
-						isSingle
-						itemsCount={1}
-						itemName={pageName}
-						onCancel={closeDelete}
-						onDelete={deletePage}
-					/>
-				</Fragment>
-			)
-		}
-		return null
-	}
+  if (page && !page.is_system) {
+    return (
+      <>
+        <IconButton
+          touch
+          tooltipPosition="bottom-left"
+          tooltip={messages.actions_delete}
+          onClick={openDeletes}
+        >
+          <FontIcon color="#fff" className="material-icons">
+            delete
+          </FontIcon>
+        </IconButton>
+        {page.enabled && (
+          <a href={page.url} target="_blank">
+            <IconButton
+              touch
+              tooltipPosition="bottom-left"
+              tooltip={messages.viewOnWebsite}
+            >
+              <FontIcon color="#fff" className="material-icons">
+                open_in_new
+              </FontIcon>
+            </IconButton>
+          </a>
+        )}
+        <DeleteConfirmation
+          open={openDelete}
+          isSingle
+          itemsCount={1}
+          itemName={pageName}
+          onCancel={closeDelete}
+          onDelete={deletePage}
+        />
+      </>
+    )
+  }
+  return null
 }
+
+export default Buttons

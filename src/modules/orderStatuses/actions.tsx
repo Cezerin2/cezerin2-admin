@@ -1,5 +1,5 @@
-import api from "lib/api"
-import messages from "lib/text"
+import api from "../../lib/api"
+import messages from "../../lib/text"
 import * as t from "./actionTypes"
 
 function requestStatuses() {
@@ -35,7 +35,7 @@ export function deselectStatus() {
   }
 }
 
-function requestUpdateStatus(id) {
+function requestUpdateStatus() {
   return {
     type: t.STATUS_UPDATE_REQUEST,
   }
@@ -54,13 +54,13 @@ function errorUpdateStatus(error) {
   }
 }
 
-function successCreateStatus(id) {
+function successCreateStatus() {
   return {
     type: t.STATUS_CREATE_SUCCESS,
   }
 }
 
-function successDeleteStatus(id) {
+function successDeleteStatus() {
   return {
     type: t.STATUS_DELETE_SUCCESS,
   }
@@ -71,10 +71,10 @@ function fetchStatuses() {
     dispatch(requestStatuses())
     return api.orderStatuses
       .list()
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         json = json.sort((a, b) => a.position - b.position)
 
-        json.forEach((element, index, theArray) => {
+        json.forEach((index, theArray) => {
           if (theArray[index].name === "") {
             theArray[index].name = `<${messages.draft}>`
           }
@@ -105,11 +105,11 @@ export function fetchStatusesIfNeeded() {
 }
 
 export function updateStatus(data) {
-  return (dispatch, getState) => {
+  return dispatch => {
     dispatch(requestUpdateStatus(data.id))
     return api.orderStatuses
       .update(data.id, data)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(receiveUpdateStatus())
         dispatch(fetchStatuses())
       })
@@ -120,10 +120,10 @@ export function updateStatus(data) {
 }
 
 export function createStatus(data) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.orderStatuses
       .create(data)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         dispatch(successCreateStatus(json.id))
         dispatch(fetchStatuses())
         dispatch(selectStatus(json.id))
@@ -135,10 +135,10 @@ export function createStatus(data) {
 }
 
 export function deleteStatus(id) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.orderStatuses
       .delete(id)
-      .then(({ status, json }) => {
+      .then(({ status }) => {
         if (status === 200) {
           dispatch(successDeleteStatus(id))
           dispatch(deselectStatus())
