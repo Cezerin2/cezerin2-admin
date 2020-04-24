@@ -1,4 +1,5 @@
 import messages from "./text"
+import { url } from "inspector"
 
 const LOGIN_PATH = "/apps/login"
 const HOME_PATH = "/apps"
@@ -23,7 +24,7 @@ export const validateCurrentToken = () => {
 
 export const checkTokenFromUrl = () => {
   if (location.pathname === LOGIN_PATH) {
-    const token = getParameterByName("webstoretoken")
+    const token = getParameterByName("webstoretoken", url)
     if (token && token !== "") {
       const tokenData = parseJWT(token)
 
@@ -69,6 +70,6 @@ export const isCurrentTokenValid = () => {
   return (
     localStorage.getItem("webstore_token") &&
     expiration_date &&
-    expiration_date > Date.now()
+    parseInt(expiration_date) > Date.now()
   )
 }

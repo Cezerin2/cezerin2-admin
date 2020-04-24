@@ -3,8 +3,10 @@ import messages from "./text"
 const LOGIN_PATH = "/login"
 const HOME_PATH = "/"
 
+const winLoc = window.location
+
 const getParameterByName = (name, url) => {
-  if (!url) url = window.location.href
+  if (!url) url = winLoc.href
   name = name.replace(/[\[\]]/g, "\\$&")
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)
   const results = regex.exec(url)
@@ -14,16 +16,16 @@ const getParameterByName = (name, url) => {
 }
 
 export const validateCurrentToken = () => {
-  if (location.pathname !== LOGIN_PATH) {
+  if (winLoc.pathname !== LOGIN_PATH) {
     if (!isCurrentTokenValid()) {
-      location.replace(LOGIN_PATH)
+      winLoc.replace(LOGIN_PATH)
     }
   }
 }
 
-export const checkTokenFromUrl = () => {
-  if (location.pathname === LOGIN_PATH) {
-    const token = getParameterByName("token")
+export const checkTokenFromUrl = url => {
+  if (winLoc.pathname === LOGIN_PATH) {
+    const token = getParameterByName("token", url)
     if (token && token !== "") {
       const tokenData = parseJWT(token)
 
@@ -35,7 +37,7 @@ export const checkTokenFromUrl = () => {
             email: tokenData.email,
             expiration_date,
           })
-          location.replace(HOME_PATH)
+          winLoc.replace(HOME_PATH)
         } else {
           alert(messages.tokenExpired)
         }
@@ -43,7 +45,7 @@ export const checkTokenFromUrl = () => {
         alert(messages.tokenInvalid)
       }
     } else if (isCurrentTokenValid()) {
-      location.replace(HOME_PATH)
+      winLoc.replace(HOME_PATH)
     }
   }
 }
@@ -69,7 +71,7 @@ const isCurrentTokenValid = () => {
   return (
     localStorage.getItem("dashboard_token") &&
     expiration_date &&
-    expiration_date > Date.now()
+    parseInt(expiration_date) > Date.now()
   )
 }
 
@@ -80,5 +82,5 @@ export const removeToken = () => {
   localStorage.removeItem("webstore_token")
   localStorage.removeItem("webstore_email")
   localStorage.removeItem("webstore_exp")
-  location.replace(LOGIN_PATH)
+  window.location.replace(LOGIN_PATH)
 }

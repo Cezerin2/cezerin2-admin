@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
 
-import messages from "lib/text"
 import Paper from "material-ui/Paper"
 import "./style.sass"
 
@@ -10,9 +9,7 @@ import OrderItems from "./items"
 import OrderCustomer from "./customer"
 
 const OrderDetails = props => {
-  useEffect(() => {
-    props.fetchData()
-  }, [])
+  useEffect(() => props.fetchData(), [])
   useEffect(() => {
     return () => props.clearData()
   }, [])
