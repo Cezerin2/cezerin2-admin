@@ -17,7 +17,7 @@ const radioButtonStyle = {
 const CheckoutFieldForm = props => {
   useEffect(() => props.onLoad(), [])
 
-  const { handleSubmit, pristine, submitting, initialValues } = props
+  const { handleSubmit, pristine, submitting } = props
 
   return (
     <form
