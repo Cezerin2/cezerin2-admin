@@ -1,10 +1,9 @@
 import React from "react"
-import { Link } from "react-router-dom"
-import { Field, FieldArray, reduxForm } from "redux-form"
-import { TextField, SelectField } from "redux-form-material-ui"
+import { Field } from "redux-form"
+import { TextField } from "redux-form-material-ui"
 
-import { CustomToggle } from "modules/shared/form"
-import messages from "lib/text"
+import { CustomToggle } from "../../../../modules/shared/form"
+import messages from "../../../../lib/text"
 
 import Paper from "material-ui/Paper"
 import RaisedButton from "material-ui/RaisedButton"
@@ -14,8 +13,8 @@ import IconButton from "material-ui/IconButton"
 import MenuItem from "material-ui/MenuItem"
 import "./style.sass"
 
-const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
-  <div>
+const FieldsEditor = ({ fields }) => (
+  <>
     {fields.map((field, index) => {
       const fieldKey = `${field}.key`
       const fieldLabel = `${field}.label`
@@ -104,7 +103,7 @@ const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
     <div style={{ margin: "20px 0px" }}>
       <RaisedButton label={messages.add} onClick={() => fields.push({})} />
     </div>
-  </div>
+  </>
 )
 
 export default FieldsEditor

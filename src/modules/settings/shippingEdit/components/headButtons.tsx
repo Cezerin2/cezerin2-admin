@@ -1,27 +1,27 @@
-import React from 'react'
-import messages from 'lib/text'
-import DeleteConfirmation from 'modules/shared/deleteConfirmation'
+import React,{useState} from 'react'
+import messages from '../../../../lib/text'
+import DeleteConfirmation from '../../../../modules/shared/deleteConfirmation'
 import FontIcon from 'material-ui/FontIcon'
 import IconButton from 'material-ui/IconButton'
 
-export default const Buttons = () => {
+const Buttons = () => {
 	
 		
 		state = {
-			openDelete: false,
+			const[openDelete]=useState(false)
 		}
 	}
 
-	showDelete = () => {
+const	showDelete = () => {
 		set( openDelete: true })
 	}
 
-	closeDelete = () => {
-		set( openDelete: false })
+const	closeDelete = () => {
+		setOpenDelete: false })
 	}
 
-	deleteGroup = () => {
-		set( openDelete: false })
+const	deleteGroup = () => {
+		setOpenDelete (false)
 		props.onDelete(props.shippingMethod.id)
 	}
 
@@ -57,4 +57,5 @@ export default const Buttons = () => {
 			</span>
 		)
 	}
-}
+
+export default Buttons

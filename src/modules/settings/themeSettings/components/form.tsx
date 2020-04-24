@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { reduxForm } from "redux-form"
 
-import messages from "lib/text"
+import messages from "../../../../lib/text"
 import sortBy from "lodash/sortBy"
 
 import Paper from "material-ui/Paper"
