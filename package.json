@@ -73,7 +73,7 @@
     "handlebars": "^4.7.6",
     "husky": "^4.2.3",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "@types/lodash": "^4.14.150",
     "lru-cache": "^5.1.1",
     "material-ui": "^0.20.2",
     "moment": "^2.24.0",
