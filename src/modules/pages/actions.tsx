@@ -1,5 +1,4 @@
-import api from "lib/api"
-import messages from "lib/text"
+import api from "../../lib/api"
 import * as t from "./actionTypes"
 
 function receivePages(pages) {
@@ -17,51 +16,51 @@ export function receivePage(pageEdit) {
 }
 
 export function fetchPages() {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.pages
       .list()
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         dispatch(receivePages(json))
       })
-      .catch(error => {})
+      .catch(error => console.error(error))
 }
 
 export function fetchPage(id) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.pages
       .retrieve(id)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         dispatch(receivePage(json))
       })
-      .catch(error => {})
+      .catch(error => console.error(error))
 }
 
 export function createPage(page) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.pages
       .create(page)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(fetchPages())
       })
-      .catch(error => {})
+      .catch(error => console.error(error))
 }
 
 export function updatePage(page) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.pages
       .update(page.id, page)
-      .then(({ status, json }) => {
+      .then(({ json }) => {
         dispatch(receivePage(json))
       })
-      .catch(error => {})
+      .catch(error => console.error(error))
 }
 
 export function deletePage(pageId) {
-  return (dispatch, getState) =>
+  return dispatch =>
     api.pages
       .delete(pageId)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(fetchPages())
       })
-      .catch(error => {})
+      .catch(error => console.error(error))
 }
