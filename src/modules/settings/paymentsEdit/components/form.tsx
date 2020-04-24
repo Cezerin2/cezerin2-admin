@@ -27,18 +27,18 @@ const validate = (values) => {
 	return errors
 }
 
-const EditPaymentMethodForm = () => {
+const EditPaymentMethodForm = (props) => {
 	const[gateway,setGateway]=useState(null)
 
-	useEffect(() => (props.onLoad()),[])
+	useEffect(() => props.onLoad(),[])
 
-	useEffect([prop.count](nextProps) {
+	useEffect((nextProps) =>{
 		if (nextProps.initialValues !== props.initialValues) {
 			setGateway(nextProps.initialValues.gateway)
-		}
+		},[props.nextProps]
 	}
 
-	onGatewayChange = (gateway) => 	setGateway(gateway)
+const	onGatewayChange = (gateway) => 	setGateway(gateway)
 
 		const {
 			handleSubmit,
@@ -67,7 +67,7 @@ const EditPaymentMethodForm = () => {
 		return (
 			<form onSubmit={handleSubmit}>
 				<Paper className="paper-box" zDepth={1}>
-					<div className="innerBox}>
+					<div className="innerBox">
 						<div className="row">
 							<div className="col-xs-12 col-sm-4">
 								<div className="blue-title">
