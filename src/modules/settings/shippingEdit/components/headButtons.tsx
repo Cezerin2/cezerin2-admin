@@ -20,7 +20,7 @@ const Buttons = props => {
     props.onDelete(props.shippingMethod.id)
   }
 
-  const { shippingMethod, onDelete } = props
+  const { shippingMethod } = props
   const methodName =
     shippingMethod && shippingMethod.name && shippingMethod.name.length > 0
       ? shippingMethod.name
@@ -39,7 +39,7 @@ const Buttons = props => {
         </FontIcon>
       </IconButton>
       <DeleteConfirmation
-        open={state.openDelete}
+        open={openDelete}
         isSingle
         itemsCount={1}
         itemName={methodName}
