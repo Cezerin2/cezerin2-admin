@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 import messages from "../../../../lib/text"
 
@@ -8,9 +8,8 @@ import { List, ListItem } from "material-ui/List"
 
 const ImportSettings = props => {
   useEffect(() => props.onLoad(), [])
-  const { importSettings } = props
   return (
-    <div>
+    <>
       <Paper className="paper-box" zDepth={1}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
@@ -36,7 +35,7 @@ const ImportSettings = props => {
           </List>
         </div>
       </Paper>
-    </div>
+    </>
   )
 }
 
