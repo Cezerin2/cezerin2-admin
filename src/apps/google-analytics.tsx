@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import messages from 'lib/text'
-import api from 'lib/api'
+import messages from './../lib/text'
+import api from './../lib/api'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -34,16 +34,12 @@ const GTAG_CODE = `<!-- Global site tag (gtag.js) - Google Analytics -->
 </script>`
 
 export const App = () => {
-		state = {
-			trackingId: '',
-		}
+		const	[trackingId,setTrackingID]=useState('')
 	handleTrackingIdChange = (event) => {
-		set(
-			trackingId: event.target.value,
-		})
+		setTrackingId(event.target.value)
 	}
 
-	fetchSettings = () => {
+	const fetchSettings = () => {
 		api.apps.settings
 			.retrieve('google-analytics')
 			.then(({ status, json }) => {
