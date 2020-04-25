@@ -1,13 +1,13 @@
 import React from "react"
 import Dropzone from "react-dropzone"
-import messages from "lib/text"
+import messages from "../../../lib/text"
 
 import Snackbar from "material-ui/Snackbar"
 import RaisedButton from "material-ui/RaisedButton"
 import "./style.sass"
 
 const MultiUploader = props => {
-  onDrop = files => {
+  const onDrop = files => {
     const form = new FormData()
     files.map(file => {
       form.append("file", file)
