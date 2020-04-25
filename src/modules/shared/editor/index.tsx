@@ -1,49 +1,43 @@
-import React from 'react'
-import settings from 'lib/settings'
-import TinyMCE from '../tinymce'
+import React, { useState, useEffect } from "react"
+import settings from "../../../lib/settings"
 
 const config = {
-	inline: true,
-	plugins: [
-		'autolink lists link image charmap preview anchor',
-		'searchreplace visualblocks code fullscreen',
-		'media table paste code textcolor directionality',
-	],
-	toolbar1:
-		'image media | styleselect | bold italic bullist numlist link alignleft aligncenter alignright alignjustify',
-	toolbar2:
-		'undo redo | forecolor paste removeformat table | outdent indent | preview code',
+  inline: true,
+  plugins: [
+    "autolink lists link image charmap preview anchor",
+    "searchreplace visualblocks code fullscreen",
+    "media table paste code textcolor directionality",
+  ],
+  toolbar1:
+    "image media | styleselect | bold italic bullist numlist link alignleft aligncenter alignright alignjustify",
+  toolbar2:
+    "undo redo | forecolor paste removeformat table | outdent indent | preview code",
 }
 
-export default const Editor = () => {
-	
-		
-		state = {
-			value: props.input.value,
-		}
-	}
+const Editor = props => {
+  const [value, setValue] = useState(props.input.value)
 
-	useEffect([prop.count](nextProps) {
-		if (state.value !== nextProps.input.value) {
-			set(
-				value: nextProps.input.value,
-			})
-		}
-	}
+  useEffect(
+    nextProps => {
+      if (value !== nextProps.input.value) {
+        setValue(nextProps.input.value)
+      }
+    },
+    [props.count]
+  )
 
-	shouldComponentUpdate(nextProps, nextState) {
-		return state.value !== nextState.value
-	}
+  function shouldComponentUpdate(nextProps, nextState) {
+    return value !== nextState.value
+  }
 
-	onChange = (e) => {
-		const content = e.target.getContent()
-		set( value: content })
-		props.input.onChange(content)
-	}
+  const onChange = e => {
+    const content = e.target.getContent()
+    setValue(content)
+    props.input.onChange(content)
+  }
 
-	
-		return (
-			<TinyMCE
+  return {
+    /*<TinyMCE
 				entityId={props.entityId}
 				content={state.value}
 				config={{
@@ -59,7 +53,8 @@ export default const Editor = () => {
 					menubar: false,
 				}}
 				onChange={onChange}
-			/>
-		)
-	}
+			/>*/
+  }
 }
+
+export default Editor
