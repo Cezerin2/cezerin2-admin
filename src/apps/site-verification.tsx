@@ -23,7 +23,7 @@ const BING_EXAMPLE = '<meta name="msvalidate.01" content="1234" />'
 const PINTEREST_EXAMPLE = '<meta name="p:domain_verify" content="1234" />'
 const YANDEX_EXAMPLE = '<meta name="yandex-verification" content="1234" />'
 
-export const SiteVerification = props => {
+export const SiteVerification = () => {
   const [google, setGoogle] = useState("")
   const [bing, setBing] = useState("")
   const [pinterest, setPinterest] = useState("")
