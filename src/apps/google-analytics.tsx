@@ -1,6 +1,6 @@
-import RaisedButton from "material-ui/RaisedButton"
-import TextField from "material-ui/TextField"
-import React from "react"
+import Button from "@material-ui/core/Button"
+import TextField from "@material-ui/core/TextField"
+import React, { useEffect, useState } from "react"
 import api from "../lib/api"
 import messages from "../lib/text"
 
@@ -33,27 +33,20 @@ const GTAG_CODE = `<!-- Global site tag (gtag.js) - Google Analytics -->
   gtag('config', 'GA_TRACKING_ID');
 </script>`
 
-export class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      trackingId: "",
-    }
+export const App = () => {
+  const [trackingID, setTrackingID] = useState("")
+
+  const handleTrackingIdChange = event => {
+    setTrackingID(event.target.value)
   }
 
-  handleTrackingIdChange = event => {
-    this.setState({
-      trackingId: event.target.value,
-    })
-  }
-
-  fetchSettings = () => {
+  const fetchSettings = () => {
     api.apps.settings
       .retrieve("google-analytics")
       .then(({ status, json }) => {
         const appSettings = json
         if (appSettings) {
-          this.setState({ trackingId: appSettings.GA_TRACKING_ID })
+          setTrackingID(appSettings.GA_TRACKING_ID)
         }
       })
       .catch(error => {
@@ -61,15 +54,14 @@ export class App extends React.Component {
       })
   }
 
-  updateSettings = () => {
-    const { trackingId } = this.state
+  const updateSettings = () => {
     const gtag =
-      trackingId && trackingId.length > 0
-        ? GTAG_CODE.replace(/GA_TRACKING_ID/g, trackingId)
+      trackingID && trackingID.length > 0
+        ? GTAG_CODE.replace(/GA_TRACKING_ID/g, trackingID)
         : ""
 
     api.apps.settings.update("google-analytics", {
-      GA_TRACKING_ID: trackingId,
+      GA_TRACKING_ID: trackingID,
     })
     api.theme.placeholders.update("google-analytics", {
       place: "head_start",
@@ -77,35 +69,30 @@ export class App extends React.Component {
     })
   }
 
-  componentDidMount() {
-    this.fetchSettings()
-  }
+  useEffect(() => {
+    fetchSettings()
+  }, [])
 
-  render() {
-    return (
+  return (
+    <>
       <>
-        <>
-          Enter your Google Analytics Tracking ID to track page views and other
-          events.
-        </>
-
-        <TextField
-          type="text"
-          value={this.state.trackingId}
-          onChange={this.handleTrackingIdChange}
-          floatingLabelText="Tracking ID"
-          hintText="UA-XXXXXXXX-X"
-        />
-
-        <div style={{ textAlign: "right" }}>
-          <RaisedButton
-            label={messages.save}
-            primary
-            disabled={false}
-            onClick={this.updateSettings}
-          />
-        </div>
+        Enter your Google Analytics Tracking ID to track page views and other
+        events.
       </>
-    )
-  }
+
+      <TextField
+        type="text"
+        value={trackingID}
+        onChange={handleTrackingIdChange}
+        floatingLabelText="Tracking ID"
+        hintText="UA-XXXXXXXX-X"
+      />
+
+      <div style={{ textAlign: "right" }}>
+        <Button color="primary" onClick={updateSettings}>
+          {messages.save}
+        </Button>
+      </div>
+    </>
+  )
 }
