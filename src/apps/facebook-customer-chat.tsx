@@ -1,6 +1,6 @@
 import RaisedButton from "material-ui/RaisedButton"
 import TextField from "material-ui/TextField"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import api from "../lib/api"
 import messages from "../lib/text"
 
@@ -22,52 +22,44 @@ export const Description = {
 
 const CHAT_CODE = `<div class="fb-customerchat" page_id="PAGE_ID" minimized="IS_MINIMIZED"></div>`
 
-export class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      pageId: "",
-      minimized: "false",
+export const App = () => {
+  const [pageID, setPageID] = useState("")
+  const [minimized, setMinimized] = useState("false")
+
+  const handlePageIdChange = event => {
+    setPageID(event.target.value)
+  }
+
+  const handleMinimizedChange = event => {
+    setMinimized(event.target.value)
+  }
+
+  const fetchSettings = () => {
+    api.apps.settings.retrieve("facebook-customer-chat")
+    try {
+      ;({ json }) => {
+        const appSettings = json
+        if (appSettings) {
+          setPageID(appSettings.pageId)
+          setMinimized(appSettings.minimized)
+        }
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 
-  handlePageIdChange = event => {
-    this.setState({ pageId: event.target.value })
-  }
-
-  handleMinimizedChange = event => {
-    this.setState({ minimized: event.target.value })
-  }
-
-  fetchSettings = () => {
-    api.apps.settings
-      .retrieve("facebook-customer-chat")
-      .then(({ status, json }) => {
-        const appSettings = json
-        if (appSettings) {
-          this.setState({
-            pageId: appSettings.pageId,
-            minimized: appSettings.minimized,
-          })
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
-  updateSettings = () => {
-    const { pageId, minimized } = this.state
+  const updateSettings = () => {
     const htmlCode =
-      pageId && pageId.length > 0
-        ? CHAT_CODE.replace(/PAGE_ID/g, pageId).replace(
+      pageID && pageID.length > 0
+        ? CHAT_CODE.replace(/PAGE_ID/g, pageID).replace(
             /IS_MINIMIZED/g,
             minimized
           )
         : ""
 
     api.apps.settings.update("facebook-customer-chat", {
-      pageId,
+      pageID,
       minimized,
     })
     api.theme.placeholders.update("facebook-customer-chat", {
@@ -76,39 +68,37 @@ export class App extends React.Component {
     })
   }
 
-  componentDidMount() {
-    this.fetchSettings()
-  }
+  useEffect(() => {
+    fetchSettings()
+  }, [])
 
-  render() {
-    return (
-      <>
-        <TextField
-          type="text"
-          fullWidth
-          value={this.state.pageId}
-          onChange={this.handlePageIdChange}
-          floatingLabelText="Page ID"
+  return (
+    <>
+      <TextField
+        type="text"
+        fullWidth
+        value={pageID}
+        onChange={handlePageIdChange}
+        floatingLabelText="Page ID"
+      />
+
+      <TextField
+        type="text"
+        fullWidth
+        value={minimized}
+        onChange={handleMinimizedChange}
+        floatingLabelText="minimized"
+        hintText="false"
+      />
+
+      <div style={{ textAlign: "right" }}>
+        <RaisedButton
+          label={messages.save}
+          primary
+          disabled={false}
+          onClick={updateSettings}
         />
-
-        <TextField
-          type="text"
-          fullWidth
-          value={this.state.minimized}
-          onChange={this.handleMinimizedChange}
-          floatingLabelText="minimized"
-          hintText="false"
-        />
-
-        <div style={{ textAlign: "right" }}>
-          <RaisedButton
-            label={messages.save}
-            primary
-            disabled={false}
-            onClick={this.updateSettings}
-          />
-        </div>
-      </>
-    )
-  }
+      </div>
+    </>
+  )
 }
