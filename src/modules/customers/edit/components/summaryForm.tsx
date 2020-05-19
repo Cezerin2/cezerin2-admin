@@ -1,5 +1,5 @@
+import MenuItem from "@material-ui/core/MenuItem"
 import FlatButton from "material-ui/FlatButton"
-import MenuItem from "material-ui/MenuItem"
 import React, { useEffect, useState } from "react"
 import { Field, reduxForm } from "redux-form"
 import { SelectField, TextField } from "redux-form-material-ui"
