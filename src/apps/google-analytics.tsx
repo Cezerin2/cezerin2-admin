@@ -33,7 +33,7 @@ const GTAG_CODE = `<!-- Global site tag (gtag.js) - Google Analytics -->
   gtag('config', 'GA_TRACKING_ID');
 </script>`
 
-export const App = () => {
+export const GAnalytics = () => {
   const [trackingID, setTrackingID] = useState("")
 
   const handleTrackingIdChange = event => {
