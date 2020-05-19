@@ -42,7 +42,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/pickers": "^3.2.10",
     "body-parser": "^1.19.0",
-    "cezerin2-client": "^0.36.0",
+    "cezerin2-client": "^0.37.0",
     "chart.js": "^2.9.3",
     "esm": "^3.2.25",
     "handlebars": "^4.7.6",
