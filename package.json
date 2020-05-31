@@ -79,7 +79,7 @@
     "ws": "^7.2.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
+    "@babel/cli": "^7.10.1",
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-modules-commonjs": "^7.9.0",
     "@babel/polyfill": "^7.8.7",
