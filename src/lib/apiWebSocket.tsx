@@ -74,7 +74,7 @@ const onClose = (event: { code: number }) => {
 
 const showNotification = (
   title: string,
-  body: string,
+  body: {},
   requireInteraction = false
 ) => {
   const msg = new Notification(title, {
