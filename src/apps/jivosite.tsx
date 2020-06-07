@@ -14,7 +14,9 @@ export const Description = {
 export const App = () => {
   const [code, setCode] = useState("")
 
-  const handleChange = event => {
+  const handleChange = (event: {
+    target: { value: React.SetStateAction<string> }
+  }) => {
     setCode(event.target.value)
   }
 
@@ -27,7 +29,7 @@ export const App = () => {
           setCode(appSettings.code)
         }
       })
-      .catch(error => {
+      .catch((error: any) => {
         console.log(error)
       })
   }

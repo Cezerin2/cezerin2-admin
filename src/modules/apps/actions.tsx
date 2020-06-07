@@ -1,17 +1,17 @@
 import api from "../../lib/api"
 import * as t from "./actionTypes"
 
-const receiveAccount = account => ({
+const receiveAccount = (account: any) => ({
   type: t.ACCOUNT_RECEIVE,
   account,
 })
 
-const receiveServices = services => ({
+const receiveServices = (services: any) => ({
   type: t.SERVICES_RECEIVE,
   services,
 })
 
-const receiveService = service => ({
+const receiveService = (service: any) => ({
   type: t.SERVICE_RECEIVE,
   service,
 })
@@ -28,38 +28,53 @@ const requestServiceSettings = () => ({
   type: t.SERVICE_SETTINGS_REQUEST,
 })
 
-const receiveServiceSettings = serviceSettings => ({
+const receiveServiceSettings = (serviceSettings: any) => ({
   type: t.SERVICE_SETTINGS_RECEIVE,
   serviceSettings,
 })
 
-const receiveServiceLogs = serviceLogs => ({
+const receiveServiceLogs = (serviceLogs: any) => ({
   type: t.SERVICE_LOGS_RECEIVE,
   serviceLogs,
 })
 
-export const fetchAccount = () => (dispatch, getState) =>
-  api.webstore.account.retrieve().then(({ status, json }) => {
+export const fetchAccount = () => (
+  dispatch: (arg0: { type: string; account: any }) => void
+) =>
+  api.webstore.account.retrieve().then(({ json }) => {
     dispatch(receiveAccount(json))
   })
 
-export const updateAccount = account => (dispatch, getState) =>
-  api.webstore.account.update(account).then(({ status, json }) => {
+export const updateAccount = (account: any) => (
+  dispatch: (arg0: { type: string; account: any }) => void
+) =>
+  api.webstore.account.update(account).then(({ json }) => {
     dispatch(receiveAccount(json))
   })
 
-export const updateDeveloperAccount = account => (dispatch, getState) =>
-  api.webstore.account.updateDeveloper(account).then(({ status, json }) => {
+export const updateDeveloperAccount = (account: any) => (
+  dispatch: (arg0: { type: string; account: any }) => void
+) =>
+  api.webstore.account.updateDeveloper(account).then(({ json }) => {
     dispatch(receiveAccount(json))
   })
 
-export const fetchServices = () => (dispatch, getState) =>
-  api.webstore.services.list().then(({ status, json }) => {
+export const fetchServices = () => (
+  dispatch: (arg0: { type: string; services: any }) => void
+) =>
+  api.webstore.services.list().then(({ json }) => {
     dispatch(receiveServices(json))
   })
 
-export const fetchService = serviceId => (dispatch, getState) =>
-  api.webstore.services.retrieve(serviceId).then(({ status, json }) => {
+export const fetchService = (serviceId: any) => (
+  dispatch: (arg0: {
+    (dispatch: any, getState: any): any
+    (dispatch: any, getState: any): any
+    type?: string
+    service?: any
+  }) => void
+) =>
+  api.webstore.services.retrieve(serviceId).then(({ json }) => {
     const service = json
     dispatch(receiveService(service))
     if (service.enabled) {
@@ -68,48 +83,61 @@ export const fetchService = serviceId => (dispatch, getState) =>
     }
   })
 
-export const enableService = serviceId => (dispatch, getState) => {
+export const enableService = (serviceId: any) => (
+  dispatch: (arg0: {
+    (dispatch: any, getState: any): any
+    type?: string
+  }) => void
+) => {
   dispatch(requestEnableDisableService())
-  return api.webstore.services.enable(serviceId).then(({ status, json }) => {
+  return api.webstore.services.enable(serviceId).then(() => {
     dispatch(receiveEnableDisableService())
     dispatch(fetchService(serviceId))
   })
 }
 
-export const disableService = serviceId => (dispatch, getState) => {
+export const disableService = (serviceId: any) => (
+  dispatch: (arg0: {
+    (dispatch: any, getState: any): any
+    type?: string
+  }) => void
+) => {
   dispatch(requestEnableDisableService())
-  return api.webstore.services.disable(serviceId).then(({ status, json }) => {
+  return api.webstore.services.disable(serviceId).then(() => {
     dispatch(receiveEnableDisableService())
     dispatch(fetchService(serviceId))
   })
 }
 
-export const fetchServiceSettings = serviceId => (dispatch, getState) => {
+export const fetchServiceSettings = (serviceId: any) => (
+  dispatch: (arg0: { type: string; serviceSettings?: any }) => void
+) => {
   dispatch(requestServiceSettings())
   return api.webstore.services.settings
     .retrieve(serviceId)
-    .then(({ status, json }) => {
+    .then(({ json }) => {
       const serviceSettings = json
       dispatch(receiveServiceSettings(serviceSettings))
     })
-    .catch(error => {})
+    .catch(() => {})
 }
 
-export const updateServiceSettings = (serviceId, settings) => (
-  dispatch,
-  getState
+export const updateServiceSettings = (serviceId: any, settings: any) => (
+  dispatch: (arg0: (dispatch: any, getState: any) => any) => void
 ) =>
   api.webstore.services.settings
     .update(serviceId, settings)
-    .then(({ status, json }) => {
+    .then(() => {
       dispatch(fetchServiceSettings(serviceId))
     })
-    .catch(error => {})
+    .catch(() => {})
 
-export const fetchServiceLogs = serviceId => (dispatch, getState) =>
+export const fetchServiceLogs = (serviceId: any) => (
+  dispatch: (arg0: { type: string; serviceLogs: any }) => void
+) =>
   api.webstore.services.logs
     .list(serviceId)
-    .then(({ status, json }) => {
+    .then(({ json }) => {
       dispatch(receiveServiceLogs(json))
     })
-    .catch(error => {})
+    .catch(() => {})

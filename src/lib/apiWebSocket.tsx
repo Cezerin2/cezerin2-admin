@@ -6,9 +6,21 @@ import messages from "./text"
 const AUTO_RECONNECT_INTERVAL = 1000 // 1 seconds
 const ORDER_CREATED = "order.created"
 const THEME_INSTALLED = "theme.installed"
-let store = null
+let store: {
+  dispatch: (arg0: {
+    (dispatch: any, getState: any): any
+    type?: string
+  }) => void
+} | null = null
 
-export const connectToWebSocket = reduxStore => {
+export const connectToWebSocket = (
+  reduxStore: {
+    dispatch: (arg0: {
+      (dispatch: any, getState: any): any
+      type?: string | undefined
+    }) => void
+  } | null
+) => {
   store = reduxStore
   connect()
 }
@@ -33,7 +45,7 @@ const getWebSocketUrlFromCurrentLocation = () => {
   return `${wsProtocol}//${window.location.host}`
 }
 
-const onMessage = event => {
+const onMessage = (event: { data: string }) => {
   try {
     const message = JSON.parse(event.data)
     eventHandler(message)
@@ -48,7 +60,7 @@ const onOpen = () => {
 
 const onError = () => {}
 
-const onClose = event => {
+const onClose = (event: { code: number }) => {
   if (event.code !== 1000) {
     if (settings.developerMode === true) {
       console.log(`WebSocket connection closed with code: ${event.code}.`)
@@ -60,7 +72,11 @@ const onClose = event => {
   }
 }
 
-const showNotification = (title, body, requireInteraction = false) => {
+const showNotification = (
+  title: string,
+  body: string,
+  requireInteraction = false
+) => {
   const msg = new Notification(title, {
     body,
     tag: "dashboard",

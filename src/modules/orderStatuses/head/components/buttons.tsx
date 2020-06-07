@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import messages from "../../../../lib/text"
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
 
-const Buttons = props => {
+const Buttons = (props: { onDelete?: any; selected: any; onCreate?: any }) => {
   const [openDelete, setOpenDelete] = useState(false)
 
   const showDelete = () => {

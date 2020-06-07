@@ -11,7 +11,7 @@ import { CustomToggle } from "../../../../modules/shared/form"
 import ImageUpload from "../../../../modules/shared/imageUpload"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: { [x: string]: any }) => {
   const errors = {}
   const requiredFields = ["name"]
 
@@ -24,7 +24,7 @@ const validate = values => {
   return errors
 }
 
-const asyncValidate = values =>
+const asyncValidate = (values: { slug: string | any[]; id: any }) =>
   new Promise((resolve, reject) => {
     if (values.slug && values.slug.length > 0) {
       api.sitemap

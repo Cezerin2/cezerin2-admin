@@ -7,7 +7,7 @@ import { TextField } from "redux-form-material-ui"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: { [x: string]: any }) => {
   const errors = {}
   const requiredFields = ["name"]
 
@@ -20,7 +20,14 @@ const validate = values => {
   return errors
 }
 
-const Form = props => {
+const Form = (props: {
+  onCancel?: any
+  handleSubmit?: any
+  pristine?: any
+  submitting?: any
+  isSaving?: any
+  initialValues?: any
+}) => {
   const { handleSubmit, pristine, submitting, isSaving, initialValues } = props
 
   let groupId = null

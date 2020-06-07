@@ -3,7 +3,7 @@ import messages from "./text"
 const LOGIN_PATH = "/login"
 const HOME_PATH = "/"
 
-const getParameterByName = (name, url) => {
+const getParameterByName = (name: string, url: string | undefined) => {
   if (!url) url = window.location.href
   name = name.replace(/[\[\]]/g, "\\$&")
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)
@@ -44,7 +44,7 @@ export const checkTokenFromUrl = () => {
   }
 }
 
-const parseJWT = jwt => {
+const parseJWT = (jwt: string) => {
   try {
     const payload = jwt.split(".")[1]
     const tokenData = JSON.parse(atob(payload))
@@ -54,7 +54,7 @@ const parseJWT = jwt => {
   }
 }
 
-const saveToken = data => {
+const saveToken = (data: { token: any; email: any; expiration_date: any }) => {
   localStorage.setItem("dashboard_token", data.token)
   localStorage.setItem("dashboard_email", data.email)
   localStorage.setItem("dashboard_exp", data.expiration_date)

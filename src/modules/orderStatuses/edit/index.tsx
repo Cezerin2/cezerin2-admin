@@ -1,19 +1,23 @@
 import { connect } from "react-redux"
 import { reset } from "redux-form"
-import { updateStatus, createStatus, deselectStatus } from "../actions"
+import { createStatus, deselectStatus, updateStatus } from "../actions"
 import Form from "./components/form"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: {
+  orderStatuses: { selectedId: any; items: any[]; isSaving: any }
+}) => ({
   statusId: state.orderStatuses.selectedId,
   items: state.orderStatuses.items,
   initialValues: state.orderStatuses.items.find(
-    item => item.id === state.orderStatuses.selectedId
+    (item: { id: any }) => item.id === state.orderStatuses.selectedId
   ),
   isSaving: state.orderStatuses.isSaving,
 })
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: values => {
+const mapDispatchToProps = (
+  dispatch: (arg0: import("redux-form").FormAction) => void
+) => ({
+  onSubmit: (values: { id: any }) => {
     if (values.id) {
       dispatch(updateStatus(values))
     } else {

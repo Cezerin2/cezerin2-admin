@@ -10,7 +10,10 @@ const initialState = {
   selectedId: "all",
 }
 
-export default (state = initialState, action) => {
+export default (
+  state = initialState,
+  action: { type: any; items: any; error: any; selectedId: any }
+) => {
   switch (action.type) {
     case t.STATUSES_REQUEST:
       return Object.assign({}, state, {

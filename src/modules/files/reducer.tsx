@@ -5,7 +5,7 @@ const initialState = {
   uploading: false,
 }
 
-export default (state = initialState, action) => {
+export default (state = initialState, action: { type: any; files: any }) => {
   switch (action.type) {
     case t.FILES_RECEIVE:
       return Object.assign({}, state, { files: action.files })

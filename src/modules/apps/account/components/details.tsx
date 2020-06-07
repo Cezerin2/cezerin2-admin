@@ -3,7 +3,12 @@ import Account from "./account"
 import Developer from "./developer"
 import style from "./style.module.sass"
 
-const WebStoreAccountDetails = props => {
+const WebStoreAccountDetails = (props: {
+  fetchData?: any
+  account?: any
+  onAccountSubmit?: any
+  onDeveloperSubmit?: any
+}) => {
   useEffect(() => {
     props.fetchData()
   }, [])

@@ -6,12 +6,7 @@ import { TextField } from "redux-form-material-ui"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const DeveloperForm = ({
-  handleSubmit,
-  pristine,
-  submitting,
-  initialValues,
-}) => (
+const DeveloperForm = ({ handleSubmit, pristine, submitting }) => (
   <div style={{ maxWidth: 720, width: "100%" }}>
     <div className="gray-title" style={{ margin: "15px 0 15px 20px" }}>
       {messages.developerProfile}

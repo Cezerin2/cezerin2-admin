@@ -7,7 +7,7 @@ import messages from "../../../../lib/text"
 import { CustomToggle } from "../../../../modules/shared/form"
 import style from "./style.module.sass"
 
-const AccountForm = ({ handleSubmit, pristine, submitting, initialValues }) => (
+const AccountForm = ({ handleSubmit, pristine, submitting }) => (
   <div style={{ maxWidth: 720, width: "100%" }}>
     <div className="gray-title" style={{ margin: "15px 0 15px 20px" }}>
       {messages.account}

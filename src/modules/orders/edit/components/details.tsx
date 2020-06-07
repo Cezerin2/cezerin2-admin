@@ -7,7 +7,7 @@ import OrderSummary from "./summary"
 import OrderTotals from "./totals"
 
 class OrderDetails extends React.Component {
-  constructor(props) {
+  constructor(props: Readonly<{}>) {
     super(props)
   }
 

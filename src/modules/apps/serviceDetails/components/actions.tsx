@@ -5,7 +5,11 @@ import api from "../../../../lib/api"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const ActionComponent = props => {
+const ActionComponent = (props: {
+  action: any
+  serviceId?: any
+  fetchServiceLogs?: any
+}) => {
   const [loading, setLoading] = useState(false)
 
   const handleActionCall = () => {
@@ -46,7 +50,7 @@ const ActionComponent = props => {
 }
 
 const ServiceActions = ({ actions, serviceId, fetchServiceLogs }) => {
-  const buttons = actions.map((action, index) => (
+  const buttons = actions.map((action: any, index: any) => (
     <ActionComponent
       key={index}
       action={action}

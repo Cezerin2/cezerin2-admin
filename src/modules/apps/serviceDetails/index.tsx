@@ -1,14 +1,14 @@
 import { connect } from "react-redux"
 import {
-  fetchService,
-  enableService,
-  disableService,
-  updateServiceSettings,
-  fetchServiceLogs,
+  disableService, enableService, fetchService,
+
+
+
+  fetchServiceLogs, updateServiceSettings
 } from "../actions"
 import Details from "./components/details"
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: { apps: { service: any; serviceSettings: any; serviceLogs: any; loadingEnableDisableService: any } }, ownProps: { match: { params: { serviceId: any } } }) => {
   const { serviceId } = ownProps.match.params
 
   return {
@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch: (arg0: { (dispatch: (arg0: { (dispatch: any, getState: any): any; (dispatch: any, getState: any): any; type?: string | undefined; service?: any }) => void): any; (dispatch: (arg0: { (dispatch: any, getState: any): any; type?: string | undefined }) => void): any; (dispatch: (arg0: { ... }) => void): any; (dispatch: (arg0: (dispatch: any, getState: any) => any) => void): any; (dispatch: (arg0: { ... }) => void): any }) => void, ownProps: { match: { params: { serviceId: any } } }) => ({
   fetchData: () => {
     const { serviceId } = ownProps.match.params
     dispatch(fetchService(serviceId))
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     const { serviceId } = ownProps.match.params
     dispatch(disableService(serviceId))
   },
-  updateSettings: values => {
+  updateSettings: (values: any) => {
     const { serviceId } = ownProps.match.params
     dispatch(updateServiceSettings(serviceId, values))
   },

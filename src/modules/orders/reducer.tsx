@@ -31,7 +31,19 @@ const initialState = {
   },
 }
 
-export default (state = initialState, action) => {
+export default (
+  state = initialState,
+  action: {
+    type: any
+    has_more: any
+    total_count: any
+    data: any
+    error: any
+    orderId: any
+    filter: any
+    item: any
+  }
+) => {
   switch (action.type) {
     case t.ORDERS_REQUEST:
       return Object.assign({}, state, {

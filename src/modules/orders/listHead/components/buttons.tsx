@@ -5,7 +5,7 @@ import messages from "../../../../lib/text"
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
 import Search from "./search"
 class Buttons extends React.Component {
-  constructor(props) {
+  constructor(props: Readonly<{}>) {
     super(props)
     this.state = {
       openDelete: false,

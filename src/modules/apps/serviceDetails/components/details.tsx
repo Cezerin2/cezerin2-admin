@@ -6,7 +6,7 @@ import ServiceSettings from "./settings"
 import style from "./style.module.sass"
 
 class ServiceDetails extends React.Component {
-  constructor(props) {
+  constructor(props: Readonly<{}>) {
     super(props)
     this.state = {
       timer: null,

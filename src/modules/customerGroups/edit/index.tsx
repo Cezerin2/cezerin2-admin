@@ -1,19 +1,23 @@
 import { connect } from "react-redux"
 import { reset } from "redux-form"
-import { updateGroup, createGroup, deselectGroup } from "../actions"
+import { createGroup, deselectGroup, updateGroup } from "../actions"
 import Form from "./components/form"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: {
+  customerGroups: { selectedId: any; items: any[]; isSaving: any }
+}) => ({
   groupId: state.customerGroups.selectedId,
   items: state.customerGroups.items,
   initialValues: state.customerGroups.items.find(
-    item => item.id === state.customerGroups.selectedId
+    (item: { id: any }) => item.id === state.customerGroups.selectedId
   ),
   isSaving: state.customerGroups.isSaving,
 })
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: values => {
+const mapDispatchToProps = (
+  dispatch: (arg0: import("redux-form").FormAction) => void
+) => ({
+  onSubmit: (values: { id: any }) => {
     if (values.id) {
       dispatch(updateGroup(values))
     } else {

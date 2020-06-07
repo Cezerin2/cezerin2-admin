@@ -23,19 +23,21 @@ class StatusesList extends React.Component {
   render() {
     const { onSelect, selectedId, items, showAll, showManage } = this.props
 
-    const rows = items.map(item => (
-      <ListItem
-        key={item.id}
-        className="treeItem"
-        style={item.id === selectedId ? styles.selectedItem : null}
-        innerDivStyle={styles.innerItem}
-        primaryText={item.name}
-        leftIcon={FolderIcon}
-        onClick={() => {
-          this.props.onSelect(item.id)
-        }}
-      />
-    ))
+    const rows = items.map(
+      (item: { id: string | number | undefined; name: React.ReactNode }) => (
+        <ListItem
+          key={item.id}
+          className="treeItem"
+          style={item.id === selectedId ? styles.selectedItem : null}
+          innerDivStyle={styles.innerItem}
+          primaryText={item.name}
+          leftIcon={FolderIcon}
+          onClick={() => {
+            this.props.onSelect(item.id)
+          }}
+        />
+      )
+    )
 
     return (
       <List>

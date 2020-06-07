@@ -7,7 +7,7 @@ function requestOrder() {
   }
 }
 
-function receiveOrder(item) {
+function receiveOrder(item: null) {
   return {
     type: t.ORDER_DETAIL_RECEIVE,
     item,
@@ -48,7 +48,7 @@ function receiveOrders({ has_more, total_count, data }) {
   }
 }
 
-function receiveOrdersError(error) {
+function receiveOrdersError(error: any) {
   return {
     type: t.ORDERS_FAILURE,
     error,
@@ -67,21 +67,21 @@ function receiveOrderCheckout() {
   }
 }
 
-function failOrderCheckout(error) {
+function failOrderCheckout(error: any) {
   return {
     type: t.ORDER_CHECKOUT_FAILURE,
     error,
   }
 }
 
-export function selectOrder(id) {
+export function selectOrder(id: any) {
   return {
     type: t.ORDERS_SELECT,
     orderId: id,
   }
 }
 
-export function deselectOrder(id) {
+export function deselectOrder(id: any) {
   return {
     type: t.ORDERS_DESELECT,
     orderId: id,
@@ -100,7 +100,17 @@ export function selectAllOrder() {
   }
 }
 
-export function setFilter(filter) {
+export function setFilter(filter: {
+  search?: any
+  date_placed_min?: any
+  date_placed_max?: any
+  cancelled?: any
+  delivered?: any
+  paid?: any
+  hold?: any
+  draft?: any
+  closed?: any
+}) {
   return {
     type: t.ORDERS_SET_FILTER,
     filter,
@@ -149,14 +159,17 @@ function receiveOrderUpdate() {
   }
 }
 
-function failOrderUpdate(error) {
+function failOrderUpdate(error: any) {
   return {
     type: t.ORDER_UPDATE_FAILURE,
     error,
   }
 }
 
-const getFilter = (state, offset = 0) => {
+const getFilter = (
+  state: { orders: any[]; orderStatuses: { selectedId: any } },
+  offset = 0
+) => {
   const filterState = state.orders.filter
   const filter = {
     limit: 50,
@@ -207,7 +220,16 @@ const getFilter = (state, offset = 0) => {
 }
 
 export function fetchOrders() {
-  return (dispatch, getState) => {
+  return (
+    dispatch: (arg0: {
+      type: string
+      has_more?: any
+      total_count?: any
+      data?: any
+      error?: any
+    }) => void,
+    getState: () => any
+  ) => {
     const state = getState()
     if (!state.orders.loadingItems) {
       dispatch(requestOrders())
@@ -220,7 +242,7 @@ export function fetchOrders() {
         .then(({ status, json }) => {
           dispatch(receiveOrders(json))
         })
-        .catch(error => {
+        .catch((error: any) => {
           dispatch(receiveOrdersError(error))
         })
     }
@@ -228,7 +250,16 @@ export function fetchOrders() {
 }
 
 export function fetchMoreOrders() {
-  return (dispatch, getState) => {
+  return (
+    dispatch: (arg0: {
+      type: string
+      has_more?: any
+      total_count?: any
+      data?: any
+      error?: any
+    }) => void,
+    getState: () => any
+  ) => {
     const state = getState()
     if (!state.orders.loadingItems) {
       dispatch(requestMoreOrders())
@@ -240,18 +271,24 @@ export function fetchMoreOrders() {
         .then(({ status, json }) => {
           dispatch(receiveOrdersMore(json))
         })
-        .catch(error => {
+        .catch((error: any) => {
           dispatch(receiveOrdersError(error))
         })
     }
   }
 }
 
-export function bulkUpdate(dataToSet) {
-  return (dispatch, getState) => {
+export function bulkUpdate(dataToSet: any) {
+  return (
+    dispatch: (arg0: {
+      (dispatch: any, getState: any): any
+      type?: string
+    }) => void,
+    getState: () => any
+  ) => {
     dispatch(requestBulkUpdate())
     const state = getState()
-    const promises = state.orders.selected.map(orderId =>
+    const promises = state.orders.selected.map((orderId: any) =>
       api.orders.update(orderId, dataToSet)
     )
 
@@ -268,9 +305,15 @@ export function bulkUpdate(dataToSet) {
 }
 
 export function deleteOrders() {
-  return (dispatch, getState) => {
+  return (
+    dispatch: (arg0: {
+      (dispatch: any, getState: any): any
+      type?: string
+    }) => void,
+    getState: () => any
+  ) => {
     const state = getState()
-    const promises = state.orders.selected.map(orderId =>
+    const promises = state.orders.selected.map((orderId: any) =>
       api.orders.delete(orderId)
     )
 
@@ -287,25 +330,33 @@ export function deleteOrders() {
 }
 
 export function deleteCurrentOrder() {
-  return (dispatch, getState) => {
+  return (dispatch: any, getState: () => any) => {
     const state = getState()
     const order = state.orders.editOrder
 
     if (order && order.id) {
-      return api.orders.delete(order.id).catch(err => {
+      return api.orders.delete(order.id).catch((err: any) => {
         console.log(err)
       })
     }
   }
 }
 
-const fetchOrderAdditionalData = order => {
+const fetchOrderAdditionalData = (order: {
+  customer_id: string | any[]
+  shipping_method_id: string | any[]
+  items: any[]
+  customer: any
+  shipping_method_details: any
+}) => {
   const hasCustomer = order.customer_id && order.customer_id.length > 0
   const hasShippingMethod =
     order.shipping_method_id && order.shipping_method_id.length > 0
   const productIds =
     order && order.items && order.items.length > 0
-      ? order.items.filter(item => item.product_id).map(item => item.product_id)
+      ? order.items
+          .filter((item: { product_id: any }) => item.product_id)
+          .map((item: { product_id: any }) => item.product_id)
       : []
   const productFilter = {
     ids: productIds,
@@ -322,10 +373,14 @@ const fetchOrderAdditionalData = order => {
     .then(([productsResponse, customerResponse, methodResponse]) => {
       if (productsResponse) {
         const products = productsResponse.json.data
-        const newItems = order.items.map(item => {
-          item.product = products.find(p => p.id === item.product_id)
-          return item
-        })
+        const newItems = order.items.map(
+          (item: { product: any; product_id: any }) => {
+            item.product = products.find(
+              (p: { id: any }) => p.id === item.product_id
+            )
+            return item
+          }
+        )
         order.items = newItems
       }
       order.customer = customerResponse ? customerResponse.json : null
@@ -338,38 +393,47 @@ const fetchOrderAdditionalData = order => {
     .catch(err => err)
 }
 
-export function fetchOrder(orderId) {
-  return (dispatch, getState) => {
+export function fetchOrder(orderId: any) {
+  return (
+    dispatch: (arg0: { type: string; item?: any }) => void,
+    getState: any
+  ) => {
     dispatch(requestOrder())
 
     return api.orders
       .retrieve(orderId)
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrder(order))
       })
-      .catch(error => {})
+      .catch((error: any) => {})
   }
 }
 
-export function deleteOrderItem(orderId, orderItemId) {
-  return (dispatch, getState) => {
+export function deleteOrderItem(orderId: any, orderItemId: any) {
+  return (
+    dispatch: (arg0: { type: string; item: any }) => void,
+    getState: () => any
+  ) => {
     const state = getState()
 
     api.orders.items
       .delete(orderId, orderItemId)
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrder(order))
       })
-      .catch(error => {})
+      .catch((error: any) => {})
   }
 }
 
-export function addOrderItem(orderId, productId) {
-  return (dispatch, getState) => {
+export function addOrderItem(orderId: any, productId: any) {
+  return (
+    dispatch: (arg0: { type: string; item: any }) => void,
+    getState: () => any
+  ) => {
     const state = getState()
 
     api.orders.items
@@ -378,17 +442,25 @@ export function addOrderItem(orderId, productId) {
         variant_id: null,
         quantity: 1,
       })
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrder(order))
       })
-      .catch(error => {})
+      .catch((error: any) => {})
   }
 }
 
-export function updateOrderItem(orderId, orderItemId, quantity, variantId) {
-  return (dispatch, getState) => {
+export function updateOrderItem(
+  orderId: any,
+  orderItemId: any,
+  quantity: any,
+  variantId: any
+) {
+  return (
+    dispatch: (arg0: { type: string; item: any }) => void,
+    getState: () => any
+  ) => {
     const state = getState()
 
     api.orders.items
@@ -396,95 +468,121 @@ export function updateOrderItem(orderId, orderItemId, quantity, variantId) {
         quantity,
         variant_id: variantId,
       })
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrder(order))
       })
-      .catch(error => {})
+      .catch((error: any) => {})
   }
 }
 
-export function updateOrder(data) {
-  return (dispatch, getState) => {
+export function updateOrder(data: {
+  id: any
+  hold?: boolean
+  tracking_number?: any
+  status_id?: any
+  shipping_method_id?: any
+  payment_method_id?: any
+  comments?: any
+  note?: any
+  email?: any
+  mobile?: any
+}) {
+  return (
+    dispatch: (arg0: { type: string; item?: any; error?: any }) => void,
+    getState: any
+  ) => {
     dispatch(requestOrderUpdate())
 
     return api.orders
       .update(data.id, data)
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrderUpdate())
         dispatch(receiveOrder(order))
       })
-      .catch(error => {
+      .catch((error: any) => {
         dispatch(failOrderUpdate(error))
       })
   }
 }
 
-export function closeOrder(orderId) {
-  return (dispatch, getState) =>
+export function closeOrder(orderId: any) {
+  return (
+    dispatch: (arg0: { type: string; item: any }) => void,
+    getState: any
+  ) =>
     api.orders
       .close(orderId)
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrder(order))
       })
-      .catch(error => {})
+      .catch((error: any) => {})
 }
 
-export function cancelOrder(orderId) {
-  return (dispatch, getState) =>
+export function cancelOrder(orderId: any) {
+  return (
+    dispatch: (arg0: { type: string; item: any }) => void,
+    getState: any
+  ) =>
     api.orders
       .cancel(orderId)
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrder(order))
       })
-      .catch(error => {})
+      .catch((error: any) => {})
 }
 
-export function updateShippingAddress(orderId, address) {
-  return (dispatch, getState) =>
+export function updateShippingAddress(orderId: any, address: any) {
+  return (
+    dispatch: (arg0: { type: string; item: any }) => void,
+    getState: any
+  ) =>
     api.orders
       .updateShippingAddress(orderId, address)
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrder(order))
       })
-      .catch(error => {})
+      .catch((error: any) => {})
 }
 
-export function createOrder(history) {
-  return (dispatch, getState) => {
+export function createOrder(history: string[]) {
+  return (dispatch: (arg0: { type: string }) => void, getState: () => any) => {
     const state = getState()
     return api.orders
       .create({ draft: true, referrer_url: "admin" })
-      .then(orderResponse => {
+      .then((orderResponse: { json: { id: any } }) => {
         const orderId = orderResponse.json.id
         dispatch(createOrdersSuccess())
         history.push(`/order/${orderId}`)
       })
-      .catch(error => {})
+      .catch((error: any) => {})
   }
 }
 
-export function checkoutOrder(orderId) {
-  return (dispatch, getState) => {
+export function checkoutOrder(orderId: any) {
+  return (
+    dispatch: (arg0: { type: string; item?: any; error?: any }) => void,
+    getState: any
+  ) => {
     dispatch(requestOrderCheckout())
     return api.orders
       .checkout(orderId)
-      .then(orderResponse => orderResponse.json)
+      .then((orderResponse: { json: any }) => orderResponse.json)
       .then(fetchOrderAdditionalData)
-      .then(order => {
+      .then((order: any) => {
         dispatch(receiveOrderCheckout())
         dispatch(receiveOrder(order))
       })
-      .catch(error => {
+      .catch((error: any) => {
         dispatch(failOrderCheckout(error))
       })
   }

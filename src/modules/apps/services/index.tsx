@@ -4,7 +4,7 @@ import * as webstoreAuth from "../../../lib/webstoreAuth"
 import { fetchServices } from "../actions"
 import List from "./components/list"
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state: { apps: { services: any } }) => {
   const webstoreAuthorized = webstoreAuth.isCurrentTokenValid()
   return {
     services: state.apps.services,
@@ -12,7 +12,14 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (
+  dispatch: (
+    arg0: (
+      dispatch: (arg0: { type: string; services: any }) => void,
+      getState: any
+    ) => any
+  ) => void
+) => ({
   fetchData: () => {
     dispatch(fetchServices())
   },

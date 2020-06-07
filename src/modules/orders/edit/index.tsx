@@ -11,13 +11,28 @@ import {
 } from "../actions"
 import OrderDetails from "./components/details"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: {
+  settings: { settings: any }
+  orders: { editOrder: any; processingCheckout: any }
+}) => ({
   settings: state.settings.settings,
   order: state.orders.editOrder,
   processingCheckout: state.orders.processingCheckout,
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (
+  dispatch: (arg0: {
+    (dispatch: any, getState: any): any
+    (dispatch: any, getState: any): void
+    (dispatch: any, getState: any): void
+    (dispatch: any, getState: any): any
+    (dispatch: any, getState: any): any
+    (dispatch: any, getState: any): any
+    type?: string
+    item?: any
+  }) => void,
+  ownProps: { match: { params: { orderId: any } } }
+) => ({
   fetchData: () => {
     const { orderId } = ownProps.match.params
     dispatch(fetchOrder(orderId))
@@ -25,19 +40,29 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   clearData: () => {
     dispatch(clearOrderDetails())
   },
-  onItemDelete: itemId => {
+  onItemDelete: (itemId: any) => {
     const { orderId } = ownProps.match.params
     dispatch(deleteOrderItem(orderId, itemId))
   },
-  onItemUpdate: (itemId, quantity, variantId) => {
+  onItemUpdate: (itemId: any, quantity: any, variantId: any) => {
     const { orderId } = ownProps.match.params
     dispatch(updateOrderItem(orderId, itemId, quantity, variantId))
   },
-  onShippingAddressUpdate: address => {
+  onShippingAddressUpdate: (address: any) => {
     const { orderId } = ownProps.match.params
     dispatch(updateShippingAddress(orderId, address))
   },
-  onOrderSummaryUpdate: order => {
+  onOrderSummaryUpdate: (order: {
+    id: any
+    tracking_number: any
+    status_id: any
+    shipping_method_id: any
+    payment_method_id: any
+    comments: any
+    note: any
+    email: any
+    mobile: any
+  }) => {
     const { orderId } = ownProps.match.params
     dispatch(
       updateOrder({

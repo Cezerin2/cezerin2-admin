@@ -7,7 +7,7 @@ import { TextField } from "redux-form-material-ui"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: { [x: string]: any }) => {
   const errors = {}
   const requiredFields = ["name"]
 

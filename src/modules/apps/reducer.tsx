@@ -9,7 +9,17 @@ const initialState = {
   loadingEnableDisableService: false,
 }
 
-export default (state = initialState, action) => {
+export default (
+  state = initialState,
+  action: {
+    type: any
+    account: any
+    services: any
+    service: any
+    serviceSettings: any
+    serviceLogs: any
+  }
+) => {
   switch (action.type) {
     case t.ACCOUNT_RECEIVE:
       return Object.assign({}, state, { account: action.account })

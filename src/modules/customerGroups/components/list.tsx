@@ -15,26 +15,36 @@ const styles = {
 
 const FolderIcon = <FontIcon className="material-icons">folder</FontIcon>
 
-const Groups = props => {
+const Groups = (props: {
+  onLoad?: any
+  onSelect: any
+  selectedId?: any
+  items?: any
+  showAll?: any
+  showRoot?: any
+  showManage?: any
+}) => {
   useEffect(() => {
     props.onLoad()
   }, [])
 
   const { onSelect, selectedId, items, showAll, showRoot, showManage } = props
 
-  const rows = items.map(item => (
-    <ListItem
-      key={item.id}
-      className="treeItem"
-      style={item.id === selectedId ? styles.selectedItem : null}
-      innerDivStyle={styles.innerItem}
-      primaryText={item.name}
-      leftIcon={FolderIcon}
-      onClick={() => {
-        props.onSelect(item.id)
-      }}
-    />
-  ))
+  const rows = items.map(
+    (item: { id: string | number | undefined; name: React.ReactNode }) => (
+      <ListItem
+        key={item.id}
+        className="treeItem"
+        style={item.id === selectedId ? styles.selectedItem : null}
+        innerDivStyle={styles.innerItem}
+        primaryText={item.name}
+        leftIcon={FolderIcon}
+        onClick={() => {
+          props.onSelect(item.id)
+        }}
+      />
+    )
+  )
 
   return (
     <List>
