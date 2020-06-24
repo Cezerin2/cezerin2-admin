@@ -1,6 +1,6 @@
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
-import React, { useEffect, useState } from "react"
+import React, { FormEvent, useEffect, useState } from "react"
 import api from "../lib/api"
 import messages from "../lib/text"
 
@@ -29,26 +29,26 @@ export const SiteVerification = () => {
   const [pinterest, setPinterest] = useState("")
   const [yandex, setYandex] = useState("")
 
-  const handleGoogleChange = event => {
+  const handleGoogleChange = (event: FormEvent) => {
     setGoogle(event.target.value)
   }
 
-  const handleBingChange = event => {
+  const handleBingChange = (event: FormEvent) => {
     setBing(event.target.value)
   }
 
-  const handlePinterestChange = event => {
+  const handlePinterestChange = (event: FormEvent) => {
     setPinterest(event.target.value)
   }
 
-  const handleYandexChange = event => {
+  const handleYandexChange = (event: FormEvent) => {
     setYandex(event.target.value)
   }
 
   const fetchSettings = () => {
-    api.apps.settings
-      .retrieve("site-verification")
-      .then(({ json }) => {
+    api.apps.settings.retrieve("site-verification")
+    try {
+      ;({ json }) => {
         const appSettings = json
         if (appSettings) {
           setGoogle(appSettings.google)
@@ -56,10 +56,10 @@ export const SiteVerification = () => {
           setPinterest(appSettings.pinterest)
           setYandex(appSettings.yandex)
         }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const updateSettings = () => {

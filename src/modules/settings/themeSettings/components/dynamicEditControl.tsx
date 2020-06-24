@@ -33,9 +33,11 @@ const DynamicEditControl = ({
     )
   }
   if (type === "string" && hasOptions) {
-    const selectOptions = options.map((option, index) => (
-      <MenuItem key={index} value={option.value} primaryText={option.label} />
-    ))
+    const selectOptions = options.map(
+      (option: { value: string; label: string }, index: string) => (
+        <MenuItem key={index} value={option.value} primaryText={option.label} />
+      )
+    )
     return (
       <Field
         component={SelectField}

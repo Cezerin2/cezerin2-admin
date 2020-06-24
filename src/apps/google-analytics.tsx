@@ -36,22 +36,22 @@ const GTAG_CODE = `<!-- Global site tag (gtag.js) - Google Analytics -->
 export const GAnalytics = () => {
   const [trackingID, setTrackingID] = useState("")
 
-  const handleTrackingIdChange = event => {
+  const handleTrackingIdChange = (event: FormEvent) => {
     setTrackingID(event.target.value)
   }
 
   const fetchSettings = () => {
-    api.apps.settings
-      .retrieve("google-analytics")
-      .then(({ status, json }) => {
+    api.apps.settings.retrieve("google-analytics")
+    try {
+      ;({ status, json }) => {
         const appSettings = json
         if (appSettings) {
           setTrackingID(appSettings.GA_TRACKING_ID)
         }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const updateSettings = () => {
@@ -88,11 +88,13 @@ export const GAnalytics = () => {
         hintText="UA-XXXXXXXX-X"
       />
 
-      <div style={{ textAlign: "right" }}>
-        <Button color="primary" onClick={updateSettings}>
-          {messages.save}
-        </Button>
-      </div>
+      <Button
+        color="primary"
+        onClick={updateSettings}
+        style={{ textAlign: "right" }}
+      >
+        {messages.save}
+      </Button>
     </>
   )
 }

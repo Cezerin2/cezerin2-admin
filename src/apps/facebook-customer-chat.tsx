@@ -1,4 +1,4 @@
-import RaisedButton from "@material-ui/core/Button"
+import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import React, { FormEvent, useEffect, useState } from "react"
 import api from "../lib/api"
@@ -35,18 +35,18 @@ export const App = () => {
   }
 
   const fetchSettings = () => {
-    api.apps.settings
-      .retrieve("facebook-customer-chat")
-      .then(({ status, json }) => {
+    api.apps.settings.retrieve("facebook-customer-chat")
+    try {
+      ;(json: { pageId: string; minimized: string }) => {
         const appSettings = json
         if (appSettings) {
           setPageID(appSettings.pageId)
           setMinimized(appSettings.minimized)
         }
-      })
-      .catch((error: Error) => {
-        console.log(error)
-      })
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const updateSettings = () => {
@@ -91,14 +91,9 @@ export const App = () => {
         hintText="false"
       />
 
-      <div style={{ textAlign: "right" }}>
-        <RaisedButton
-          label={messages.save}
-          primary
-          disabled={false}
-          onClick={updateSettings}
-        />
-      </div>
+      <Button primary onClick={updateSettings} style={{ textAlign: "right" }}>
+        {messages.save}
+      </Button>
     </>
   )
 }

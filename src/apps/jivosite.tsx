@@ -1,4 +1,4 @@
-import RaisedButton from "@material-ui/core/Button"
+import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import React, { useEffect, useState } from "react"
 import api from "../lib/api"
@@ -21,17 +21,17 @@ export const App = () => {
   }
 
   const fetchSettings = () => {
-    api.apps.settings
-      .retrieve("jivosite")
-      .then(({ json }) => {
+    api.apps.settings.retrieve("jivosite")
+    try {
+      ;({ json }) => {
         const appSettings = json
         if (appSettings) {
           setCode(appSettings.code)
         }
-      })
-      .catch((error: any) => {
-        console.log(error)
-      })
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const updateSettings = () => {
@@ -48,8 +48,7 @@ export const App = () => {
 
   return (
     <>
-      <>Введите код JivoSite</>
-
+      Введите код JivoSite
       <TextField
         type="text"
         multiLine
@@ -60,15 +59,13 @@ export const App = () => {
         floatingLabelText="Код чата JivoSite"
         hintText="<!-- BEGIN JIVOSITE CODE {literal} -->..."
       />
-
-      <div style={{ textAlign: "right" }}>
-        <RaisedButton
-          label={messages.save}
-          primary
-          disabled={false}
-          onClick={updateSettings}
-        />
-      </div>
+      <Button
+        color="primary"
+        onClick={updateSettings}
+        style={{ textAlign: "right" }}
+      >
+        {messages.save}
+      </Button>
     </>
   )
 }

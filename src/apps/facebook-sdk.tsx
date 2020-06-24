@@ -1,6 +1,6 @@
-import RaisedButton from "@material-ui/core/Button"
+import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
-import React, { useEffect, useState } from "react"
+import React, { FormEvent, useEffect, useState } from "react"
 import api from "../lib/api"
 import messages from "../lib/text"
 
@@ -42,27 +42,27 @@ export const App = () => {
   const [appID, setAppID] = useState("")
   const [locale, setLocale] = useState("en_US")
 
-  const handleAppIdChange = event => {
+  const handleAppIdChange = (event: FormEvent) => {
     setAppID(event.target.value)
   }
 
-  const handleLocaleChange = event => {
+  const handleLocaleChange = (event: FormEvent) => {
     setLocale(event.target.value)
   }
 
   const fetchSettings = () => {
-    api.apps.settings
-      .retrieve("facebook-sdk")
-      .then(({ json }) => {
+    api.apps.settings.retrieve("facebook-sdk")
+    try {
+      ;({ json }) => {
         const appSettings = json
         if (appSettings) {
           setAppID(appSettings.appID)
           setLocale(appSettings.locale)
         }
-      })
-      .catch(error => {
-        console.error(error)
-      })
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const updateSettings = () => {
@@ -105,15 +105,13 @@ export const App = () => {
         floatingLabelText="Locale"
         hintText="en_US"
       />
-
-      <div style={{ textAlign: "right" }}>
-        <RaisedButton
-          label={messages.save}
-          primary
-          disabled={false}
-          onClick={updateSettings}
-        />
-      </div>
+      <Button
+        color="primary"
+        onClick={updateSettings}
+        style={{ textAlign: "right" }}
+      >
+        {messages.save}
+      </Button>
     </>
   )
 }
