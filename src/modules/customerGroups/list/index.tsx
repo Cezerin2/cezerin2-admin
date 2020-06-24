@@ -1,9 +1,11 @@
 import { connect } from "react-redux"
-import { selectGroup, fetchGroupsIfNeeded } from "../actions"
 import { fetchCustomers } from "../../customers/actions"
+import { fetchGroupsIfNeeded, selectGroup } from "../actions"
 import List from "../components/list"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: {
+  customerGroups: { items: string; selectedId: string }
+}) => ({
   items: state.customerGroups.items,
   selectedId: state.customerGroups.selectedId,
 })
