@@ -79,7 +79,7 @@ export const App = () => {
         fullWidth
         value={pageID}
         onChange={handlePageIdChange}
-        floatingLabelText="Page ID"
+        label="Page ID"
       />
 
       <TextField
@@ -87,11 +87,15 @@ export const App = () => {
         fullWidth
         value={minimized}
         onChange={handleMinimizedChange}
-        floatingLabelText="minimized"
+        label="minimized"
         hintText="false"
       />
 
-      <Button primary onClick={updateSettings} style={{ textAlign: "right" }}>
+      <Button
+        color="primary"
+        onClick={updateSettings}
+        style={{ textAlign: "right" }}
+      >
         {messages.save}
       </Button>
     </>

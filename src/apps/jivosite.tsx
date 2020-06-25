@@ -51,12 +51,12 @@ export const App = () => {
       Введите код JivoSite
       <TextField
         type="text"
-        multiLine
+        multiline
         fullWidth
         rows={10}
         value={code}
         onChange={handleChange}
-        floatingLabelText="Код чата JivoSite"
+        label="Код чата JivoSite"
         hintText="<!-- BEGIN JIVOSITE CODE {literal} -->..."
       />
       <Button
