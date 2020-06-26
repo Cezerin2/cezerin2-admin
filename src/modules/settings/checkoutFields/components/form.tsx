@@ -1,9 +1,6 @@
-import Paper from "@material-ui/core/Paper"
-import { RadioButton } from "material-ui/RadioButton"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, Radio, RadioGroup, TextField } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { Field, reduxForm } from "redux-form"
-import { RadioButtonGroup, TextField } from "redux-form-material-ui"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
@@ -12,12 +9,19 @@ const radioButtonStyle = {
   marginBottom: 14,
 }
 
-const CheckoutFieldForm = (props: Readonly<{}>) => {
+const CheckoutFieldForm = (
+  props: Readonly<{
+    handleSubmit: Function
+    pristine: string
+    submitting: string
+    onLoad: Function
+  }>
+) => {
+  const { handleSubmit, pristine, submitting, onLoad } = props
+
   useEffect(() => {
     onLoad()
   }, [])
-
-  const { handleSubmit, pristine, submitting, onLoad } = props
 
   return (
     <form
@@ -42,18 +46,18 @@ const CheckoutFieldForm = (props: Readonly<{}>) => {
             floatingLabelText={messages.settings_fieldPlaceholder}
           />
           <div className="blue-title">{messages.settings_fieldStatus}</div>
-          <Field name="status" component={RadioButtonGroup}>
-            <RadioButton
+          <Field name="status" component={RadioGroup}>
+            <Radio
               value="required"
               label={messages.settings_fieldRequired}
               style={radioButtonStyle}
             />
-            <RadioButton
+            <Radio
               value="optional"
               label={messages.settings_fieldOptional}
               style={radioButtonStyle}
             />
-            <RadioButton
+            <Radio
               value="hidden"
               label={messages.settings_fieldHidden}
               style={radioButtonStyle}
@@ -61,10 +65,10 @@ const CheckoutFieldForm = (props: Readonly<{}>) => {
           </Field>
         </div>
         <div className="buttons-box">
-          <RaisedButton
+          <Button
             type="submit"
             label={messages.save}
-            primary
+            color="primary"
             className={style.button}
             disabled={pristine || submitting}
           />

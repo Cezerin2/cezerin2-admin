@@ -1,16 +1,13 @@
-import Paper from "@material-ui/core/Paper"
-import Divider from "material-ui/Divider"
-import FlatButton from "material-ui/FlatButton"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Divider, Paper, TextField } from "@material-ui/core"
+import { DatePicker } from "@material-ui/pickers"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
-import { DatePicker, TextField } from "redux-form-material-ui"
 import api from "../../../../../lib/api"
 import messages from "../../../../../lib/text"
 import { CustomToggle } from "../../../../../modules/shared/form"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: any) => {
   const errors = {}
   const requiredFields = ["name"]
   const numberFields = [
@@ -219,19 +216,21 @@ const ProductInventoryForm = ({
           pristine ? "buttons-box-pristine" : "buttons-box-show"
         }`}
       >
-        <FlatButton
-          label={messages.cancel}
+        <Button
           className={style.button}
           onClick={reset}
           disabled={pristine || submitting}
-        />
-        <RaisedButton
+        >
+          {messages.cancel}
+        </Button>
+        <Button
           type="submit"
-          label={messages.save}
-          primary
+          color="primary"
           className={style.button}
           disabled={pristine || submitting}
-        />
+        >
+          {messages.save}
+        </Button>
       </div>
     </Paper>
   </form>

@@ -1,9 +1,9 @@
-import MenuItem from "material-ui/MenuItem"
+import { MenuItem, Select, TextField } from "@material-ui/core"
 import React from "react"
 import { Field } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
 
-const GatewaySettings = ({ gateway }) => {
+const GatewaySettings = (props: { gateway: string }) => {
+  const { gateway } = props
   switch (gateway) {
     case "paypal-checkout":
       return <PayPalButton />
@@ -18,17 +18,17 @@ const GatewaySettings = ({ gateway }) => {
 
 export default GatewaySettings
 
-const PayPalButton = props => (
+const PayPalButton = () => (
   <>
     <Field
-      component={SelectField}
+      component={Select}
       name="env"
       floatingLabelText="Environment"
       fullWidth
       autoWidth
     >
-      <MenuItem value="production" primaryText="production" />
-      <MenuItem value="sandbox" primaryText="sandbox" />
+      <MenuItem value="production">production</MenuItem>
+      <MenuItem value="sandbox">sandbox</MenuItem>
     </Field>
 
     <Field
@@ -39,40 +39,40 @@ const PayPalButton = props => (
     />
 
     <Field
-      component={SelectField}
+      component={Select}
       name="size"
       floatingLabelText="Button size"
       fullWidth
       autoWidth
     >
-      <MenuItem value="small" primaryText="small" />
-      <MenuItem value="medium" primaryText="medium" />
-      <MenuItem value="large" primaryText="large" />
-      <MenuItem value="responsive" primaryText="responsive" />
+      <MenuItem value="small">small</MenuItem>
+      <MenuItem value="medium">medium</MenuItem>
+      <MenuItem value="large">large</MenuItem>
+      <MenuItem value="responsive">responsive</MenuItem>
     </Field>
 
     <Field
-      component={SelectField}
+      component={Select}
       name="shape"
       floatingLabelText="Button shape"
       fullWidth
       autoWidth
     >
-      <MenuItem value="pill" primaryText="pill" />
-      <MenuItem value="rect" primaryText="rect" />
+      <MenuItem value="pill">pill</MenuItem>
+      <MenuItem value="rect">rect</MenuItem>
     </Field>
 
     <Field
-      component={SelectField}
+      component={Select}
       name="color"
       floatingLabelText="Button color"
       fullWidth
       autoWidth
     >
-      <MenuItem value="gold" primaryText="gold" />
-      <MenuItem value="blue" primaryText="blue" />
-      <MenuItem value="silver" primaryText="silver" />
-      <MenuItem value="black" primaryText="black" />
+      <MenuItem value="gold">gold</MenuItem>
+      <MenuItem value="blue">blue</MenuItem>
+      <MenuItem value="silver">silver</MenuItem>
+      <MenuItem value="black">black</MenuItem>
     </Field>
 
     <Field
@@ -85,7 +85,7 @@ const PayPalButton = props => (
   </>
 )
 
-const LiqPay = props => (
+const LiqPay = () => (
   <>
     <Field
       component={TextField}
@@ -102,15 +102,15 @@ const LiqPay = props => (
     />
 
     <Field
-      component={SelectField}
+      component={Select}
       name="language"
       floatingLabelText="Language"
       fullWidth
       autoWidth
     >
-      <MenuItem value="ru" primaryText="Russian" />
-      <MenuItem value="uk" primaryText="Ukrainian" />
-      <MenuItem value="en" primaryText="English" />
+      <MenuItem value="ru">Russian</MenuItem>
+      <MenuItem value="uk">Ukrainian</MenuItem>
+      <MenuItem value="en">English</MenuItem>
     </Field>
 
     <Field
@@ -123,17 +123,17 @@ const LiqPay = props => (
   </>
 )
 
-const StripeElements = props => (
+const StripeElements = () => (
   <>
     <Field
-      component={SelectField}
+      component={Select}
       name="env"
       floatingLabelText="Environment"
       fullWidth
       autoWidth
     >
-      <MenuItem value="production" primaryText="production" />
-      <MenuItem value="sandbox" primaryText="sandbox" />
+      <MenuItem value="production">production</MenuItem>
+      <MenuItem value="sandbox">sandbox</MenuItem>
     </Field>
     <Field
       component={TextField}

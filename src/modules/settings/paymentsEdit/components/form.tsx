@@ -1,10 +1,13 @@
-import Paper from "@material-ui/core/Paper"
-import Divider from "material-ui/Divider"
-import MenuItem from "material-ui/MenuItem"
-import RaisedButton from "material-ui/RaisedButton"
+import {
+  Button,
+  Divider,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+} from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { Field, reduxForm } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
 import messages from "../../../../lib/text"
 import PaymentGateway from "../../../../modules/settings/paymentGateway"
 import { AVAILABLE_PAYMENT_GATEWAYS } from "../../../../modules/settings/paymentGateway/availablePaymentGateways"
@@ -12,7 +15,7 @@ import { CustomToggle } from "../../../../modules/shared/form"
 import SelectShippingMethodsField from "./selectShipping"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: any) => {
   const errors = {}
   const requiredFields = ["name"]
 
@@ -25,26 +28,18 @@ const validate = values => {
   return errors
 }
 
-const EditPaymentMethodForm = (props: Readonly<{}>) => {
+const EditPaymentMethodForm = (
+  props: Readonly<{
+    onLoad: Function
+    handleSubmit: Function
+    pristine: string
+    submitting: string
+    shippingMethods: string
+    methodId: string
+    settings: string
+  }>
+) => {
   const [gateway, setGateway] = useState(null)
-
-  useEffect(() => {
-    props.onLoad()
-  }, [])
-
-  //componentWillReceiveProps(nextProps) {
-  useEffect(
-    nextProps => {
-      if (nextProps.initialValues !== props.initialValues) {
-        setGateway(nextProps.initialValues.gateway)
-      }
-    },
-    [props]
-  )
-
-  const onGatewayChange = gateway => {
-    setGateway(gateway)
-  }
 
   const {
     handleSubmit,
@@ -54,16 +49,31 @@ const EditPaymentMethodForm = (props: Readonly<{}>) => {
     methodId,
     settings,
   } = props
+
+  useEffect(() => {
+    props.onLoad()
+  }, [])
+
+  useEffect(() => {
+    setGateway(props.initialValues.gateway)
+  }, [props.initialValues])
+
+  const onGatewayChange = (gateway: string) => {
+    setGateway(gateway)
+  }
+
   const isAdd = methodId === null || methodId === undefined
   const paymentGateways = []
-  paymentGateways.push(<MenuItem value="" key="none" primaryText="None" />)
+  paymentGateways.push(
+    <MenuItem value="" key="none">
+      None
+    </MenuItem>
+  )
   for (const gateway of AVAILABLE_PAYMENT_GATEWAYS) {
     paymentGateways.push(
-      <MenuItem
-        value={gateway.key}
-        key={gateway.key}
-        primaryText={gateway.name}
-      />
+      <MenuItem value={gateway.key} key={gateway.key}>
+        {gateway.name}
+      </MenuItem>
     )
   }
 
@@ -78,20 +88,20 @@ const EditPaymentMethodForm = (props: Readonly<{}>) => {
             <div className="col-xs-12 col-sm-8">
               <>
                 <Field
-                  component={SelectField}
+                  component={Select}
                   autoWidth
                   fullWidth
                   name="gateway"
                   floatingLabelFixed
                   floatingLabelText={messages.paymentGateway}
-                  onChange={(event, currentValue, prevValue) => {
+                  onChange={(event, currentValue) => {
                     onGatewayChange(currentValue)
                   }}
                 >
                   {paymentGateways}
                 </Field>
               </>
-              <PaymentGateway gateway={state.gateway} />
+              <PaymentGateway gateway={gateway} />
             </div>
           </div>
 
@@ -171,13 +181,14 @@ const EditPaymentMethodForm = (props: Readonly<{}>) => {
           </div>
         </div>
         <div className="buttons-box">
-          <RaisedButton
+          <Button
             type="submit"
-            label={isAdd ? messages.add : messages.save}
-            primary
+            color="primary"
             className={style.button}
             disabled={pristine || submitting}
-          />
+          >
+            {isAdd ? messages.add : messages.save}
+          </Button>
         </div>
       </Paper>
     </form>

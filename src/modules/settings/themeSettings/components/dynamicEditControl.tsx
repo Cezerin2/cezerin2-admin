@@ -1,7 +1,7 @@
+import { Select, TextField } from "@material-ui/core"
 import MenuItem from "material-ui/MenuItem"
 import React from "react"
 import { Field, FieldArray } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
 import {
   ColorField,
   CustomToggle,
@@ -11,13 +11,15 @@ import ArrayEditor from "./arrayEditor"
 import ImageEditor from "./imageEditor"
 import style from "./style.module.sass"
 
-const DynamicEditControl = ({
-  type,
-  fieldName,
-  label,
-  options,
-  properties,
+const DynamicEditControl = (props: {
+  type: string
+  fieldName: string
+  label: string
+  options: string
+  properties: string
 }) => {
+  const { type, fieldName, label, options, properties } = props
+
   const hasOptions = options && Array.isArray(options) && options.length > 0
   const hasProperties =
     properties && Array.isArray(properties) && properties.length > 0
@@ -40,7 +42,7 @@ const DynamicEditControl = ({
     )
     return (
       <Field
-        component={SelectField}
+        component={Select}
         name={fieldName}
         floatingLabelText={label}
         fullWidth

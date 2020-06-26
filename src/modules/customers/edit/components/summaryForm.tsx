@@ -1,13 +1,13 @@
+import { Select, TextField } from "@material-ui/core"
 import MenuItem from "@material-ui/core/MenuItem"
 import FlatButton from "material-ui/FlatButton"
 import React, { useEffect, useState } from "react"
 import { Field, reduxForm } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
 import api from "../../../../lib/api"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: any) => {
   const errors = {}
   const requiredFields = ["email", "full_name"]
 
@@ -20,13 +20,16 @@ const validate = values => {
   return errors
 }
 
-const CustomerEditForm = props => {
+const CustomerEditForm = (props: any) => {
   const [groups, setGroups] = useState([])
 
   useEffect(() => {
-    api.customerGroups.list().then(({ json }) => {
+    const json = api.customerGroups.list()
+    try {
       setGroups(json)
-    })
+    } catch (error) {
+      console.error(error)
+    }
   }, [])
 
   const { handleSubmit, pristine, submitting, onCancel } = props
@@ -58,7 +61,7 @@ const CustomerEditForm = props => {
           floatingLabelText={messages.fullName}
         />
         <Field
-          component={SelectField}
+          component={Select}
           fullWidth
           name="group_id"
           floatingLabelText={messages.group}

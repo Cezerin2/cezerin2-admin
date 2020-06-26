@@ -1,16 +1,12 @@
-import Paper from "@material-ui/core/Paper"
-import FlatButton from "material-ui/FlatButton"
-import MenuItem from "material-ui/MenuItem"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, MenuItem, Paper, Select, TextField } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { Field, reduxForm } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
 import messages from "../../../../../lib/text"
 import { CustomToggle } from "../../../../../modules/shared/form"
 import style from "./style.module.sass"
 import OptionValues from "./values"
 
-const validate = values => {
+const validate = (values: any) => {
   const errors = {}
   const requiredFields = ["name"]
 
@@ -23,7 +19,20 @@ const validate = values => {
   return errors
 }
 
-const ProductOptionForm = (props: Readonly<{}>) => {
+const ProductOptionForm = (
+  props: Readonly<{
+    fetchData: Function
+    handleSubmit: string
+    pristine: string
+    reset: string
+    submitting: string
+    deleteOption: string
+    optionValues: string
+    createOptionValue: string
+    updateOptionValue: string
+    deleteOptionValue: string
+  }>
+) => {
   useEffect(() => {
     props.fetchData()
   }, [])
@@ -63,7 +72,7 @@ const ProductOptionForm = (props: Readonly<{}>) => {
               </div>
               <div className="col-xs-6">
                 <Field
-                  component={SelectField}
+                  component={Select}
                   autoWidth
                   fullWidth
                   name="control"
@@ -85,24 +94,24 @@ const ProductOptionForm = (props: Readonly<{}>) => {
             </div>
           </div>
           <div className="buttons-box">
-            <RaisedButton
-              label={messages.actions_delete}
-              secondary
-              onClick={deleteOption}
-            />
-            <FlatButton
-              label={messages.cancel}
+            <Button color="secondary" onClick={deleteOption}>
+              {messages.actions_delete}
+            </Button>
+            <Button
               style={{ marginLeft: 12 }}
               onClick={reset}
               disabled={pristine || submitting}
-            />
-            <RaisedButton
+            >
+              {messages.cancel}
+            </Button>
+            <Button
               type="submit"
-              label={messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

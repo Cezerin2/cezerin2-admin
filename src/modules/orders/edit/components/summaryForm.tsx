@@ -1,8 +1,8 @@
+import { Select, TextField } from "@material-ui/core"
 import FlatButton from "material-ui/FlatButton"
 import MenuItem from "material-ui/MenuItem"
 import React, { useEffect, useState } from "react"
 import { Field, reduxForm } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
 import api from "../../../../lib/api"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
@@ -82,7 +82,7 @@ const SummaryForm = (props: Readonly<{}>) => {
     >
       <>
         <Field
-          component={SelectField}
+          component={Select}
           fullWidth
           name="status_id"
           floatingLabelText={messages.orderStatus}
@@ -97,7 +97,7 @@ const SummaryForm = (props: Readonly<{}>) => {
           floatingLabelText={messages.trackingNumber}
         />
         <Field
-          component={SelectField}
+          component={Select}
           fullWidth
           name="shipping_method_id"
           floatingLabelText={messages.shippingMethod}
@@ -106,7 +106,7 @@ const SummaryForm = (props: Readonly<{}>) => {
         </Field>
 
         <Field
-          component={SelectField}
+          component={Select}
           fullWidth
           name="payment_method_id"
           floatingLabelText={messages.paymentsMethod}

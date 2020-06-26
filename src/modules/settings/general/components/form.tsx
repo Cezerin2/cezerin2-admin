@@ -1,3 +1,4 @@
+import { Select, TextField } from "@material-ui/core"
 import Paper from "@material-ui/core/Paper"
 import Divider from "material-ui/Divider"
 import FontIcon from "material-ui/FontIcon"
@@ -7,13 +8,12 @@ import RaisedButton from "material-ui/RaisedButton"
 import React, { useEffect } from "react"
 import { Link } from "react-router-dom"
 import { Field, reduxForm } from "redux-form"
-import { SelectField, TextField } from "redux-form-material-ui"
 import data from "../../../../lib/data"
 import messages from "../../../../lib/text"
 import { CustomToggle } from "../../../../modules/shared/form"
 import style from "./style.module.sass"
 
-const GeneralSettings = props => {
+const GeneralSettings = (props: {}) => {
   useEffect(() => {
     props.onLoad()
   }, [])
@@ -104,7 +104,7 @@ const GeneralSettings = props => {
             <div className="col-xs-12 col-sm-6">{messages.currency}</div>
             <div className="col-xs-12 col-sm-6">
               <Field
-                component={SelectField}
+                component={Select}
                 autoWidth
                 fullWidth
                 name="currency_code"
@@ -141,7 +141,7 @@ const GeneralSettings = props => {
               />
 
               <Field
-                component={SelectField}
+                component={Select}
                 autoWidth
                 floatingLabelFixed
                 fullWidth
@@ -155,7 +155,7 @@ const GeneralSettings = props => {
               </Field>
 
               <Field
-                component={SelectField}
+                component={Select}
                 autoWidth
                 fullWidth
                 name="decimal_separator"
@@ -166,7 +166,7 @@ const GeneralSettings = props => {
               </Field>
 
               <Field
-                component={SelectField}
+                component={Select}
                 autoWidth
                 fullWidth
                 name="decimal_number"
@@ -229,12 +229,7 @@ const GeneralSettings = props => {
               {messages.settings_timezone}
             </div>
             <div className="col-xs-12 col-sm-6">
-              <Field
-                component={SelectField}
-                autoWidth
-                fullWidth
-                name="timezone"
-              >
+              <Field component={Select} autoWidth fullWidth name="timezone">
                 {timezoneItems}
               </Field>
             </div>
@@ -252,12 +247,7 @@ const GeneralSettings = props => {
               {messages.settings_dateFormat}
             </div>
             <div className="col-xs-12 col-sm-6">
-              <Field
-                component={SelectField}
-                autoWidth
-                fullWidth
-                name="date_format"
-              >
+              <Field component={Select} autoWidth fullWidth name="date_format">
                 <MenuItem value="MMMM D, YYYY" primaryText="January 30, 2017" />
                 <MenuItem value="D MMMM YYYY" primaryText="30 January 2017" />
                 <MenuItem value="YYYY-MM-DD" primaryText="2017-01-30" />
@@ -282,12 +272,7 @@ const GeneralSettings = props => {
               {messages.settings_timeFormat}
             </div>
             <div className="col-xs-12 col-sm-6">
-              <Field
-                component={SelectField}
-                autoWidth
-                fullWidth
-                name="time_format"
-              >
+              <Field component={Select} autoWidth fullWidth name="time_format">
                 <MenuItem value="h:mm a" primaryText="2:30 pm" />
                 <MenuItem value="h:mm A" primaryText="2:30 PM" />
                 <MenuItem value="HH:mm" primaryText="14:30" />
@@ -307,12 +292,7 @@ const GeneralSettings = props => {
               {messages.settings_weightUnit}
             </div>
             <div className="col-xs-12 col-sm-6">
-              <Field
-                component={SelectField}
-                autoWidth
-                fullWidth
-                name="weight_unit"
-              >
+              <Field component={Select} autoWidth fullWidth name="weight_unit">
                 <MenuItem
                   value="g"
                   primaryText={`${messages.settings_gram} (g)`}
@@ -345,12 +325,7 @@ const GeneralSettings = props => {
               {messages.settings_lengthUnit}
             </div>
             <div className="col-xs-12 col-sm-6">
-              <Field
-                component={SelectField}
-                autoWidth
-                fullWidth
-                name="length_unit"
-              >
+              <Field component={Select} autoWidth fullWidth name="length_unit">
                 <MenuItem
                   value="cm"
                   primaryText={`${messages.settings_centimeter} (cm)`}
@@ -436,7 +411,7 @@ const GeneralSettings = props => {
             </div>
             <div className="col-xs-12 col-sm-6">
               <Field
-                component={SelectField}
+                component={Select}
                 autoWidth
                 fullWidth
                 name="default_shipping_country"
