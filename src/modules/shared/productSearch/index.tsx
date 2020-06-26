@@ -1,6 +1,6 @@
+import { Button } from "@material-ui/core"
 import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
-import FlatButton from "material-ui/FlatButton"
 import { Table, TableBody, TableRow, TableRowColumn } from "material-ui/Table"
 import TextField from "material-ui/TextField"
 import React, { useEffect, useState } from "react"
@@ -23,7 +23,8 @@ const SearchBox = ({
   />
 )
 
-const SearchResult = ({ products, selectedId, settings, onSelect }) => {
+const SearchResult = (props: any) => {
+  const { products, selectedId, settings, onSelect } = props
   const rows = products.map((product, index) => {
     const priceFormatted = helper.formatCurrency(product.price, settings)
     const isSelected = product.id === selectedId
@@ -138,12 +139,12 @@ const ConfirmationDialog = (
         />
       </>
       <DialogActions>
-        <FlatButton
-          label={cancelLabel}
-          onClick={handleCancel}
-          style={{ marginRight: 10 }}
-        />
-        <FlatButton label={submitLabel} primary onClick={handleSubmit} />
+        <Button onClick={handleCancel} style={{ marginRight: 10 }}>
+          {cancelLabel}
+        </Button>
+        <Button color="primary" onClick={handleSubmit}>
+          {submitLabel}
+        </Button>
       </DialogActions>
     </Dialog>
   )
