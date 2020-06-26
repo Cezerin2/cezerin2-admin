@@ -1,3 +1,4 @@
+import { toNumber } from "lodash"
 import messages from "./text"
 
 const LOGIN_PATH = "/apps/login"
@@ -28,9 +29,9 @@ export const checkTokenFromUrl = () => {
       const tokenData = parseJWT(token)
 
       if (tokenData) {
-        const expiration_date = tokenData.exp * 1000
-        if (expiration_date > Date.now()) {
-          saveToken({ token, email: tokenData.email, expiration_date })
+        const expirationDate = tokenData.exp * 1000
+        if (expirationDate > Date.now()) {
+          saveToken({ token, email: tokenData.email, expirationDate })
           window.location.replace(HOME_PATH)
         } else {
           alert(messages.tokenExpired)
@@ -57,18 +58,18 @@ const parseJWT = (jwt: string) => {
 const saveToken = (data: {
   token: string
   email: string
-  expiration_date: string
+  expirationDate: number
 }) => {
   localStorage.setItem("webstore_token", data.token)
   localStorage.setItem("webstore_email", data.email)
-  localStorage.setItem("webstore_exp", data.expiration_date)
+  localStorage.setItem("webstore_exp", data.expirationDate.toString())
 }
 
 export const isCurrentTokenValid = () => {
-  const expiration_date = localStorage.getItem("webstore_exp")
+  const expirationDate = localStorage.getItem("webstore_exp")
   return (
     localStorage.getItem("webstore_token") &&
-    expiration_date &&
-    expiration_date > Date.now()
+    expirationDate &&
+    toNumber(expirationDate) > Date.now()
   )
 }
