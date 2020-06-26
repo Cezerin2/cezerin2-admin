@@ -1,9 +1,9 @@
 import Paper from "@material-ui/core/Paper"
+import { Link } from "@reach/router"
 import Divider from "material-ui/Divider"
 import FontIcon from "material-ui/FontIcon"
 import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
-import { Link } from "react-router-dom"
 import messages from "../../../../../lib/text"
 
 const TokenItem = ({ token }) => (

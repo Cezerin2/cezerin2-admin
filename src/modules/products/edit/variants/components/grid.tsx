@@ -1,11 +1,11 @@
 import Paper from "@material-ui/core/Paper"
+import { Link } from "@reach/router"
 import DropDownMenu from "material-ui/DropDownMenu"
 import FontIcon from "material-ui/FontIcon"
 import IconButton from "material-ui/IconButton"
 import MenuItem from "material-ui/MenuItem"
 import RaisedButton from "material-ui/RaisedButton"
 import React, { useState } from "react"
-import { Link } from "react-router-dom"
 import messages from "../../../../../lib/text"
 import style from "./style.module.sass"
 
