@@ -7,12 +7,7 @@ import messages from "../../../../lib/text"
 import DynamicEditControl from "./dynamicEditControl"
 import style from "./style.module.sass"
 
-const ArrayEditor = ({
-  label,
-  properties,
-  fields,
-  meta: { touched, error, submitFailed },
-}) => (
+const ArrayEditor = ({ label, properties, fields }) => (
   <>
     <div className={style.arrayTitle}>
       {label}
@@ -31,7 +26,7 @@ const ArrayEditor = ({
         <li key={index}>
           <Paper
             style={{ margin: "20px 0 20px 20px", backgroundColor: "#f7f7f7" }}
-            zDepth={1}
+            elevation={1}
           >
             <div className={style.arrayItemHead}>
               <FlatButton

@@ -1,6 +1,5 @@
-import Divider from "material-ui/Divider"
+import { Divider, List } from "@material-ui/core"
 import FontIcon from "material-ui/FontIcon"
-import { List } from "material-ui/List"
 import RaisedButton from "material-ui/RaisedButton"
 import React, { useEffect } from "react"
 import messages from "../../../../lib/text"

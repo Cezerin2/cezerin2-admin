@@ -1,8 +1,6 @@
-import Paper from "@material-ui/core/Paper"
+import { Divider, List, Paper } from "@material-ui/core"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
 import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
 
 const MethodItem = ({ method }) => (
@@ -41,7 +39,7 @@ const EmailSettings = (props: Readonly<{}>) => {
   ))
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div style={{ width: "100%" }}>
         <List style={{ padding: 0 }}>{methods}</List>
       </div>

@@ -1,5 +1,4 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
+import { Dialog, DialogActions } from "@material-ui/core"
 import FlatButton from "material-ui/FlatButton"
 import FontIcon from "material-ui/FontIcon"
 import IconButton from "material-ui/IconButton"

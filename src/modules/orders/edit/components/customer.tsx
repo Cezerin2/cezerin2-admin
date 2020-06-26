@@ -1,7 +1,5 @@
-import Dialog from "@material-ui/core/Dialog"
-import Paper from "@material-ui/core/Paper"
+import { Dialog, Divider, Paper } from "@material-ui/core"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
 import FlatButton from "material-ui/FlatButton"
 import RaisedButton from "material-ui/RaisedButton"
 import React, { useState } from "react"
@@ -40,7 +38,7 @@ const ShippingFieldDiv = ({ label, value }) => (
   </>
 )
 
-const ShippingAddress = ({ order, settings }) => {
+const ShippingAddress = ({ order }) => {
   const address = order.shipping_address
   const shippingMethod = order.shipping_method_details
 
@@ -161,7 +159,7 @@ const OrderCustomer = (
       <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
         {messages.customer}
       </div>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div className={style.innerBox}>
           <div className={style.address}>
             <>

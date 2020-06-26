@@ -1,4 +1,4 @@
-import Paper from "@material-ui/core/Paper"
+import { Paper } from "@material-ui/core"
 import FlatButton from "material-ui/FlatButton"
 import FontIcon from "material-ui/FontIcon"
 import IconButton from "material-ui/IconButton"
