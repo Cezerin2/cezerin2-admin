@@ -1,12 +1,12 @@
-import RaisedButton from "material-ui/RaisedButton"
+import { Button } from "@material-ui/core"
+import { Link } from "@reach/router"
 import React, { useEffect } from "react"
-import { Link } from "react-router-dom"
 import apps from "../../../../apps"
 import messages from "../../../../lib/text"
 import AppItem from "./appItem"
 import ServiceItem from "./serviceItem"
 
-const ServicesList = props => {
+const ServicesList = (props: any) => {
   useEffect(() => {
     props.fetchData()
   }, [])
@@ -41,7 +41,7 @@ const ServicesList = props => {
           {messages.loadFromWebstore}
           &nbsp;&nbsp;
           <Link to="/apps/login">
-            <RaisedButton label={messages.loginTitle} />
+            <Button>{messages.loginTitle}</Button>
           </Link>
         </div>
       )}
