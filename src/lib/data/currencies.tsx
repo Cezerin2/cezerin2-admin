@@ -172,3 +172,5 @@ const APPLICATION_DATA_CURRENCIES = {
   ZMW: "Zambian Kwacha",
   ZWL: "Zimbabwean Dollar",
 }
+
+export default APPLICATION_DATA_CURRENCIES
