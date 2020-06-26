@@ -1,3 +1,2 @@
-// import APPLICATION_CONFIG from "./"
-const APPLICATION_CONFIG = ""
+import APPLICATION_CONFIG from "../config"
 export default APPLICATION_CONFIG
