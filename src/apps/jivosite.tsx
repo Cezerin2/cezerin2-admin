@@ -14,20 +14,11 @@ export const Description = {
 export const App = () => {
   const [code, setCode] = useState("")
 
-  const handleChange = (event: {
-    target: { value: React.SetStateAction<string> }
-  }) => {
-    setCode(event.target.value)
-  }
-
-  const fetchSettings = () => {
-    api.apps.settings.retrieve("jivosite")
+  async function fetchSettings() {
     try {
-      ;({ json }) => {
-        const appSettings = json
-        if (appSettings) {
-          setCode(appSettings.code)
-        }
+      const appSettings = await api.apps.settings.retrieve("jivosite")
+      if (appSettings) {
+        setCode(appSettings.code)
       }
     } catch (error) {
       console.error(error)
@@ -55,9 +46,9 @@ export const App = () => {
         fullWidth
         rows={10}
         value={code}
-        onChange={handleChange}
+        onChange={event => setCode(event.target.value)}
         label="Код чата JivoSite"
-        hintText="<!-- BEGIN JIVOSITE CODE {literal} -->..."
+        helperText="<!-- BEGIN JIVOSITE CODE {literal} -->..."
       />
       <Button
         color="primary"

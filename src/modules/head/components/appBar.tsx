@@ -28,11 +28,21 @@ import WebhooksEditHead from "../../../modules/settings/webhooks/edit/head"
 import WebhooksListHead from "../../../modules/settings/webhooks/list/head"
 import DrawerMenu from "./drawer"
 
-const AppBarTop = (props: Readonly<{}>) => {
+const AppBarTop = (
+  props: Readonly<{
+    location: { pathname: string }
+    productCategoryName: string
+    productsSelectedCount: number
+    customersSelectedCount: number
+    customerGroupName: string
+    ordersSelectedCount: number
+    orderStatusName: string
+    orderNumber: string
+  }>
+) => {
   const [open, setOpen] = useState(false)
 
   const handleToggle = () => setOpen(!open)
-
   const handleClose = () => setOpen(false)
 
   const {
@@ -647,10 +657,10 @@ const AppBarTop = (props: Readonly<{}>) => {
     <>
       <AppBar
         className="appBar"
-        titleStyle={{ fontSize: 18 }}
+        // titleStyle={{ fontSize: 18 }}
         title={title}
-        iconElementLeft={leftButton}
-        iconElementRight={rightElements}
+        // iconElementLeft={leftButton}
+        // iconElementRight={rightElements}
       />
       <DrawerMenu open={open} onClose={handleClose} currentUrl={pathname} />
     </>

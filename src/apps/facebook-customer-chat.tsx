@@ -1,6 +1,6 @@
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
-import React, { FormEvent, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import api from "../lib/api"
 import messages from "../lib/text"
 
@@ -26,23 +26,13 @@ export const App = () => {
   const [pageID, setPageID] = useState("")
   const [minimized, setMinimized] = useState("false")
 
-  const handlePageIdChange = (event: FormEvent<{ value: string }>) => {
-    setPageID(event.currentTarget.value)
-  }
-
-  const handleMinimizedChange = (event: FormEvent<{ value: string }>) => {
-    setMinimized(event.currentTarget.value)
-  }
-
   const fetchSettings = () => {
-    api.apps.settings.retrieve("facebook-customer-chat")
+    const json = api.apps.settings.retrieve("facebook-customer-chat")
     try {
-      ;(json: { pageId: string; minimized: string }) => {
-        const appSettings = json
-        if (appSettings) {
-          setPageID(appSettings.pageId)
-          setMinimized(appSettings.minimized)
-        }
+      const appSettings: { pageId: string; minimized: string } = json
+      if (appSettings) {
+        setPageID(appSettings.pageId)
+        setMinimized(appSettings.minimized)
       }
     } catch (error) {
       console.log(error)
@@ -78,7 +68,7 @@ export const App = () => {
         type="text"
         fullWidth
         value={pageID}
-        onChange={handlePageIdChange}
+        onChange={event => setPageID(event.target.value)}
         label="Page ID"
       />
 
@@ -86,9 +76,9 @@ export const App = () => {
         type="text"
         fullWidth
         value={minimized}
-        onChange={handleMinimizedChange}
+        onChange={event => setMinimized(event.target.value)}
         label="minimized"
-        hintText="false"
+        helperText="false"
       />
 
       <Button

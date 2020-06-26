@@ -36,18 +36,12 @@ const GTAG_CODE = `<!-- Global site tag (gtag.js) - Google Analytics -->
 export const GAnalytics = () => {
   const [trackingID, setTrackingID] = useState("")
 
-  const handleTrackingIdChange = (event: FormEvent) => {
-    setTrackingID(event.target.value)
-  }
-
   const fetchSettings = () => {
-    api.apps.settings.retrieve("google-analytics")
+    const json = api.apps.settings.retrieve("google-analytics")
     try {
-      ;({ status, json }) => {
-        const appSettings = json
-        if (appSettings) {
-          setTrackingID(appSettings.GA_TRACKING_ID)
-        }
+      const appSettings = json
+      if (appSettings) {
+        setTrackingID(appSettings.GA_TRACKING_ID)
       }
     } catch (error) {
       console.error(error)
@@ -83,9 +77,9 @@ export const GAnalytics = () => {
       <TextField
         type="text"
         value={trackingID}
-        onChange={handleTrackingIdChange}
-        floatingLabelText="Tracking ID"
-        hintText="UA-XXXXXXXX-X"
+        onChange={event => setTrackingID(event.target.value)}
+        label="Tracking ID"
+        helperText="UA-XXXXXXXX-X"
       />
 
       <Button
