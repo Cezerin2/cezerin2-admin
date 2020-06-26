@@ -1,19 +1,19 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import Divider from "material-ui/Divider"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Divider, Paper, TextField } from "@material-ui/core"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
 import { CustomToggle } from "../../../../modules/shared/form"
 import style from "./style.module.sass"
 
-const ServiceSettingsForm = ({
-  handleSubmit,
-  pristine,
-  submitting,
-  initialValues,
-}) => {
+const ServiceSettingsForm = (
+  props: Readonly<{
+    handleSubmit: any
+    pristine: any
+    submitting: any
+    initialValues: any
+  }>
+) => {
+  const { handleSubmit, pristine, submitting, initialValues } = props
   const fields = Object.keys(initialValues).map((key, index) => {
     const value = initialValues[key]
     return (
@@ -65,19 +65,20 @@ const ServiceSettingsForm = ({
           width: "100%",
         }}
       >
-        <Paper style={{ margin: "0px 20px" }} zDepth={1}>
+        <Paper style={{ margin: "0px 20px" }} elevation={1}>
           <div style={{ padding: "10px 30px 30px 30px" }}>{fields}</div>
           <div
             className="buttons-box"
             style={{ display: pristine ? "none" : "block" }}
           >
-            <RaisedButton
+            <Button
               type="submit"
-              label={messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

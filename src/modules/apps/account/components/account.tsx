@@ -1,6 +1,5 @@
+import { Button, TextField } from "@material-ui/core"
 import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import RaisedButton from "material-ui/RaisedButton"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
@@ -50,13 +49,14 @@ const AccountForm = ({ handleSubmit, pristine, submitting }) => (
           className="buttons-box"
           style={{ display: pristine ? "none" : "block" }}
         >
-          <RaisedButton
+          <Button
             type="submit"
-            label={messages.save}
-            primary
+            color="primary"
             className={style.button}
             disabled={pristine || submitting}
-          />
+          >
+            {messages.save}
+          </Button>
         </div>
       </Paper>
     </form>

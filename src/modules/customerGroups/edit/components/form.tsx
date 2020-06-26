@@ -1,7 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import FlatButton from "material-ui/FlatButton"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
@@ -37,7 +34,7 @@ const Form = (props: {
   }
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <form onSubmit={handleSubmit}>
         <div className={style.innerBox}>
           <Field
@@ -57,18 +54,17 @@ const Form = (props: {
           />
         </div>
         <div className="buttons-box">
-          <FlatButton
-            label={messages.cancel}
-            className={style.button}
-            onClick={props.onCancel}
-          />
-          <RaisedButton
+          <Button className={style.button} onClick={props.onCancel}>
+            {messages.cancel}
+          </Button>
+          <Button
             type="submit"
-            label={groupId ? messages.save : messages.add}
-            primary
+            color="primary"
             className={style.button}
             disabled={pristine || submitting || isSaving}
-          />
+          >
+            {groupId ? messages.save : messages.add}
+          </Button>
         </div>
       </form>
     </Paper>

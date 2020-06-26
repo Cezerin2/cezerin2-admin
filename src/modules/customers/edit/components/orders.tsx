@@ -1,8 +1,6 @@
-import Paper from "@material-ui/core/Paper"
+import { Divider, List, Paper } from "@material-ui/core"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
 import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import api from "../../../../lib/api"
@@ -98,7 +96,7 @@ const CustomerOrder = ({ order, settings }) => {
   )
 }
 
-const CustomerOrders = props => {
+const CustomerOrders = (props: Readonly<{}>) => {
   const [orders, setOrders] = useState([])
 
   useEffect(() => {
@@ -119,7 +117,7 @@ const CustomerOrders = props => {
   }
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div
         className="blue-title"
         style={{ paddingLeft: 16, paddingBottom: 16 }}

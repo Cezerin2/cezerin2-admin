@@ -1,6 +1,6 @@
 import { List, ListItem } from "@material-ui/core"
+import { Clear, Folder, Settings } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
 import React, { useEffect } from "react"
 import messages from "../../../lib/text"
 
@@ -13,7 +13,7 @@ const styles = {
   },
 }
 
-const FolderIcon = <FontIcon className="material-icons">folder</FontIcon>
+const FolderIcon = <Folder className="material-icons" />
 
 const Groups = (props: {
   onLoad?: any
@@ -54,10 +54,8 @@ const Groups = (props: {
           primaryText={messages.customers_noGroup}
           style={selectedId === "root" ? styles.selectedItem : null}
           innerDivStyle={styles.innerItem}
-          leftIcon={<FontIcon className="material-icons">clear</FontIcon>}
-          onClick={() => {
-            onSelect("root")
-          }}
+          leftIcon={<Clear className="material-icons" />}
+          onClick={() => onSelect("root")}
         />
       )}
 
@@ -80,10 +78,11 @@ const Groups = (props: {
         <Link to="/customers/groups" style={{ textDecoration: "none" }}>
           <ListItem
             className="treeItem"
-            primaryText={messages.customerGroups_titleEditMany}
             innerDivStyle={styles.innerItem}
-            leftIcon={<FontIcon className="material-icons">settings</FontIcon>}
-          />
+            leftIcon={<Settings className="material-icons" />}
+          >
+            {messages.customerGroups_titleEditMany}
+          </ListItem>
         </Link>
       )}
     </List>

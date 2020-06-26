@@ -1,9 +1,6 @@
-import Dialog from "@material-ui/core/Dialog"
-import Paper from "@material-ui/core/Paper"
+import { Dialog, IconButton, MenuItem, Paper } from "@material-ui/core"
 import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
 import IconMenu from "material-ui/IconMenu"
-import MenuItem from "material-ui/MenuItem"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
 import ConfirmationDialog from "../../../../modules/shared/confirmation"
@@ -72,7 +69,7 @@ const CustomerAddress = (props: Readonly<{}>) => {
     props.onSetDefaultShippingAddress(props.address.id)
   }
 
-  const { address, onUpdateAddress } = props
+  const { address } = props
 
   let title = messages.address
   if (address.default_billing && address.default_shipping) {
@@ -84,7 +81,7 @@ const CustomerAddress = (props: Readonly<{}>) => {
   }
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div className={style.innerBox} style={{ paddingTop: 15 }}>
         <div className="row middle-xs">
           <div className="col-xs-10">{title}</div>
@@ -140,14 +137,15 @@ const CustomerAddress = (props: Readonly<{}>) => {
   )
 }
 
-const CustomerAddresses = ({
-  customer,
-  settings,
-  onUpdateAddress,
-  onDeleteAddress,
-  onSetDefaultBillingAddress,
-  onSetDefaultShippingAddress,
-}) => {
+const CustomerAddresses = (props: Readonly<{}>) => {
+  const {
+    customer,
+    onUpdateAddress,
+    onDeleteAddress,
+    onSetDefaultBillingAddress,
+    onSetDefaultShippingAddress,
+  } = props
+
   if (customer && customer.addresses && customer.addresses.length > 0) {
     const addresses = customer.addresses.map((address, index) => (
       <CustomerAddress

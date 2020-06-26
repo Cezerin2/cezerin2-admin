@@ -1,12 +1,18 @@
-import { Paper } from "@material-ui/core"
-import TextField from "@material-ui/core/TextField"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const DeveloperForm = ({ handleSubmit, pristine, submitting }) => (
+const DeveloperForm = ({
+  handleSubmit,
+  pristine,
+  submitting,
+}: {
+  handleSubmit: any
+  pristine: any
+  submitting: boolean
+}) => (
   <div style={{ maxWidth: 720, width: "100%" }}>
     <div className="gray-title" style={{ margin: "15px 0 15px 20px" }}>
       {messages.developerProfile}
@@ -18,7 +24,7 @@ const DeveloperForm = ({ handleSubmit, pristine, submitting }) => (
         width: "100%",
       }}
     >
-      <Paper style={{ margin: "0px 20px" }} zDepth={1}>
+      <Paper style={{ margin: "0px 20px" }} elevation={1}>
         <div style={{ padding: "10px 30px 30px 30px" }}>
           <Field
             component={TextField}
@@ -51,13 +57,14 @@ const DeveloperForm = ({ handleSubmit, pristine, submitting }) => (
           className="buttons-box"
           style={{ display: pristine ? "none" : "block" }}
         >
-          <RaisedButton
+          <Button
             type="submit"
-            label={messages.save}
-            primary
+            color="primary"
             className={style.button}
             disabled={pristine || submitting}
-          />
+          >
+            {messages.save}
+          </Button>
         </div>
       </Paper>
     </form>
