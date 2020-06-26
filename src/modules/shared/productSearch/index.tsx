@@ -8,7 +8,13 @@ import api from "../../../lib/api"
 import * as helper from "../../../lib/helper"
 import messages from "../../../lib/text"
 
-const SearchBox = ({ text, onChange }) => (
+const SearchBox = ({
+  text,
+  onChange,
+}: {
+  text: string
+  onChange: Function
+}) => (
   <TextField
     fullWidth
     floatingLabelText={messages.products_search}
@@ -46,21 +52,28 @@ const SearchResult = ({ products, selectedId, settings, onSelect }) => {
   )
 }
 
-const ConfirmationDialog = (props: Readonly<{}>) => {
+const ConfirmationDialog = (
+  props: Readonly<{
+    open: boolean
+    title: string
+    submitLabel: string
+    cancelLabel: string
+    modal: boolean
+    settings: string
+    onSubmit: Function
+    onCancel: Function
+  }>
+) => {
   const [open, setOpen] = useState(props.open)
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState("")
   const [selectedId, setSelectedId] = useState(null)
 
-  //componentWillReceiveProps(nextProps) {
-  useEffect(
-    nextProps => {
-      if (open !== nextProps.open) {
-        setOpen(nextProps.open)
-      }
-    },
-    [props]
-  )
+  useEffect(() => {
+    if (open !== props.open) {
+      setOpen(props.open)
+    }
+  }, [props.open])
 
   const handleCancel = () => {
     setOpen(false)
@@ -72,36 +85,37 @@ const ConfirmationDialog = (props: Readonly<{}>) => {
   const handleSubmit = () => {
     setOpen(false)
     if (props.onSubmit) {
-      props.onSubmit(state.selectedId)
+      props.onSubmit(selectedId)
     }
   }
 
-  const handleRowSelection = selectedRows => {
+  const handleRowSelection = (selectedRows: []) => {
     if (selectedRows && selectedRows.length > 0) {
       const selectedIndex = selectedRows[0]
       const selectedProductId =
-        state.products && state.products.length >= selectedIndex
-          ? state.products[selectedIndex].id
+        products && products.length >= selectedIndex
+          ? products[selectedIndex].id
           : null
       setSelectedId(selectedProductId)
     }
   }
 
-  handleSearch = (event, value) => {
+  const handleSearch = (event, value) => {
     setSearch(value)
 
-    api.products
-      .list({
-        limit: 50,
-        enabled: true,
-        discontinued: false,
-        fields:
-          "id,name,category_id,category_name,sku,enabled,discontinued,price,on_sale,regular_price",
-        search: value,
-      })
-      .then(productsResponse => {
-        setProducts(productsResponse.json.data)
-      })
+    const productsResponse = api.products.list({
+      limit: 50,
+      enabled: true,
+      discontinued: false,
+      fields:
+        "id,name,category_id,category_name,sku,enabled,discontinued,price,on_sale,regular_price",
+      search: value,
+    })
+    try {
+      setProducts(productsResponse.json.data)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const { title, submitLabel, cancelLabel, modal = false, settings } = props

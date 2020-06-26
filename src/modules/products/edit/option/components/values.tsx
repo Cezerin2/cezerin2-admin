@@ -5,17 +5,16 @@ import React, { useState } from "react"
 import messages from "../../../../../lib/text"
 import style from "./style.module.sass"
 
-const OptionValueEdit = (props: Readonly<{}>) => {
+const OptionValueEdit = (
+  props: Readonly<{
+    value: { name: string; id: string }
+    onChange: Function
+    onDelete: Function
+  }>
+) => {
   const [value, setValue] = useState(props.value.name)
-  //  onChange =onChange.bind(this)
-  //  onBlur =onBlur.bind(this)
-  //  onDelete =onDelete.bind(this)
 
-  const onChange = e => {
-    setValue(e.target.value)
-  }
-
-  const onBlur = e => {
+  const onBlur = () => {
     props.onChange(props.value.id, value)
   }
 
@@ -30,7 +29,7 @@ const OptionValueEdit = (props: Readonly<{}>) => {
           type="text"
           className={style.textInput}
           value={value}
-          onChange={onChange}
+          onChange={event => setValue(event.target.value)}
           onBlur={onBlur}
         />
       </div>
@@ -49,25 +48,18 @@ const OptionValueEdit = (props: Readonly<{}>) => {
   )
 }
 
-const OptionValueAdd = (props: Readonly<{}>) => {
+const OptionValueAdd = (props: Readonly<{ onCreate: Function }>) => {
   const [value, setValue] = useState("")
-  //  onChange =onChange.bind(this)
-  //  onCreate =onCreate.bind(this)
-  //  handleKeyPress =handleKeyPress.bind(this)
-
-  const onChange = e => {
-    setValue(e.target.value)
-  }
 
   const onCreate = () => {
-    if (state.value !== "") {
+    if (value !== "") {
       props.onCreate(value)
       setValue("")
     }
   }
 
-  function handleKeyPress(e) {
-    if (e.keyCode === 13 || e.which === 13) {
+  function handleKeyPress(event) {
+    if (event.keyCode === 13 || event.which === 13) {
       onCreate()
     }
   }
@@ -80,7 +72,7 @@ const OptionValueAdd = (props: Readonly<{}>) => {
           className={style.textInput}
           value={value}
           placeholder={messages.newOptionValue}
-          onChange={onChange}
+          onChange={event => setValue(event.target.value)}
           onKeyPress={handleKeyPress}
         />
       </div>

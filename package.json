@@ -45,6 +45,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router": "^5.1.7",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-tagsinput": "^3.19.7",
     "@types/redux-form": "^8.2.6",
     "chart.js": "^2.9.3",
     "cssnano": "^4.1.10",

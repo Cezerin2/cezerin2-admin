@@ -6,7 +6,13 @@ import React, { useState } from "react"
 import messages from "../../../../../lib/text"
 import CategoryMultiselect from "../../../../../modules/productCategories/components/multiselectList"
 
-const CategoryItemActions = ({ fields, index }) => (
+const CategoryItemActions = ({
+  fields,
+  index,
+}: {
+  fields: { remove: Function }
+  index: string
+}) => (
   <a
     title={messages.actions_delete}
     onClick={() => fields.remove(index)}

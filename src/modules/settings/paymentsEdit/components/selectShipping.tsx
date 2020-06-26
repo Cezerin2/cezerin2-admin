@@ -2,25 +2,21 @@ import Checkbox from "material-ui/Checkbox"
 import { List, ListItem } from "material-ui/List"
 import React, { useEffect, useState } from "react"
 
-const SelectShippingMethodsField = (props: Readonly<{}>) => {
+const SelectShippingMethodsField = (
+  props: Readonly<{ input: { value: string } }>
+) => {
   const ids = Array.isArray(props.input.value) ? props.input.value : []
 
   const [selectedIds, setSelectedIds] = useState(ids)
 
-  //componentWillReceiveProps(nextProps) {
-  useEffect(
-    nextProps => {
-      const newIds = Array.isArray(nextProps.input.value)
-        ? nextProps.input.value
-        : []
-      if (newIds !== selectedIds) {
-        setSelectedIds(newIds)
-      }
-    },
-    [props]
-  )
+  useEffect(() => {
+    const newIds = Array.isArray(props.input.value) ? props.input.value : []
+    if (newIds !== selectedIds) {
+      setSelectedIds(newIds)
+    }
+  }, [props.input])
 
-  const onCheckboxChecked = methodId => {
+  const onCheckboxChecked = (methodId: string) => {
     let ids = selectedIds
     if (ids.includes(methodId)) {
       ids = ids.filter(id => id !== methodId)
@@ -31,7 +27,7 @@ const SelectShippingMethodsField = (props: Readonly<{}>) => {
     props.input.onChange(ids)
   }
 
-  const isCheckboxChecked = methodId => selectedIds.includes(methodId)
+  const isCheckboxChecked = (methodId: string) => selectedIds.includes(methodId)
 
   const items = props.shippingMethods.map(method => (
     <ListItem
@@ -39,9 +35,7 @@ const SelectShippingMethodsField = (props: Readonly<{}>) => {
       leftCheckbox={
         <Checkbox
           checked={isCheckboxChecked(method.id)}
-          onCheck={(e, isChecked) => {
-            onCheckboxChecked(method.id)
-          }}
+          onCheck={() => onCheckboxChecked(method.id)}
         />
       }
       primaryText={method.name}

@@ -1,3 +1,4 @@
+import { Button } from "@material-ui/core"
 import Paper from "@material-ui/core/Paper"
 import TextField from "@material-ui/core/TextField"
 import FlatButton from "material-ui/FlatButton"
@@ -5,7 +6,6 @@ import FontIcon from "material-ui/FontIcon"
 import IconButton from "material-ui/IconButton"
 import IconMenu from "material-ui/IconMenu"
 import MenuItem from "material-ui/MenuItem"
-import RaisedButton from "material-ui/RaisedButton"
 import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import TagsInput from "react-tagsinput"
@@ -121,7 +121,7 @@ const RelatedProduct = ({ settings, product, actions }) => {
   )
 }
 
-const ProductsArray = (props: Readonly<{}>) => {
+const ProductsArray = (props: Readonly<{ fields: any; settings: any }>) => {
   const [showAddItem, setShowAddItem] = useState(false)
   const [products, setProducts] = useState([])
 
@@ -133,7 +133,7 @@ const ProductsArray = (props: Readonly<{}>) => {
     setShowAddItem(false)
   }
 
-  const addItem = productId => {
+  const addItem = (productId: string) => {
     hideAddItem()
     props.fields.push(productId)
   }
@@ -143,41 +143,34 @@ const ProductsArray = (props: Readonly<{}>) => {
     fetchProducts(ids)
   }, [])
 
-  //componentWillReceiveProps(nextProps) {
-  useEffect(
-    nextProps => {
-      const currentIds = props.fields.getAll()
-      const newIds = nextProps.fields.getAll()
+  useEffect(() => {
+    const currentIds = props.fields.getAll()
+    const newIds = props.fields.getAll()
 
-      if (currentIds !== newIds) {
-        fetchProducts(newIds)
-      }
-    },
-    [props]
-  )
+    if (currentIds !== newIds) {
+      fetchProducts(newIds)
+    }
+  }, [props.fields])
 
-  const fetchProducts = ids => {
+  const fetchProducts = (ids: string) => {
     if (ids && Array.isArray(ids) && ids.length > 0) {
-      api.products
-        .list({
-          limit: 50,
-          fields:
-            "id,name,enabled,discontinued,price,on_sale,regular_price,images",
-          ids,
-        })
-        .then(productsResponse => {
-          setProducts(productsResponse.json.data)
-        })
+      const productsResponse = api.products.list({
+        limit: 50,
+        fields:
+          "id,name,enabled,discontinued,price,on_sale,regular_price,images",
+        ids,
+      })
+      try {
+        setProducts(productsResponse.json.data)
+      } catch (error) {
+        console.error(error)
+      }
     } else {
       setProducts([])
     }
   }
 
-  const {
-    settings,
-    fields,
-    meta: { touched, error, submitFailed },
-  } = props
+  const { settings, fields } = props
 
   return (
     <>
@@ -209,9 +202,7 @@ const ProductsArray = (props: Readonly<{}>) => {
         />
       </Paper>
 
-      <>
-        <RaisedButton label={messages.addOrderItem} onClick={showAddItem} />
-      </>
+      <Button onClick={showAddItem}>{messages.addOrderItem}</Button>
     </>
   )
 }
@@ -221,7 +212,6 @@ const ProductAdditionalForm = ({
   pristine,
   reset,
   submitting,
-  initialValues,
   settings,
   categories,
 }) => (
@@ -315,13 +305,14 @@ const ProductAdditionalForm = ({
           onClick={reset}
           disabled={pristine || submitting}
         />
-        <RaisedButton
+        <Button
           type="submit"
-          label={messages.save}
-          primary
+          color="primary"
           className={style.button}
           disabled={pristine || submitting}
-        />
+        >
+          {messages.save}
+        </Button>
       </div>
     </Paper>
   </form>

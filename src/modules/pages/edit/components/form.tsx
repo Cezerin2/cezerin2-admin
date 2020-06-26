@@ -1,6 +1,6 @@
+import { Button } from "@material-ui/core"
 import Paper from "@material-ui/core/Paper"
 import TextField from "@material-ui/core/TextField"
-import RaisedButton from "material-ui/RaisedButton"
 import React, { useEffect } from "react"
 import TagsInput from "react-tagsinput"
 import { Field, reduxForm } from "redux-form"
@@ -16,9 +16,7 @@ const TagsField = ({ input, placeholder }) => {
     <TagsInput
       value={tagsArray}
       inputProps={{ placeholder }}
-      onChange={tags => {
-        input.onChange(tags)
-      }}
+      onChange={tags => input.onChange(tags)}
     />
   )
 }
@@ -118,13 +116,14 @@ const EditPageForm = (props: Readonly<{}>) => {
               pristine && !isAdd ? "buttons-box-pristine" : "buttons-box-show"
             }`}
           >
-            <RaisedButton
+            <Button
               type="submit"
-              label={isAdd ? messages.add : messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {isAdd ? messages.add : messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

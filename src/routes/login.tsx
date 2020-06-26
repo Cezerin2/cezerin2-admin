@@ -16,10 +16,6 @@ const LoginForm = () => {
   const [emailIsSent, setEmailIsSent] = useState(false)
   const [error, setError] = useState(null)
 
-  const handleChange = (event: FormEvent<{ value: string }>) => {
-    setEmail(event.currentTarget.value)
-  }
-
   const handleKeyPress = (event: FormEvent) => {
     if (event.keyCode === 13 || event.which === 13) {
       handleSubmit()
@@ -74,7 +70,7 @@ const LoginForm = () => {
             <TextField
               type="email"
               value={email}
-              onChange={handleChange}
+              onChange={event => setEmail(event.currentTarget.value)}
               onKeyPress={handleKeyPress}
               label={messages.email}
               fullWidth
