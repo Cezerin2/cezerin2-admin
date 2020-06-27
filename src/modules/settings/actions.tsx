@@ -178,7 +178,7 @@ export function receiveWebhook(webhookEdit: string) {
 }
 
 export function fetchSettings() {
-  return dispatch => {
+  return (dispatch: Function) => {
     // API can be not init on app start
     if (api) {
       const json = api.settings.retrieve()
@@ -192,7 +192,7 @@ export function fetchSettings() {
 }
 
 export function fetchEmailSettings() {
-  return dispatch => {
+  return (dispatch: Function) => {
     const json = api.settings.retrieveEmailSettings()
     try {
       json.dispatch(receiveEmailSettings(json))
@@ -203,13 +203,13 @@ export function fetchEmailSettings() {
 }
 
 export function fetchImportSettings() {
-  return (dispatch, getState) => {
-    return api.settings
-      .retrieveImportSettings()
-      .then(({ status, json }) => {
-        dispatch(receiveImportSettings(json))
-      })
-      .catch(error => {})
+  return (dispatch: Function) => {
+    const { json } = api.settings.retrieveImportSettings()
+    try {
+      dispatch(receiveImportSettings(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
@@ -231,34 +231,34 @@ export function deleteLogo() {
 export function updateSettings(settings: { logo_file: any }) {
   return (dispatch: Function) => {
     delete settings.logo_file
-    return api.settings
-      .update(settings)
-      .then(({ status, json }) => {
-        dispatch(receiveSettings(json))
-      })
-      .catch(error => {})
+    const { json } = api.settings.update(settings)
+    try {
+      dispatch(receiveSettings(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function updateEmailSettings(emailSettings: string) {
   return (dispatch: Function) => {
-    return api.settings
-      .updateEmailSettings(emailSettings)
-      .then(({ status, json }) => {
-        dispatch(receiveEmailSettings(json))
-      })
-      .catch(error => {})
+    const { json } = api.settings.updateEmailSettings(emailSettings)
+    try {
+      dispatch(receiveEmailSettings(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function updateImportSettings(importSettings: string) {
-  return (dispatch, getState) => {
-    return api.settings
-      .updateImportSettings(importSettings)
-      .then(({ status, json }) => {
-        dispatch(receiveImportSettings(json))
-      })
-      .catch(error => {})
+  return (dispatch: Function) => {
+    const { json } = api.settings.updateImportSettings(importSettings)
+    try {
+      dispatch(receiveImportSettings(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
@@ -282,7 +282,7 @@ export function updateEmailTemplate(emailTemplate: { templateName: string }) {
       emailTemplate
     )
     try {
-      json.templateName = templateName
+      json.templateName = emailTemplate.templateName
       dispatch(receiveEmailTemplate(json))
     } catch (error) {
       console.error(error)
@@ -302,7 +302,7 @@ export function fetchCheckoutFields() {
 }
 
 export function fetchCheckoutField(fieldName: string) {
-  return (dispatch, getState) => {
+  return (dispatch: Function) => {
     dispatch(requestCheckoutField())
     const json = api.checkoutFields.retrieve(fieldName)
     try {
@@ -314,26 +314,29 @@ export function fetchCheckoutField(fieldName: string) {
   }
 }
 
-export function updateCheckoutField(checkoutField) {
+export function updateCheckoutField(checkoutField: { fieldName: string }) {
   return (dispatch: Function) => {
-    return api.checkoutFields
-      .update(checkoutField.fieldName, checkoutField)
-      .then(({ status, json }) => {
-        json.fieldName = fieldName
-        dispatch(receiveCheckoutField(json))
-      })
-      .catch(error => {})
+    const { json } = api.checkoutFields.update(
+      checkoutField.fieldName,
+      checkoutField
+    )
+    try {
+      json.fieldName = checkoutField.fieldName
+      dispatch(receiveCheckoutField(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function fetchShippingMethods() {
-  return (dispatch, getState) => {
-    return api.shippingMethods
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receiveShippingMethods(json))
-      })
-      .catch(error => {})
+  return (dispatch: Function) => {
+    const { json } = api.shippingMethods.list()
+    try {
+      dispatch(receiveShippingMethods(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
@@ -360,36 +363,37 @@ export function updateShippingMethod(method: { id: string }) {
   }
 }
 
-export function updatePaymentMethod(method) {
+export function updatePaymentMethod(method: { id: string }) {
   return (dispatch: Function) => {
-    return api.paymentMethods
-      .update(method.id, method)
-      .then(({ status, json }) => {
-        dispatch(fetchPaymentMethods())
-      })
-      .catch(error => {})
+    const result = api.paymentMethods.update(method.id, method)
+    try {
+      result
+      dispatch(fetchPaymentMethods())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function fetchShippingMethod(id) {
-  return (dispatch, getState) => {
-    return api.shippingMethods
-      .retrieve(id)
-      .then(({ status, json }) => {
-        dispatch(receiveShippingMethod(json))
-      })
-      .catch(error => {})
+export function fetchShippingMethod(id: string) {
+  return (dispatch: Function) => {
+    const { json } = api.shippingMethods.retrieve(id)
+    try {
+      dispatch(receiveShippingMethod(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function fetchPaymentMethod(id) {
-  return (dispatch, getState) => {
-    return api.paymentMethods
-      .retrieve(id)
-      .then(({ status, json }) => {
-        dispatch(receivePaymentMethod(json))
-      })
-      .catch(error => {})
+export function fetchPaymentMethod(id: string) {
+  return (dispatch: Function) => {
+    const { json } = api.paymentMethods.retrieve(id)
+    try {
+      dispatch(receivePaymentMethod(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
@@ -407,34 +411,37 @@ export function deleteShippingMethod(methodId: string) {
 
 export function deletePaymentMethod(methodId: string) {
   return (dispatch: Function) => {
-    return api.paymentMethods
-      .delete(methodId)
-      .then(() => {
-        dispatch(fetchPaymentMethods())
-      })
-      .catch(error => {})
+    const result = api.paymentMethods.delete(methodId)
+    try {
+      result
+      dispatch(fetchPaymentMethods())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function createShippingMethod(method: string) {
   return (dispatch: Function) => {
-    return api.shippingMethods
-      .create(method)
-      .then(() => {
-        dispatch(fetchShippingMethods())
-      })
-      .catch(error => {})
+    const result = api.shippingMethods.create(method)
+    try {
+      result
+      dispatch(fetchShippingMethods())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function createPaymentMethod(method) {
+export function createPaymentMethod(method: string) {
   return (dispatch: Function) => {
-    return api.paymentMethods
-      .create(method)
-      .then(({ status, json }) => {
-        dispatch(fetchPaymentMethods())
-      })
-      .catch(error => {})
+    const result = api.paymentMethods.create(method)
+    try {
+      result
+      dispatch(fetchPaymentMethods())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
@@ -451,84 +458,86 @@ export function fetchTokens() {
 
 export function fetchToken(id: string) {
   return (dispatch: Function) => {
-    return api.tokens
-      .retrieve(id)
-      .then(({ status, json }) => {
-        dispatch(receiveToken(json))
-      })
-      .catch(error => {})
-  }
-}
-
-export function createToken(token) {
-  return (dispatch, getState) => {
-    return api.tokens
-      .create(token)
-      .then(({ status, json }) => {
-        //console.log(json);
-        dispatch(fetchTokens())
-        dispatch(receiveNewToken(json.token))
-      })
-      .catch(error => {})
-  }
-}
-
-export function updateToken(token) {
-  return (dispatch, getState) => {
-    return api.tokens
-      .update(token.id, token)
-      .then(({ status, json }) => {
-        dispatch(fetchTokens())
-      })
-      .catch(error => {})
-  }
-}
-
-export function deleteToken(tokenId) {
-  return (dispatch, getState) => {
-    return api.tokens
-      .delete(tokenId)
-      .then(({ status, json }) => {
-        dispatch(fetchTokens())
-      })
-      .catch(error => {})
-  }
-}
-
-export function fetchPaymentGateway(gatewayName) {
-  return (dispatch, getState) => {
-    if (gatewayName && gatewayName.length > 0) {
-      return api.paymentGateways
-        .retrieve(gatewayName)
-        .then(({ status, json }) => {
-          dispatch(receivePaymentGateway(json))
-        })
-        .catch(error => {})
-    } else {
-      dispatch(receivePaymentGateway(null))
+    const { json } = api.tokens.retrieve(id)
+    try {
+      dispatch(receiveToken(json))
+    } catch (error) {
+      console.error(error)
     }
   }
 }
 
-export function updatePaymentGateway(gatewayName, data) {
+export function createToken(token: string) {
   return (dispatch: Function) => {
-    return api.paymentGateways
-      .update(gatewayName, data)
-      .then(({ status, json }) => {
+    const { json } = api.tokens.create(token)
+    try {
+      dispatch(fetchTokens())
+      dispatch(receiveNewToken(json.token))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export function updateToken(token: { id: string }) {
+  return (dispatch: Function) => {
+    const result = api.tokens.update(token.id, token)
+    try {
+      result
+      dispatch(fetchTokens())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export function deleteToken(tokenId: string) {
+  return (dispatch: Function) => {
+    const result = api.tokens.delete(tokenId)
+    try {
+      result
+      dispatch(fetchTokens())
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export function fetchPaymentGateway(gatewayName: string) {
+  return (dispatch: Function) => {
+    if (gatewayName && gatewayName.length > 0) {
+      const { json } = api.paymentGateways.retrieve(gatewayName)
+      try {
         dispatch(receivePaymentGateway(json))
-      })
-      .catch(error => {})
+      } catch (error) {
+        console.error(error)
+      }
+    } else {
+      dispatch(receivePaymentGateway(""))
+    }
+  }
+}
+
+export function updatePaymentGateway(gatewayName: string, data: string) {
+  return (dispatch: Function) => {
+    const { json } = api.paymentGateways.update(gatewayName, data)
+    try {
+      dispatch(receivePaymentGateway(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function uploadLogo(form: string) {
   return (dispatch: Function) => {
-    return api.settings
-      .uploadLogo(form)
-      .then(() => {
-        dispatch(fetchSettings())
-      })
-      .catch(error => {})
+    const result = api.settings.uploadLogo(form)
+    try {
+      result
+      dispatch(fetchSettings())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
@@ -548,116 +557,127 @@ export function fetchThemeSettings() {
 
 export function updateThemeSettings(settings: string) {
   return (dispatch: Function) => {
-    return api.theme.settings
-      .update(settings)
-      .then(() => {
-        dispatch(fetchThemeSettings())
-      })
-      .catch(error => {})
+    const result = api.theme.settings.update(settings)
+    try {
+      result
+      dispatch(fetchThemeSettings())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function fetchRedirects() {
-  return (dispatch: Function) =>
-    api.redirects
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receiveRedirects(json))
-      })
-      .catch(error => {})
+  return (dispatch: Function) => {
+    const { json } = api.redirects.list()
+    try {
+      dispatch(receiveRedirects(json))
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
-export function fetchRedirect(id) {
-  return (dispatch: Function) =>
-    api.redirects
-      .retrieve(id)
-      .then(({ status, json }) => {
-        dispatch(receiveRedirect(json))
-      })
-      .catch(error => {})
+export function fetchRedirect(id: string) {
+  return (dispatch: Function) => {
+    const { json } = api.redirects.retrieve(id)
+    try {
+      dispatch(receiveRedirect(json))
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
-export function createRedirect(redirect) {
-  return (dispatch, getState) =>
-    api.redirects
-      .create(redirect)
-      .then(({ status, json }) => {
-        dispatch(fetchRedirects())
-      })
-      .catch(error => {})
+export function createRedirect(redirect: string) {
+  return (dispatch: Function) => {
+    const result = api.redirects.create(redirect)
+    try {
+      dispatch(fetchRedirects())
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
-export function updateRedirect(redirect) {
-  return (dispatch, getState) =>
-    api.redirects
-      .update(redirect.id, redirect)
-      .then(({ status, json }) => {
-        dispatch(fetchRedirects())
-      })
-      .catch(error => {})
+export function updateRedirect(redirect: { id: string }) {
+  return (dispatch: Function) => {
+    const result = api.redirects.update(redirect.id, redirect)
+    try {
+      result
+      dispatch(fetchRedirects())
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
-export function deleteRedirect(redirectId) {
-  return (dispatch, getState) =>
-    api.redirects
-      .delete(redirectId)
-      .then(({ status, json }) => {
-        dispatch(fetchRedirects())
-      })
-      .catch(error => {})
+export function deleteRedirect(redirectId: string) {
+  return (dispatch: Function) => {
+    const result = api.redirects.delete(redirectId)
+    try {
+      result
+      dispatch(fetchRedirects())
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 export function fetchWebhooks() {
   return (dispatch: Function) => {
-    return api.webhooks
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receiveWebhooks(json))
-      })
-      .catch(error => {})
+    const { json } = api.webhooks.list()
+    try {
+      dispatch(receiveWebhooks(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function fetchWebhook(id: string) {
   return (dispatch: Function) => {
-    return api.webhooks
-      .retrieve(id)
-      .then(({ status, json }) => {
-        dispatch(receiveWebhook(json))
-      })
-      .catch(error => {})
+    const { json } = api.webhooks.retrieve(id)
+    try {
+      dispatch(receiveWebhook(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function createWebhook(webhook: string) {
   return (dispatch: Function) => {
-    return api.webhooks
-      .create(webhook)
-      .then(() => {
-        dispatch(fetchWebhooks())
-      })
-      .catch(error => {})
+    const result = api.webhooks.create(webhook)
+    try {
+      result
+      dispatch(fetchWebhooks())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function updateWebhook(webhook: { id: string }) {
   return (dispatch: Function) => {
-    return api.webhooks
-      .update(webhook.id, webhook)
-      .then(() => {
-        dispatch(fetchWebhooks())
-      })
-      .catch(error => {})
+    const result = api.webhooks.update(webhook.id, webhook)
+    try {
+      result
+      dispatch(fetchWebhooks())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function deleteWebhook(webhookId: string) {
   return (dispatch: Function) => {
-    return api.webhooks
-      .delete(webhookId)
-      .then(() => {
-        dispatch(fetchWebhooks())
-      })
-      .catch(error => {})
+    const result = api.webhooks.delete(webhookId)
+    try {
+      result
+      dispatch(fetchWebhooks())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
