@@ -1,6 +1,6 @@
+import { Card, CardMedia, CardTitle } from "@material-ui/core"
+import { CheckCircle } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import { Card, CardMedia, CardTitle } from "material-ui/Card"
-import FontIcon from "material-ui/FontIcon"
 import React from "react"
 import style from "./style.module.sass"
 
@@ -35,7 +35,19 @@ const styles = {
   },
 }
 
-const Item = ({ path, coverUrl, title, developer, enabled }) => (
+const Item = ({
+  path,
+  coverUrl,
+  title,
+  developer,
+  enabled,
+}: {
+  path: string
+  coverUrl: string
+  title: string
+  developer: string
+  enabled: string
+}) => (
   <Link to={path} style={styles.link}>
     <Card
       style={styles.card}
@@ -52,12 +64,10 @@ const Item = ({ path, coverUrl, title, developer, enabled }) => (
           <>
             {developer}
             {enabled && (
-              <FontIcon
+              <CheckCircle
                 style={{ color: "#FF9900", float: "right" }}
                 className="material-icons"
-              >
-                check_circle
-              </FontIcon>
+              />
             )}
           </>
         }
