@@ -1,12 +1,11 @@
-import TextField from "@material-ui/core/TextField"
-import FlatButton from "material-ui/FlatButton"
+import { Button, TextField } from "@material-ui/core"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import * as helper from "../../../../lib/helper"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: any) => {
   const errors = {}
   const requiredFields = []
 
@@ -22,7 +21,15 @@ const validate = values => {
 const getShippingFieldLabel = ({ label, key }) =>
   label && label.length > 0 ? label : helper.getOrderFieldLabelByKey(key)
 
-const ShippingAddressForm = props => {
+const ShippingAddressForm = (
+  props: Readonly<{
+    handleSubmit
+    pristine
+    submitting
+    onCancel
+    shippingMethod
+  }>
+) => {
   const { handleSubmit, pristine, submitting, onCancel, shippingMethod } = props
 
   let shippingFields = null
@@ -82,14 +89,15 @@ const ShippingAddressForm = props => {
         />
       </>
       <div className={style.shippingButtons}>
-        <FlatButton label={messages.cancel} onClick={onCancel} />
-        <FlatButton
-          label={messages.save}
-          primary
+        <Button onClick={onCancel}>{messages.cancel}</Button>
+        <Button
+          color="primary"
           type="submit"
           style={{ marginLeft: 12 }}
           disabled={pristine || submitting}
-        />
+        >
+          {messages.save}
+        </Button>
       </div>
     </form>
   )

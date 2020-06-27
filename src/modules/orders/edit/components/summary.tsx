@@ -1,6 +1,4 @@
-import Dialog from "@material-ui/core/Dialog"
-import Paper from "@material-ui/core/Paper"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Dialog, Paper } from "@material-ui/core"
 import moment from "moment"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
@@ -61,8 +59,24 @@ const getOrderStates = order => {
   return states
 }
 
-const OrderSummary = props => {
+const OrderSummary = (
+  props: Readonly<{
+    order
+    settings
+    onCheckout
+    processingCheckout
+    onOrderSummaryUpdate
+  }>
+) => {
   const [openSummaryEdit, setOpenSummaryEdit] = useState(false)
+
+  const {
+    order,
+    settings,
+    onCheckout,
+    processingCheckout,
+    onOrderSummaryUpdate,
+  } = props
 
   const showSummaryEdit = () => {
     setOpenSummaryEdit(true)
@@ -72,12 +86,11 @@ const OrderSummary = props => {
     setOpenSummaryEdit(false)
   }
 
-  const saveSummaryEdit = order => {
-    props.onOrderSummaryUpdate(order)
+  const saveSummaryEdit = (order: string) => {
+    onOrderSummaryUpdate(order)
     hideSummaryEdit()
   }
 
-  const { order, settings, onCheckout, processingCheckout } = props
   const allowEdit = order.closed === false && order.cancelled === false
   const isDraft = order.draft === true
   const dateCreated = moment(order.date_placed || order.date_created)
@@ -103,7 +116,7 @@ const OrderSummary = props => {
     )
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div className={style.innerBox}>
         <div className={style.states}>{states}</div>
 
@@ -172,19 +185,18 @@ const OrderSummary = props => {
 
         <div style={{ marginTop: 20 }}>
           {allowEdit && (
-            <RaisedButton
-              label="Edit"
-              style={{ marginRight: 15 }}
-              onClick={showSummaryEdit}
-            />
+            <Button style={{ marginRight: 15 }} onClick={showSummaryEdit}>
+              Edit
+            </Button>
           )}
           {isDraft && (
-            <RaisedButton
-              label={messages.placeOrder}
-              primary
+            <Button
+              color="primary"
               onClick={onCheckout}
               disabled={processingCheckout}
-            />
+            >
+              {messages.placeOrder}
+            </Button>
           )}
         </div>
 
