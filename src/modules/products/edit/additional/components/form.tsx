@@ -1,12 +1,8 @@
-import { Button } from "@material-ui/core"
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
+import { Button, MenuItem, Paper, TextField } from "@material-ui/core"
+import { MoreVert } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FlatButton from "material-ui/FlatButton"
-import FontIcon from "material-ui/FontIcon"
 import IconButton from "material-ui/IconButton"
 import IconMenu from "material-ui/IconMenu"
-import MenuItem from "material-ui/MenuItem"
 import React, { useEffect, useState } from "react"
 import TagsInput from "react-tagsinput"
 import { Field, FieldArray, reduxForm } from "redux-form"
@@ -66,21 +62,17 @@ const RelatedProductActions = ({ fields, index }) => (
     anchorOrigin={{ horizontal: "right", vertical: "top" }}
     iconButtonElement={
       <IconButton touch>
-        <FontIcon color="#777" className="material-icons">
-          more_vert
-        </FontIcon>
+        <MoreVert color="#777" className="material-icons" />
       </IconButton>
     }
   >
-    <MenuItem
-      primaryText={messages.actions_delete}
-      onClick={() => fields.remove(index)}
-    />
+    <MenuItem onClick={() => fields.remove(index)}>
+      {messages.actions_delete}
+    </MenuItem>
     {index > 0 && (
-      <MenuItem
-        primaryText={messages.actions_moveUp}
-        onClick={() => fields.move(index, index - 1)}
-      />
+      <MenuItem onClick={() => fields.move(index, index - 1)}>
+        {messages.actions_moveUp}
+      </MenuItem>
     )}
     {index + 1 < fields.length && (
       <MenuItem
@@ -174,7 +166,7 @@ const ProductsArray = (props: Readonly<{ fields: any; settings: any }>) => {
 
   return (
     <>
-      <Paper className={style.relatedProducts} zDepth={1}>
+      <Paper className={style.relatedProducts} elevation={1}>
         {fields.map((field, index) => {
           const actions = (
             <RelatedProductActions fields={fields} index={index} />
@@ -216,7 +208,7 @@ const ProductAdditionalForm = ({
   categories,
 }) => (
   <form onSubmit={handleSubmit}>
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div className={style.innerBox}>
         <div
           className="row middle-xs"
@@ -299,12 +291,13 @@ const ProductAdditionalForm = ({
           pristine ? "buttons-box-pristine" : "buttons-box-show"
         }`}
       >
-        <FlatButton
-          label={messages.cancel}
+        <Button
           className={style.button}
           onClick={reset}
           disabled={pristine || submitting}
-        />
+        >
+          {messages.cancel}
+        </Button>
         <Button
           type="submit"
           color="primary"

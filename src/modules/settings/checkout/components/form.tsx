@@ -1,8 +1,6 @@
-import Paper from "@material-ui/core/Paper"
+import { Divider, List, ListItem, Paper } from "@material-ui/core"
+import { KeyboardArrowRight } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
-import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
 import messages from "../../../../lib/text"
 
@@ -14,9 +12,7 @@ const CheckoutFieldItem = ({ name, status, path }) => (
       style={{ textDecoration: "none" }}
     >
       <ListItem
-        rightIcon={
-          <FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
-        }
+        rightIcon={<KeyboardArrowRight className="material-icons" />}
         primaryText={
           <div className="row">
             <div className="col-xs-6">{name}</div>
@@ -31,34 +27,32 @@ const CheckoutFieldItem = ({ name, status, path }) => (
 )
 
 const EmailSettings = (props: Readonly<{}>) => {
+  const { onLoad, checkoutFields } = props
+
   useEffect(() => {
-    props.onLoad()
+    onLoad()
   }, [])
 
-  const getFieldStatus = fieldName => {
-    const fields = props.checkoutFields || []
+  const getFieldStatus = (fieldName: string) => {
+    const fields = checkoutFields || []
     const field = fields.find(item => item.name === fieldName)
     const fieldStatus = field ? field.status : "required"
     switch (fieldStatus) {
       case "optional":
         return messages.settings_fieldOptional
-        break
       case "hidden":
         return messages.settings_fieldHidden
-        break
       default:
         return messages.settings_fieldRequired
     }
   }
-
-  const { checkoutFields } = props
 
   return (
     <>
       <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
         {messages.settings_checkoutFields}
       </div>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
             <CheckoutFieldItem

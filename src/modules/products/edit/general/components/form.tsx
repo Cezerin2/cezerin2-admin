@@ -1,7 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import FlatButton from "material-ui/FlatButton"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import api from "../../../../../lib/api"
@@ -45,17 +42,13 @@ const asyncValidate = values =>
     return Promise.resolve()
   })
 
-const ProductGeneralForm = ({
-  handleSubmit,
-  pristine,
-  reset,
-  submitting,
-  initialValues,
-}) => {
+const ProductGeneralForm = (props: Readonly<{}>) => {
+  const { handleSubmit, pristine, reset, submitting, initialValues } = props
+
   if (initialValues) {
     return (
       <form onSubmit={handleSubmit}>
-        <Paper className="paper-box" zDepth={1}>
+        <Paper className="paper-box" elevation={1}>
           <div className={style.innerBox}>
             <Field
               name="name"
@@ -92,19 +85,21 @@ const ProductGeneralForm = ({
               pristine ? "buttons-box-pristine" : "buttons-box-show"
             }`}
           >
-            <FlatButton
-              label={messages.cancel}
+            <Button
               className={style.button}
               onClick={reset}
               disabled={pristine || submitting}
-            />
-            <RaisedButton
+            >
+              {messages.cancel}
+            </Button>
+            <Button
               type="submit"
-              label={messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

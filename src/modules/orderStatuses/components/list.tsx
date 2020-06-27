@@ -1,6 +1,6 @@
+import { List, ListItem } from "@material-ui/core"
+import { Folder, Settings } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
 import messages from "../../../lib/text"
 
@@ -13,14 +13,14 @@ const styles = {
   },
 }
 
-const FolderIcon = <FontIcon className="material-icons">folder</FontIcon>
+const FolderIcon = <Folder className="material-icons" />
 
 const StatusesList = (props: Readonly<{}>) => {
-  useEffect(() => {
-    props.onLoad()
-  }, [])
+  const { onSelect, selectedId, items, showAll, showManage, onLoad } = props
 
-  const { onSelect, selectedId, items, showAll, showManage } = props
+  useEffect(() => {
+    onLoad()
+  }, [])
 
   const rows = items.map(
     (item: { id: string | number | undefined; name: React.ReactNode }) => (
@@ -31,9 +31,7 @@ const StatusesList = (props: Readonly<{}>) => {
         innerDivStyle={styles.innerItem}
         primaryText={item.name}
         leftIcon={FolderIcon}
-        onClick={() => {
-          onSelect(item.id)
-        }}
+        onClick={() => onSelect(item.id)}
       />
     )
   )
@@ -47,9 +45,7 @@ const StatusesList = (props: Readonly<{}>) => {
           style={selectedId === "all" ? styles.selectedItem : null}
           innerDivStyle={styles.innerItem}
           leftIcon={FolderIcon}
-          onClick={() => {
-            onSelect("all")
-          }}
+          onClick={() => onSelect("all")}
         />
       )}
 
@@ -59,10 +55,11 @@ const StatusesList = (props: Readonly<{}>) => {
         <Link to="/orders/statuses" style={{ textDecoration: "none" }}>
           <ListItem
             className="treeItem"
-            primaryText={messages.manageOrderStatuses}
             innerDivStyle={styles.innerItem}
-            leftIcon={<FontIcon className="material-icons">settings</FontIcon>}
-          />
+            leftIcon={<Settings className="material-icons" />}
+          >
+            {messages.manageOrderStatuses}
+          </ListItem>
         </Link>
       )}
     </List>

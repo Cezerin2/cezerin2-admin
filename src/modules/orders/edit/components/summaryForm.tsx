@@ -1,6 +1,4 @@
-import { Select, TextField } from "@material-ui/core"
-import FlatButton from "material-ui/FlatButton"
-import MenuItem from "material-ui/MenuItem"
+import { Button, MenuItem, Select, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { Field, reduxForm } from "redux-form"
 import api from "../../../../lib/api"
@@ -25,6 +23,8 @@ const SummaryForm = (props: Readonly<{}>) => {
   const [paymentMethods, setPaymentMethods] = useState([])
   const [orderStatuses, setOrderStatuses] = useState([])
 
+  const { handleSubmit, pristine, submitting, onCancel } = props
+
   useEffect(() => {
     fetchData(props.initialValues.id)
   }, [])
@@ -47,25 +47,35 @@ const SummaryForm = (props: Readonly<{}>) => {
     })
   }
 
-  const { handleSubmit, pristine, submitting, onCancel } = props
-
   const statusItems = orderStatuses.map(
     (
       item: { id: any; name: React.ReactNode },
       index: string | number | undefined
-    ) => <MenuItem key={index} value={item.id} primaryText={item.name} />
+    ) => (
+      <MenuItem key={index} value={item.id}>
+        {item.name}
+      </MenuItem>
+    )
   )
   const shippingItems = shippingMethods.map(
     (
       item: { id: any; name: React.ReactNode },
       index: string | number | undefined
-    ) => <MenuItem key={index} value={item.id} primaryText={item.name} />
+    ) => (
+      <MenuItem key={index} value={item.id}>
+        {item.name}
+      </MenuItem>
+    )
   )
   const paymentItems = paymentMethods.map(
     (
       item: { id: any; name: React.ReactNode },
       index: string | number | undefined
-    ) => <MenuItem key={index} value={item.id} primaryText={item.name} />
+    ) => (
+      <MenuItem key={index} value={item.id}>
+        {item.name}
+      </MenuItem>
+    )
   )
 
   statusItems.push(
@@ -139,14 +149,15 @@ const SummaryForm = (props: Readonly<{}>) => {
         />
       </>
       <div className={style.shippingButtons}>
-        <FlatButton label={messages.cancel} onClick={onCancel} />
-        <FlatButton
-          label={messages.save}
-          primary
+        <Button onClick={onCancel}>{messages.cancel}</Button>
+        <Button
+          color="primary"
           type="submit"
           style={{ marginLeft: 12 }}
           disabled={pristine || submitting}
-        />
+        >
+          {messages.save}
+        </Button>
       </div>
     </form>
   )
