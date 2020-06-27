@@ -1,18 +1,20 @@
-import Paper from "@material-ui/core/Paper"
+import { Button, Paper } from "@material-ui/core/Paper"
 import sortBy from "lodash/sortBy"
-import FlatButton from "material-ui/FlatButton"
-import RaisedButton from "material-ui/RaisedButton"
 import React, { useEffect } from "react"
 import { reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
 import DynamicEditControl from "./dynamicEditControl"
 import style from "./style.module.sass"
 
-const ThemeSettings = props => {
-  useEffect(() => {
-    props.onLoad()
-  }, [])
-
+const ThemeSettings = (props: {
+  handleSubmit
+  pristine
+  submitting
+  initialValues
+  reset
+  settingsSchema
+  onLoad
+}) => {
   const {
     handleSubmit,
     pristine,
@@ -20,10 +22,15 @@ const ThemeSettings = props => {
     initialValues,
     reset,
     settingsSchema,
+    onLoad,
   } = props
 
+  useEffect(() => {
+    onLoad()
+  }, [])
+
   if (initialValues && settingsSchema) {
-    let lastSection = null
+    let lastSection = ""
     const sortedSettingsSchema = sortBy(settingsSchema, ["section", "label"])
 
     const fields = sortedSettingsSchema.map((item, index) => {
@@ -61,22 +68,24 @@ const ThemeSettings = props => {
         <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
           {messages.themeSettings}
         </div>
-        <Paper className="paper-box" zDepth={1}>
+        <Paper className="paper-box" elevation={1}>
           <div className={style.innerBox}>{fields}</div>
           <div className="buttons-box">
-            <FlatButton
-              label={messages.cancel}
+            <Button
               className={style.button}
               onClick={reset}
               disabled={pristine || submitting}
-            />
-            <RaisedButton
+            >
+              {messages.cancel}
+            </Button>
+            <Button
               type="submit"
-              label={messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

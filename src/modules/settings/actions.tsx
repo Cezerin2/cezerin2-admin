@@ -25,28 +25,28 @@ export function installReceive() {
   }
 }
 
-function receiveSettings(settings) {
+function receiveSettings(settings: string) {
   return {
     type: t.SETTINGS_RECEIVE,
     settings,
   }
 }
 
-function receiveEmailSettings(emailSettings) {
+function receiveEmailSettings(emailSettings: string) {
   return {
     type: t.EMAIL_SETTINGS_RECEIVE,
     emailSettings,
   }
 }
 
-function receiveImportSettings(importSettings) {
+function receiveImportSettings(importSettings: string) {
   return {
     type: t.IMPORT_SETTINGS_RECEIVE,
     importSettings,
   }
 }
 
-function receiveEmailTemplate(emailTemplate) {
+function receiveEmailTemplate(emailTemplate: string) {
   return {
     type: t.EMAIL_TEMPLATE_RECEIVE,
     emailTemplate,
@@ -59,14 +59,14 @@ function requestEmailTemplate() {
   }
 }
 
-function receiveCheckoutFields(checkoutFields) {
+function receiveCheckoutFields(checkoutFields: string) {
   return {
     type: t.CHECKOUT_FIELDS_RECEIVE,
     checkoutFields,
   }
 }
 
-function receiveCheckoutField(checkoutField) {
+function receiveCheckoutField(checkoutField: string) {
   return {
     type: t.CHECKOUT_FIELD_RECEIVE,
     checkoutField,
@@ -79,98 +79,98 @@ function requestCheckoutField() {
   }
 }
 
-function receiveShippingMethods(shippingMethods) {
+function receiveShippingMethods(shippingMethods: string) {
   return {
     type: t.SHIPPING_METHODS_RECEIVE,
     shippingMethods,
   }
 }
 
-function receivePaymentMethods(paymentMethods) {
+function receivePaymentMethods(paymentMethods: string) {
   return {
     type: t.PAYMENT_METHODS_RECEIVE,
     paymentMethods,
   }
 }
 
-function receivePaymentGateway(paymentGatewayEdit) {
+function receivePaymentGateway(paymentGatewayEdit: string) {
   return {
     type: t.PAYMENT_GATEWAY_RECEIVE,
     paymentGatewayEdit,
   }
 }
 
-export function receiveShippingMethod(shippingMethodEdit) {
+export function receiveShippingMethod(shippingMethodEdit: string) {
   return {
     type: t.SHIPPING_METHOD_RECEIVE,
     shippingMethodEdit,
   }
 }
 
-export function receivePaymentMethod(paymentMethodEdit) {
+export function receivePaymentMethod(paymentMethodEdit: string) {
   return {
     type: t.PAYMENT_METHOD_RECEIVE,
     paymentMethodEdit,
   }
 }
 
-function receiveTokens(tokens) {
+function receiveTokens(tokens: string) {
   return {
     type: t.TOKENS_RECEIVE,
     tokens,
   }
 }
 
-export function receiveToken(tokenEdit) {
+export function receiveToken(tokenEdit: string) {
   return {
     type: t.TOKEN_RECEIVE,
     tokenEdit,
   }
 }
 
-export function receiveNewToken(newToken) {
+export function receiveNewToken(newToken: string) {
   return {
     type: t.NEW_TOKEN_RECEIVE,
     newToken,
   }
 }
 
-export function receiveThemeSettings(settings) {
+export function receiveThemeSettings(settings: string) {
   return {
     type: t.THEME_SETTINGS_RECEIVE,
     settings,
   }
 }
 
-export function receiveThemeSettingsSchema(schema) {
+export function receiveThemeSettingsSchema(schema: string) {
   return {
     type: t.THEME_SETTINGS_SCHEMA_RECEIVE,
     schema,
   }
 }
 
-function receiveRedirects(redirects) {
+function receiveRedirects(redirects: string) {
   return {
     type: t.REDIRECTS_RECEIVE,
     redirects,
   }
 }
 
-export function receiveRedirect(redirectEdit) {
+export function receiveRedirect(redirectEdit: string) {
   return {
     type: t.REDIRECT_RECEIVE,
     redirectEdit,
   }
 }
 
-function receiveWebhooks(webhooks) {
+function receiveWebhooks(webhooks: string) {
   return {
     type: t.WEBHOOKS_RECEIVE,
     webhooks,
   }
 }
 
-export function receiveWebhook(webhookEdit) {
+export function receiveWebhook(webhookEdit: string) {
   return {
     type: t.WEBHOOK_RECEIVE,
     webhookEdit,
@@ -178,27 +178,27 @@ export function receiveWebhook(webhookEdit) {
 }
 
 export function fetchSettings() {
-  return (dispatch, getState) => {
+  return dispatch => {
     // API can be not init on app start
     if (api) {
-      return api.settings
-        .retrieve()
-        .then(({ status, json }) => {
-          dispatch(receiveSettings(json))
-        })
-        .catch(error => {})
+      const json = api.settings.retrieve()
+      try {
+        return json.dispatch(receiveSettings(json))
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 }
 
 export function fetchEmailSettings() {
-  return (dispatch, getState) => {
-    return api.settings
-      .retrieveEmailSettings()
-      .then(({ status, json }) => {
-        dispatch(receiveEmailSettings(json))
-      })
-      .catch(error => {})
+  return dispatch => {
+    const json = api.settings.retrieveEmailSettings()
+    try {
+      json.dispatch(receiveEmailSettings(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
@@ -214,25 +214,22 @@ export function fetchImportSettings() {
 }
 
 export function deleteLogo() {
-  return (dispatch, getState) => {
-    return api.settings
-      .deleteLogo()
-      .then(({ status, json }) => {
-        if (status === 200) {
-          dispatch(fetchSettings())
-        } else {
-          throw status
-        }
-      })
-      .catch(error => {
-        //dispatch error
-        console.log(error)
-      })
+  return (dispatch: Function) => {
+    const status = api.settings.deleteLogo()
+    try {
+      if (status === 200) {
+        return dispatch(fetchSettings())
+      } else {
+        throw status
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function updateSettings(settings) {
-  return (dispatch, getState) => {
+export function updateSettings(settings: { logo_file: any }) {
+  return (dispatch: Function) => {
     delete settings.logo_file
     return api.settings
       .update(settings)
@@ -243,8 +240,8 @@ export function updateSettings(settings) {
   }
 }
 
-export function updateEmailSettings(emailSettings) {
-  return (dispatch, getState) => {
+export function updateEmailSettings(emailSettings: string) {
+  return (dispatch: Function) => {
     return api.settings
       .updateEmailSettings(emailSettings)
       .then(({ status, json }) => {
@@ -254,7 +251,7 @@ export function updateEmailSettings(emailSettings) {
   }
 }
 
-export function updateImportSettings(importSettings) {
+export function updateImportSettings(importSettings: string) {
   return (dispatch, getState) => {
     return api.settings
       .updateImportSettings(importSettings)
@@ -265,57 +262,60 @@ export function updateImportSettings(importSettings) {
   }
 }
 
-export function fetchEmailTemplate(templateName) {
-  return (dispatch, getState) => {
+export function fetchEmailTemplate(templateName: string) {
+  return (dispatch: Function) => {
     dispatch(requestEmailTemplate())
-    return api.settings
-      .retrieveEmailTemplate(templateName)
-      .then(({ status, json }) => {
-        json.templateName = templateName
-        dispatch(receiveEmailTemplate(json))
-      })
-      .catch(error => {})
+    const json = api.settings.retrieveEmailTemplate(templateName)
+    try {
+      json.templateName = templateName
+      dispatch(receiveEmailTemplate(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function updateEmailTemplate(emailTemplate) {
-  return (dispatch, getState) => {
-    return api.settings
-      .updateEmailTemplate(emailTemplate.templateName, emailTemplate)
-      .then(({ status, json }) => {
-        json.templateName = templateName
-        dispatch(receiveEmailTemplate(json))
-      })
-      .catch(error => {})
+export function updateEmailTemplate(emailTemplate: { templateName: string }) {
+  return (dispatch: Function) => {
+    const json = api.settings.updateEmailTemplate(
+      emailTemplate.templateName,
+      emailTemplate
+    )
+    try {
+      json.templateName = templateName
+      dispatch(receiveEmailTemplate(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function fetchCheckoutFields() {
-  return (dispatch, getState) => {
-    return api.checkoutFields
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receiveCheckoutFields(json))
-      })
-      .catch(error => {})
+  return (dispatch: Function) => {
+    const json = api.checkoutFields.list()
+    try {
+      dispatch(receiveCheckoutFields(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function fetchCheckoutField(fieldName) {
+export function fetchCheckoutField(fieldName: string) {
   return (dispatch, getState) => {
     dispatch(requestCheckoutField())
-    return api.checkoutFields
-      .retrieve(fieldName)
-      .then(({ status, json }) => {
-        json.fieldName = fieldName
-        dispatch(receiveCheckoutField(json))
-      })
-      .catch(error => {})
+    const json = api.checkoutFields.retrieve(fieldName)
+    try {
+      json.fieldName = fieldName
+      dispatch(receiveCheckoutField(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function updateCheckoutField(checkoutField) {
-  return (dispatch, getState) => {
+  return (dispatch: Function) => {
     return api.checkoutFields
       .update(checkoutField.fieldName, checkoutField)
       .then(({ status, json }) => {
@@ -338,29 +338,30 @@ export function fetchShippingMethods() {
 }
 
 export function fetchPaymentMethods() {
-  return (dispatch, getState) => {
-    return api.paymentMethods
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receivePaymentMethods(json))
-      })
-      .catch(error => {})
+  return (dispatch: Function) => {
+    const json = api.paymentMethods.list()
+    try {
+      dispatch(receivePaymentMethods(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function updateShippingMethod(method) {
-  return (dispatch, getState) => {
-    return api.shippingMethods
-      .update(method.id, method)
-      .then(({ status, json }) => {
-        dispatch(fetchShippingMethods())
-      })
-      .catch(error => {})
+export function updateShippingMethod(method: { id: string }) {
+  return (dispatch: Function) => {
+    const result = api.shippingMethods.update(method.id, method)
+    try {
+      result
+      dispatch(fetchShippingMethods())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 export function updatePaymentMethod(method) {
-  return (dispatch, getState) => {
+  return (dispatch: Function) => {
     return api.paymentMethods
       .update(method.id, method)
       .then(({ status, json }) => {
@@ -392,33 +393,34 @@ export function fetchPaymentMethod(id) {
   }
 }
 
-export function deleteShippingMethod(methodId) {
-  return (dispatch, getState) => {
-    return api.shippingMethods
-      .delete(methodId)
-      .then(({ status, json }) => {
-        dispatch(fetchShippingMethods())
-      })
-      .catch(error => {})
+export function deleteShippingMethod(methodId: string) {
+  return (dispatch: Function) => {
+    const result = api.shippingMethods.delete(methodId)
+    try {
+      result
+      dispatch(fetchShippingMethods())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function deletePaymentMethod(methodId) {
-  return (dispatch, getState) => {
+export function deletePaymentMethod(methodId: string) {
+  return (dispatch: Function) => {
     return api.paymentMethods
       .delete(methodId)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(fetchPaymentMethods())
       })
       .catch(error => {})
   }
 }
 
-export function createShippingMethod(method) {
-  return (dispatch, getState) => {
+export function createShippingMethod(method: string) {
+  return (dispatch: Function) => {
     return api.shippingMethods
       .create(method)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(fetchShippingMethods())
       })
       .catch(error => {})
@@ -426,7 +428,7 @@ export function createShippingMethod(method) {
 }
 
 export function createPaymentMethod(method) {
-  return (dispatch, getState) => {
+  return (dispatch: Function) => {
     return api.paymentMethods
       .create(method)
       .then(({ status, json }) => {
@@ -437,18 +439,18 @@ export function createPaymentMethod(method) {
 }
 
 export function fetchTokens() {
-  return (dispatch, getState) => {
-    return api.tokens
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receiveTokens(json))
-      })
-      .catch(error => {})
+  return (dispatch: Function) => {
+    const json = api.tokens.list()
+    try {
+      json.dispatch(receiveTokens(json))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function fetchToken(id) {
-  return (dispatch, getState) => {
+export function fetchToken(id: string) {
+  return (dispatch: Function) => {
     return api.tokens
       .retrieve(id)
       .then(({ status, json }) => {
@@ -509,7 +511,7 @@ export function fetchPaymentGateway(gatewayName) {
 }
 
 export function updatePaymentGateway(gatewayName, data) {
-  return (dispatch, getState) => {
+  return (dispatch: Function) => {
     return api.paymentGateways
       .update(gatewayName, data)
       .then(({ status, json }) => {
@@ -519,8 +521,8 @@ export function updatePaymentGateway(gatewayName, data) {
   }
 }
 
-export function uploadLogo(form) {
-  return (dispatch, getState) => {
+export function uploadLogo(form: string) {
+  return (dispatch: Function) => {
     return api.settings
       .uploadLogo(form)
       .then(() => {
@@ -531,7 +533,7 @@ export function uploadLogo(form) {
 }
 
 export function fetchThemeSettings() {
-  return (dispatch, getState) => {
+  return (dispatch: Function) => {
     return Promise.all([
       api.theme.settings.retrieve(),
       api.theme.settings.retrieveSchema(),
@@ -544,8 +546,8 @@ export function fetchThemeSettings() {
   }
 }
 
-export function updateThemeSettings(settings) {
-  return (dispatch, getState) => {
+export function updateThemeSettings(settings: string) {
+  return (dispatch: Function) => {
     return api.theme.settings
       .update(settings)
       .then(() => {
@@ -556,7 +558,7 @@ export function updateThemeSettings(settings) {
 }
 
 export function fetchRedirects() {
-  return (dispatch, getState) =>
+  return (dispatch: Function) =>
     api.redirects
       .list()
       .then(({ status, json }) => {
@@ -566,7 +568,7 @@ export function fetchRedirects() {
 }
 
 export function fetchRedirect(id) {
-  return (dispatch, getState) =>
+  return (dispatch: Function) =>
     api.redirects
       .retrieve(id)
       .then(({ status, json }) => {
@@ -606,7 +608,7 @@ export function deleteRedirect(redirectId) {
 }
 
 export function fetchWebhooks() {
-  return (dispatch, getState) => {
+  return (dispatch: Function) => {
     return api.webhooks
       .list()
       .then(({ status, json }) => {
@@ -616,8 +618,8 @@ export function fetchWebhooks() {
   }
 }
 
-export function fetchWebhook(id) {
-  return (dispatch, getState) => {
+export function fetchWebhook(id: string) {
+  return (dispatch: Function) => {
     return api.webhooks
       .retrieve(id)
       .then(({ status, json }) => {
@@ -627,33 +629,33 @@ export function fetchWebhook(id) {
   }
 }
 
-export function createWebhook(webhook) {
-  return (dispatch, getState) => {
+export function createWebhook(webhook: string) {
+  return (dispatch: Function) => {
     return api.webhooks
       .create(webhook)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(fetchWebhooks())
       })
       .catch(error => {})
   }
 }
 
-export function updateWebhook(webhook) {
-  return (dispatch, getState) => {
+export function updateWebhook(webhook: { id: string }) {
+  return (dispatch: Function) => {
     return api.webhooks
       .update(webhook.id, webhook)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(fetchWebhooks())
       })
       .catch(error => {})
   }
 }
 
-export function deleteWebhook(webhookId) {
-  return (dispatch, getState) => {
+export function deleteWebhook(webhookId: string) {
+  return (dispatch: Function) => {
     return api.webhooks
       .delete(webhookId)
-      .then(({ status, json }) => {
+      .then(() => {
         dispatch(fetchWebhooks())
       })
       .catch(error => {})

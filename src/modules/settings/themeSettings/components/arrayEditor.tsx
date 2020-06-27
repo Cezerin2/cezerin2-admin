@@ -1,57 +1,59 @@
-import Paper from "@material-ui/core/Paper"
-import FlatButton from "material-ui/FlatButton"
-import FloatingActionButton from "material-ui/FloatingActionButton"
-import FontIcon from "material-ui/FontIcon"
+import { Button, Paper } from "@material-ui/core"
+import { Add } from "@material-ui/icons"
 import React from "react"
 import messages from "../../../../lib/text"
 import DynamicEditControl from "./dynamicEditControl"
 import style from "./style.module.sass"
 
-const ArrayEditor = ({ label, properties, fields }) => (
+const ArrayEditor = ({
+  label,
+  properties,
+  fields,
+}: {
+  label: string
+  properties: any
+  fields: any
+}) => (
   <>
     <div className={style.arrayTitle}>
       {label}
-      <FloatingActionButton
-        mini
-        secondary
+      <Button
+        size="small"
+        color="secondary"
         onClick={() => fields.push({})}
         style={{ marginLeft: "20px" }}
       >
-        <FontIcon className="material-icons">add</FontIcon>
-      </FloatingActionButton>
+        <Add className="material-icons" />
+      </Button>
     </div>
 
     <ol style={{ listStyle: "none" }}>
-      {fields.map((field, index) => (
+      {fields.map((field: string, index: number) => (
         <li key={index}>
           <Paper
             style={{ margin: "20px 0 20px 20px", backgroundColor: "#f7f7f7" }}
             elevation={1}
           >
             <div className={style.arrayItemHead}>
-              <FlatButton
-                label={messages.actions_delete}
-                secondary
-                onClick={() => fields.remove(index)}
-              />
+              <Button color="secondary" onClick={() => fields.remove(index)}>
+                {messages.actions_delete}
+              </Button>
 
               {index > 0 && (
-                <FlatButton
-                  label={messages.actions_moveUp}
-                  onClick={() => fields.move(index, index - 1)}
-                />
+                <Button onClick={() => fields.move(index, index - 1)}>
+                  {messages.actions_moveUp}
+                </Button>
               )}
 
               {index + 1 < fields.length && (
-                <FlatButton
-                  label={messages.actions_moveDown}
-                  onClick={() => fields.move(index, index + 1)}
-                />
+                <Button onClick={() => fields.move(index, index + 1)}>
+                  {messages.actions_moveDown}
+                </Button>
               )}
             </div>
 
             <div className={style.arrayInnerBox}>
-              {properties.map((property, propertyIndex) => {
+              {properties.map((property: any, propertyIndex: string) => {
                 const fieldName = `${field}.${property.key}`
                 return (
                   <DynamicEditControl
