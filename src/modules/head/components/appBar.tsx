@@ -1,4 +1,5 @@
-import AppBar from "@material-ui/core/AppBar"
+import { AppBar } from "@material-ui/core"
+import { ChevronRight } from "@material-ui/icons"
 import { Link } from "@reach/router"
 import FontIcon from "material-ui/FontIcon"
 import IconButton from "material-ui/IconButton"
@@ -79,9 +80,11 @@ const AppBarTop = (
       title = (
         <span>
           {messages.products_title}
-          <FontIcon style={{ top: 6 }} color="#fff" className="material-icons">
-            chevron_right
-          </FontIcon>
+          <ChevronRight
+            style={{ top: 6 }}
+            color="#fff"
+            className="material-icons"
+          />
           {productCategoryName}
         </span>
       )
@@ -100,9 +103,11 @@ const AppBarTop = (
       title = (
         <span>
           {messages.drawer_importing}
-          <FontIcon style={{ top: 6 }} color="#fff" className="material-icons">
-            chevron_right
-          </FontIcon>
+          <ChevronRight
+            style={{ top: 6 }}
+            color="#fff"
+            className="material-icons"
+          />
           {productCategoryName}
         </span>
       )
@@ -121,9 +126,11 @@ const AppBarTop = (
       title = (
         <span>
           {messages.orders_title}
-          <FontIcon style={{ top: 6 }} color="#fff" className="material-icons">
-            chevron_right
-          </FontIcon>
+          <ChevronRight
+            style={{ top: 6 }}
+            color="#fff"
+            className="material-icons"
+          />
           {orderStatusName}
         </span>
       )
