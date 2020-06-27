@@ -1,13 +1,15 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  Divider,
+  IconButton,
+  MenuItem,
+  Select,
+} from "@material-ui/core"
+import { MoreVert } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
-import FlatButton from "material-ui/FlatButton"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
 import IconMenu from "material-ui/IconMenu"
-import MenuItem from "material-ui/MenuItem"
-import SelectField from "material-ui/SelectField"
 import React, { useState } from "react"
 import * as helper from "../../../../lib/helper"
 import messages from "../../../../lib/text"
@@ -15,9 +17,7 @@ import style from "./style.module.sass"
 
 const iconButtonElement = (
   <IconButton touch>
-    <FontIcon color="rgb(189, 189, 189)" className="material-icons">
-      more_vert
-    </FontIcon>
+    <MoreVert color="rgb(189, 189, 189)" className="material-icons" />
   </IconButton>
 )
 
@@ -30,22 +30,22 @@ const ProductOption = ({ option, onChange, selectedOptions }) => {
     ))
 
   return (
-    <SelectField
-      floatingLabelText={option.name}
+    <Select
+      label={option.name}
       fullWidth
       value={selectedValue}
-      onChange={(event, index, value) => {
+      onChange={value => {
         onChange(option.id, value)
       }}
     >
       {values}
-    </SelectField>
+    </Select>
   )
 }
 
 const ProductOptions = ({ options, onChange, selectedOptions }) => {
   if (options) {
-    const items = options.map((option, index) => (
+    const items = options.map((option: string, index: number) => (
       <ProductOption
         key={index}
         option={option}
@@ -73,7 +73,7 @@ export const OrderItem = (props: Readonly<{}>) => {
     setShowEdit(false)
   }
 
-  const quantityChange = (event, index, value) => {
+  const quantityChange = value => {
     setQuantity(value)
   }
 
@@ -235,7 +235,7 @@ export const OrderItem = (props: Readonly<{}>) => {
       <Dialog
         title={messages.editOrderItem}
         modal={false}
-        open={state.showEdit}
+        open={showEdit}
         onRequestClose={hideEditForm}
         contentStyle={{ width: 400 }}
       >
@@ -245,22 +245,22 @@ export const OrderItem = (props: Readonly<{}>) => {
             onChange={onOptionChange}
             selectedOptions={selectedOptions}
           />
-          <SelectField
-            floatingLabelText={messages.quantity}
+          <Select
+            label={messages.quantity}
             fullWidth
             value={quantity}
             onChange={quantityChange}
           >
             {quantityItems}
-          </SelectField>
+          </Select>
         </div>
         <DialogActions>
-          <FlatButton
-            label={messages.cancel}
-            onClick={hideEditForm}
-            style={{ marginRight: 10 }}
-          />
-          <FlatButton label={messages.save} primary onClick={submitEditForm} />
+          <Button onClick={hideEditForm} style={{ marginRight: 10 }}>
+            {messages.cancel}
+          </Button>
+          <Button color="primary" onClick={submitEditForm}>
+            {messages.save}
+          </Button>
         </DialogActions>
       </Dialog>
     </>
