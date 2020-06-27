@@ -1,6 +1,4 @@
-import Checkbox from "material-ui/Checkbox"
-import { List, ListItem } from "material-ui/List"
-import TextField from "material-ui/TextField"
+import { Checkbox, List, ListItem, TextField } from "@material-ui/core"
 import Toggle from "material-ui/Toggle"
 import React, { useEffect, useState } from "react"
 

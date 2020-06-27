@@ -1,4 +1,4 @@
-import { Card, CardMedia, CardTitle } from "@material-ui/core"
+import { Card, CardHeader, CardMedia } from "@material-ui/core"
 import { CheckCircle } from "@material-ui/icons"
 import { Link } from "@reach/router"
 import React from "react"
@@ -58,7 +58,7 @@ const Item = ({
         className={style.servicesCover}
         style={{ backgroundImage: `url(${coverUrl})` }}
       />
-      <CardTitle
+      <CardHeader
         title={title}
         subtitle={
           <>

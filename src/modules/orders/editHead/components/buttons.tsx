@@ -7,15 +7,13 @@ import ConfirmationDialog from "../../../../modules/shared/confirmation"
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
 import ProductSearchDialog from "../../../../modules/shared/productSearch"
 
-const Buttons = (
-  props: Readonly<{ setCancelled; setClosed; settings; order; onDelete }>
-) => {
+const Buttons = (props: Readonly<{ settings; order; onDelete }>) => {
   const [showClose, setShowClose] = useState(false)
   const [showCancel, setShowCancel] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [showAddItem, setShowAddItem] = useState(false)
 
-  const { setCancelled, setClosed, settings, order, onDelete } = props
+  const { settings, order, onDelete } = props
 
   const showCloses = () => {
     setShowClose(true)

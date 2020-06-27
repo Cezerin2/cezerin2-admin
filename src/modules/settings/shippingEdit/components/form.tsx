@@ -1,7 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import Divider from "material-ui/Divider"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Divider, Paper, TextField } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { Field, FieldArray, reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
@@ -23,11 +20,19 @@ const validate = values => {
 }
 
 const EditShippingMethodForm = (props: Readonly<{}>) => {
+  const {
+    handleSubmit,
+    pristine,
+    submitting,
+    methodId,
+    settings,
+    onLoad,
+  } = props
+
   useEffect(() => {
-    props.onLoad()
+    onLoad()
   }, [])
 
-  const { handleSubmit, pristine, submitting, methodId, settings } = props
   const isAdd = methodId === null || methodId === undefined
 
   return (
@@ -174,13 +179,14 @@ const EditShippingMethodForm = (props: Readonly<{}>) => {
           </div>
         </div>
         <div className="buttons-box">
-          <RaisedButton
+          <Button
             type="submit"
-            label={isAdd ? messages.add : messages.save}
-            primary
+            color="primary"
             className={style.button}
             disabled={pristine || submitting}
-          />
+          >
+            {isAdd ? messages.add : messages.save}
+          </Button>
         </div>
       </Paper>
     </form>

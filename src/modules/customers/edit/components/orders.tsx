@@ -1,6 +1,6 @@
-import { Divider, List, Paper } from "@material-ui/core"
+import { Divider, List, ListItem, Paper } from "@material-ui/core"
+import { KeyboardArrowRight } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
 import api from "../../../../lib/api"
@@ -8,7 +8,7 @@ import * as helper from "../../../../lib/helper"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const getOrderStates = order => {
+const getOrderStates = (order: { hold: string }) => {
   const states = []
 
   if (order.hold) {
@@ -73,9 +73,7 @@ const CustomerOrder = ({ order, settings }) => {
       <Divider />
       <Link to={`/order/${order.id}`} style={{ textDecoration: "none" }}>
         <ListItem
-          rightIcon={
-            <FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
-          }
+          rightIcon={<KeyboardArrowRight className="material-icons" />}
           primaryText={
             <div className="row">
               <div className="col-xs-2">{order.number}</div>

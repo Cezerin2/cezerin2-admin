@@ -1,4 +1,4 @@
-import Divider from "material-ui/Divider"
+import { Divider } from "@material-ui/core"
 import React from "react"
 import * as helper from "../../../../lib/helper"
 import messages from "../../../../lib/text"

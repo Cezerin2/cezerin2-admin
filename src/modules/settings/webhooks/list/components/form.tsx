@@ -1,8 +1,6 @@
-import Paper from "@material-ui/core/Paper"
+import { Divider, List, ListItem, Paper } from "@material-ui/core"
+import { KeyboardArrowRight } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
-import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
 import messages from "../../../../../lib/text"
 
@@ -19,9 +17,7 @@ const WebhookItem = ({ webhook }) => {
         style={{ textDecoration: "none" }}
       >
         <ListItem
-          rightIcon={
-            <FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
-          }
+          rightIcon={<KeyboardArrowRight className="material-icons" />}
           style={!webhook.enabled ? { color: "rgba(0, 0, 0, 0.3)" } : {}}
           primaryText={
             <div className="row">

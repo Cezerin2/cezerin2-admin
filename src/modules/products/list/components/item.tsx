@@ -1,6 +1,6 @@
+import { Divider } from "@material-ui/core"
+import { PhotoCamera } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
-import FontIcon from "material-ui/FontIcon"
 import React from "react"
 import * as helper from "../../../../lib/helper"
 import messages from "../../../../lib/text"
@@ -8,12 +8,10 @@ import style from "./style.module.sass"
 
 const THUMBNAIL_WIDTH = 100
 const ImagePlaceholder = (
-  <FontIcon
+  <PhotoCamera
     style={{ fontSize: 30, color: "#cccccc" }}
     className="material-icons"
-  >
-    photo_camera
-  </FontIcon>
+  />
 )
 
 const ItemImage = ({ images }) => {

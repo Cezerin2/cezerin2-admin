@@ -1,10 +1,9 @@
-import Checkbox from "material-ui/Checkbox"
-import Subheader from "material-ui/Subheader"
+import { Checkbox, ListSubheader } from "@material-ui/core"
 import React from "react"
 import messages from "../../../../lib/text"
 
 export default ({ onSelectAll }) => (
-  <Subheader style={{ paddingRight: 16 }}>
+  <ListSubheader style={{ paddingRight: 16 }}>
     <div className="row middle-xs">
       <div className="col-xs-1">
         <Checkbox
@@ -26,5 +25,5 @@ export default ({ onSelectAll }) => (
         {messages.orders_status}
       </div>
     </div>
-  </Subheader>
+  </ListSubheader>
 )

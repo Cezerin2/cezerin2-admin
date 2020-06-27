@@ -1,8 +1,6 @@
-import Paper from "@material-ui/core/Paper"
+import { Divider, List, ListItem, Paper } from "@material-ui/core"
+import { KeyboardArrowRight } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import Divider from "material-ui/Divider"
-import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
 import messages from "../../../../../lib/text"
 
@@ -14,9 +12,7 @@ const TokenItem = ({ token }) => (
       style={{ textDecoration: "none" }}
     >
       <ListItem
-        rightIcon={
-          <FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
-        }
+        rightIcon={<KeyboardArrowRight className="material-icons" />}
         primaryText={
           <div className="row">
             <div className="col-xs-6">{token.name}</div>

@@ -1,14 +1,12 @@
-import Divider from "material-ui/Divider"
-import FontIcon from "material-ui/FontIcon"
-import { List } from "material-ui/List"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Divider, List } from "@material-ui/core"
+import { Refresh } from "@material-ui/icons"
 import React, { useEffect } from "react"
 import messages from "../../../../lib/text"
 import Head from "./head"
 import CustomersListItem from "./item"
 import style from "./style.module.sass"
 
-const CustomersList = props => {
+const CustomersList = (props: Readonly<{}>) => {
   useEffect(() => {
     props.onLoad()
   }, [])
@@ -40,14 +38,15 @@ const CustomersList = props => {
         <Divider />
         {rows}
         <div className={style.more}>
-          <RaisedButton
+          <Button
             disabled={loadingItems || !hasMore}
-            label={messages.actions_loadMore}
             labelPosition="before"
             primary={false}
-            icon={<FontIcon className="material-icons">refresh</FontIcon>}
+            icon={<Refresh className="material-icons" />}
             onClick={loadMore}
-          />
+          >
+            {messages.actions_loadMore}
+          </Button>
         </div>
       </List>
     </>

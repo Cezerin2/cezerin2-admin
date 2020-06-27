@@ -1,5 +1,4 @@
-import Checkbox from "material-ui/Checkbox"
-import { List, ListItem } from "material-ui/List"
+import { Checkbox, List, ListItem } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 
 const SelectShippingMethodsField = (

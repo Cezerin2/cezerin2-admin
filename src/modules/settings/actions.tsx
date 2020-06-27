@@ -353,9 +353,8 @@ export function fetchPaymentMethods() {
 
 export function updateShippingMethod(method: { id: string }) {
   return (dispatch: Function) => {
-    const result = api.shippingMethods.update(method.id, method)
     try {
-      result
+      api.shippingMethods.update(method.id, method)
       dispatch(fetchShippingMethods())
     } catch (error) {
       console.error(error)
@@ -365,9 +364,8 @@ export function updateShippingMethod(method: { id: string }) {
 
 export function updatePaymentMethod(method: { id: string }) {
   return (dispatch: Function) => {
-    const result = api.paymentMethods.update(method.id, method)
     try {
-      result
+      api.paymentMethods.update(method.id, method)
       dispatch(fetchPaymentMethods())
     } catch (error) {
       console.error(error)
@@ -399,9 +397,8 @@ export function fetchPaymentMethod(id: string) {
 
 export function deleteShippingMethod(methodId: string) {
   return (dispatch: Function) => {
-    const result = api.shippingMethods.delete(methodId)
     try {
-      result
+      api.shippingMethods.delete(methodId)
       dispatch(fetchShippingMethods())
     } catch (error) {
       console.error(error)
@@ -411,9 +408,8 @@ export function deleteShippingMethod(methodId: string) {
 
 export function deletePaymentMethod(methodId: string) {
   return (dispatch: Function) => {
-    const result = api.paymentMethods.delete(methodId)
     try {
-      result
+      api.paymentMethods.delete(methodId)
       dispatch(fetchPaymentMethods())
     } catch (error) {
       console.error(error)
@@ -423,9 +419,8 @@ export function deletePaymentMethod(methodId: string) {
 
 export function createShippingMethod(method: string) {
   return (dispatch: Function) => {
-    const result = api.shippingMethods.create(method)
     try {
-      result
+      api.shippingMethods.create(method)
       dispatch(fetchShippingMethods())
     } catch (error) {
       console.error(error)
@@ -435,9 +430,8 @@ export function createShippingMethod(method: string) {
 
 export function createPaymentMethod(method: string) {
   return (dispatch: Function) => {
-    const result = api.paymentMethods.create(method)
     try {
-      result
+      api.paymentMethods.create(method)
       dispatch(fetchPaymentMethods())
     } catch (error) {
       console.error(error)
@@ -481,9 +475,8 @@ export function createToken(token: string) {
 
 export function updateToken(token: { id: string }) {
   return (dispatch: Function) => {
-    const result = api.tokens.update(token.id, token)
     try {
-      result
+      api.tokens.update(token.id, token)
       dispatch(fetchTokens())
     } catch (error) {
       console.error(error)
@@ -493,9 +486,8 @@ export function updateToken(token: { id: string }) {
 
 export function deleteToken(tokenId: string) {
   return (dispatch: Function) => {
-    const result = api.tokens.delete(tokenId)
     try {
-      result
+      api.tokens.delete(tokenId)
       dispatch(fetchTokens())
     } catch (error) {
       console.error(error)
@@ -531,9 +523,8 @@ export function updatePaymentGateway(gatewayName: string, data: string) {
 
 export function uploadLogo(form: string) {
   return (dispatch: Function) => {
-    const result = api.settings.uploadLogo(form)
     try {
-      result
+      api.settings.uploadLogo(form)
       dispatch(fetchSettings())
     } catch (error) {
       console.error(error)
@@ -557,9 +548,8 @@ export function fetchThemeSettings() {
 
 export function updateThemeSettings(settings: string) {
   return (dispatch: Function) => {
-    const result = api.theme.settings.update(settings)
     try {
-      result
+      api.theme.settings.update(settings)
       dispatch(fetchThemeSettings())
     } catch (error) {
       console.error(error)
@@ -591,8 +581,8 @@ export function fetchRedirect(id: string) {
 
 export function createRedirect(redirect: string) {
   return (dispatch: Function) => {
-    const result = api.redirects.create(redirect)
     try {
+      api.redirects.create(redirect)
       dispatch(fetchRedirects())
     } catch (error) {
       console.error(error)
@@ -602,9 +592,8 @@ export function createRedirect(redirect: string) {
 
 export function updateRedirect(redirect: { id: string }) {
   return (dispatch: Function) => {
-    const result = api.redirects.update(redirect.id, redirect)
     try {
-      result
+      api.redirects.update(redirect.id, redirect)
       dispatch(fetchRedirects())
     } catch (error) {
       console.error(error)
@@ -614,9 +603,8 @@ export function updateRedirect(redirect: { id: string }) {
 
 export function deleteRedirect(redirectId: string) {
   return (dispatch: Function) => {
-    const result = api.redirects.delete(redirectId)
     try {
-      result
+      api.redirects.delete(redirectId)
       dispatch(fetchRedirects())
     } catch (error) {
       console.error(error)
@@ -648,9 +636,8 @@ export function fetchWebhook(id: string) {
 
 export function createWebhook(webhook: string) {
   return (dispatch: Function) => {
-    const result = api.webhooks.create(webhook)
     try {
-      result
+      api.webhooks.create(webhook)
       dispatch(fetchWebhooks())
     } catch (error) {
       console.error(error)
@@ -660,9 +647,8 @@ export function createWebhook(webhook: string) {
 
 export function updateWebhook(webhook: { id: string }) {
   return (dispatch: Function) => {
-    const result = api.webhooks.update(webhook.id, webhook)
     try {
-      result
+      api.webhooks.update(webhook.id, webhook)
       dispatch(fetchWebhooks())
     } catch (error) {
       console.error(error)
@@ -672,9 +658,8 @@ export function updateWebhook(webhook: { id: string }) {
 
 export function deleteWebhook(webhookId: string) {
   return (dispatch: Function) => {
-    const result = api.webhooks.delete(webhookId)
     try {
-      result
+      api.webhooks.delete(webhookId)
       dispatch(fetchWebhooks())
     } catch (error) {
       console.error(error)

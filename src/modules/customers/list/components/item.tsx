@@ -1,8 +1,6 @@
+import { Checkbox, Divider, ListItem } from "@material-ui/core"
+import { Place } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import Checkbox from "material-ui/Checkbox"
-import Divider from "material-ui/Divider"
-import FontIcon from "material-ui/FontIcon"
-import { ListItem } from "material-ui/List"
 import React from "react"
 import * as helper from "../../../../lib/helper"
 import style from "./style.module.sass"
@@ -41,16 +39,14 @@ const CustomersListItem = ({ customer, onSelect, selected, settings }) => {
             <div className={`col-xs-3 ${style.location}`}>
               {customer.shipping && customer.shipping.city && (
                 <span>
-                  <FontIcon
+                  <Place
                     style={{
                       color: "rgba(0, 0, 0, 0.4)",
                       fontSize: 16,
                       marginRight: 6,
                     }}
                     className="material-icons"
-                  >
-                    place
-                  </FontIcon>
+                  />
                   {customer.shipping.city}
                 </span>
               )}

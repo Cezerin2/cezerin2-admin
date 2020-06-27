@@ -1,6 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import Divider from "material-ui/Divider"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Divider, Paper } from "@material-ui/core"
 import React from "react"
 import api from "../../../../lib/api"
 import messages from "../../../../lib/text"
@@ -56,16 +54,15 @@ const Theme = props => {
               {messages.settings_themeExportDesciption}
             </div>
             <div className="col-xs-4" style={{ textAlign: "right" }}>
-              <RaisedButton
-                label={
-                  exportInProcess
-                    ? messages.settings_themeExporting
-                    : messages.settings_themeExport
-                }
+              <Button
                 disabled={exportInProcess || installInProcess}
                 onClick={onExportClick}
-                primary
-              />
+                color="primary"
+              >
+                {exportInProcess
+                  ? messages.settings_themeExporting
+                  : messages.settings_themeExport}
+              </Button>
             </div>
           </div>
           <Divider
@@ -81,24 +78,22 @@ const Theme = props => {
               {messages.settings_themeInstallDesciption}
             </div>
             <div className="col-xs-4" style={{ textAlign: "right" }}>
-              <RaisedButton
-                label={
-                  installInProcess
-                    ? messages.settings_themeInstalling
-                    : messages.settings_themeInstall
-                }
+              <Button
                 disabled={installInProcess}
                 labelPosition="before"
                 containerElement="label"
-                primary
+                color="primary"
               >
+                {installInProcess
+                  ? messages.settings_themeInstalling
+                  : messages.settings_themeInstall}
                 <input
                   type="file"
                   onChange={onImportFileChoose}
                   disabled={installInProcess}
                   style={styles.exampleImageInput}
                 />
-              </RaisedButton>
+              </Button>
             </div>
           </div>
         </div>

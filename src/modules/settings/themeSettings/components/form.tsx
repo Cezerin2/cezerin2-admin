@@ -1,4 +1,4 @@
-import { Button, Paper } from "@material-ui/core/Paper"
+import { Button, Paper } from "@material-ui/core"
 import sortBy from "lodash/sortBy"
 import React, { useEffect } from "react"
 import { reduxForm } from "redux-form"

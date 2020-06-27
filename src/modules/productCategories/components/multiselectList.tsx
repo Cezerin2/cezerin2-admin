@@ -1,5 +1,5 @@
-import Checkbox from "material-ui/Checkbox"
-import FontIcon from "material-ui/FontIcon"
+import { Checkbox } from "@material-ui/core"
+import { Folder, VisibilityOff } from "@material-ui/icons"
 import { List, ListItem } from "material-ui/List"
 import React from "react"
 
@@ -15,16 +15,16 @@ const styles = {
   },
 }
 
-const FolderIcon = <FontIcon className="material-icons">folder</FontIcon>
-const DraftIcon = <FontIcon className="material-icons">visibility_off</FontIcon>
+const FolderIcon = <Folder className="material-icons" />
+const DraftIcon = <VisibilityOff className="material-icons" />
 
-const Item = () => {
+const Item = props => {
+  const { item, opened, selectedIds, nestedItems, onCheck } = props
+
   const handleCheck = (event, isInputChecked) => {
-    const { item } = props
-    props.onCheck(item.id)
+    onCheck(item.id)
   }
 
-  const { item, opened, selectedIds, nestedItems } = props
   const isChecked =
     selectedIds && selectedIds.length > 0 && selectedIds.includes(item.id)
   // const style = isChecked ? styles.selectedItem : null;
