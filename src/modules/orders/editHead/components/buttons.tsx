@@ -1,6 +1,5 @@
-import { Divider, MenuItem } from "@material-ui/core"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
+import { Divider, IconButton, MenuItem } from "@material-ui/core"
+import { MoreVert } from "@material-ui/icons"
 import IconMenu from "material-ui/IconMenu"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
@@ -8,11 +7,15 @@ import ConfirmationDialog from "../../../../modules/shared/confirmation"
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
 import ProductSearchDialog from "../../../../modules/shared/productSearch"
 
-const Buttons = (props: Readonly<{}>) => {
+const Buttons = (
+  props: Readonly<{ setCancelled; setClosed; settings; order; onDelete }>
+) => {
   const [showClose, setShowClose] = useState(false)
   const [showCancel, setShowCancel] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [showAddItem, setShowAddItem] = useState(false)
+
+  const { setCancelled, setClosed, settings, order, onDelete } = props
 
   const showCloses = () => {
     setShowClose(true)
@@ -24,7 +27,7 @@ const Buttons = (props: Readonly<{}>) => {
 
   const setClosed = () => {
     hideClose()
-    props.setClosed(props.order.id)
+    setClosed(order.id)
   }
 
   const showCancels = () => {
@@ -37,7 +40,7 @@ const Buttons = (props: Readonly<{}>) => {
 
   const setCancelled = () => {
     hideCancel()
-    props.setCancelled(props.order.id)
+    setCancelled(order.id)
   }
 
   const openDeletes = () => {
@@ -54,11 +57,11 @@ const Buttons = (props: Readonly<{}>) => {
   }
 
   const holdOrder = () => {
-    props.holdOrder(props.order.id)
+    holdOrder(order.id)
   }
 
   const resumeOrder = () => {
-    props.resumeOrder(props.order.id)
+    resumeOrder(order.id)
   }
 
   const showAddItems = () => {
@@ -71,10 +74,8 @@ const Buttons = (props: Readonly<{}>) => {
 
   const addItem = productId => {
     hideAddItem()
-    props.addItem(props.order.id, productId)
+    addItem(order.id, productId)
   }
-
-  const { settings, order, onDelete } = props
 
   if (order) {
     const orderName = `${messages.order} #${order.number}`
@@ -86,43 +87,33 @@ const Buttons = (props: Readonly<{}>) => {
       //
     } else {
       menuItems.push(
-        <MenuItem
-          key="addItem"
-          primaryText={messages.addOrderItem}
-          onClick={showAddItem}
-        />
+        <MenuItem key="addItem" onClick={showAddItem}>
+          {messages.addOrderItem}
+        </MenuItem>
       )
       menuItems.push(<Divider key="dev1" />)
       if (order.hold) {
         menuItems.push(
-          <MenuItem
-            key="resume"
-            primaryText={messages.resumeOrder}
-            onClick={resumeOrder}
-          />
+          <MenuItem key="resume" onClick={resumeOrder}>
+            {messages.resumeOrder}
+          </MenuItem>
         )
       } else {
         menuItems.push(
-          <MenuItem
-            key="hold"
-            primaryText={messages.holdOrder}
-            onClick={holdOrder}
-          />
+          <MenuItem key="hold" onClick={holdOrder}>
+            {messages.holdOrder}
+          </MenuItem>
         )
       }
       menuItems.push(
-        <MenuItem
-          key="close"
-          primaryText={messages.closeOrder}
-          onClick={showClose}
-        />
+        <MenuItem key="close" onClick={showClose}>
+          {messages.closeOrder}
+        </MenuItem>
       )
       menuItems.push(
-        <MenuItem
-          key="cancel"
-          primaryText={messages.cancelOrder}
-          onClick={showCancel}
-        />
+        <MenuItem key="cancel" onClick={showCancel}>
+          {messages.cancelOrder}
+        </MenuItem>
       )
     }
 
@@ -166,9 +157,7 @@ const Buttons = (props: Readonly<{}>) => {
         <IconMenu
           iconButtonElement={
             <IconButton touch>
-              <FontIcon color="#fff" className="material-icons">
-                more_vert
-              </FontIcon>
+              <MoreVert color="#fff" className="material-icons" />
             </IconButton>
           }
           targetOrigin={{ horizontal: "right", vertical: "top" }}
