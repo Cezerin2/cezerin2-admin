@@ -57,7 +57,6 @@ const EditTokenForm = (props: Readonly<{}>) => {
     handleSubmit,
     pristine,
     submitting,
-    initialValues,
     tokenId,
     newToken,
     onDelete,
@@ -139,7 +138,7 @@ const EditTokenForm = (props: Readonly<{}>) => {
         modal
       />
       <ConfirmationDialog
-        open={state.showRevokeDialog}
+        open={showRevokeDialog}
         title={messages.settings_tokenRevokeTitle}
         description={messages.settings_tokenRevokeDescription}
         onSubmit={onDelete}
