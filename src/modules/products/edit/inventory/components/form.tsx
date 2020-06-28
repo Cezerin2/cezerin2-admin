@@ -79,7 +79,7 @@ const ProductInventoryForm = ({
   settings,
 }) => (
   <form onSubmit={handleSubmit}>
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div className={style.innerBox}>
         <div className="row" style={{ marginBottom: 50 }}>
           <div className="col-xs-5">

@@ -47,7 +47,7 @@ const Theme = props => {
 
   return (
     <>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div className={style.innerBox}>
           <div className="row between-xs middle-xs">
             <div className="col-xs-6">

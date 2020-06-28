@@ -82,7 +82,7 @@ const ProductAttributesForm = ({
   initialValues,
 }) => (
   <form onSubmit={handleSubmit}>
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <FieldArray name="attributes" component={AttributesGrid} />
       <div
         className={`buttons-box ${

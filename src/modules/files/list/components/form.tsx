@@ -87,7 +87,7 @@ const FileList = (props: Readonly<{}>) => {
         <div className="col-xs-2">{messages.fileSize}</div>
         <div className="col-xs-2" />
       </div>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         {listItems}
       </Paper>
       <FileUploader onUpload={onUpload} uploading={uploading} />

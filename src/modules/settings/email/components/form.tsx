@@ -18,7 +18,7 @@ const EmailSettings = (props: Readonly<{}>) => {
 
   return (
     <>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
             <Link to="/settings/email/smtp" style={{ textDecoration: "none" }}>
@@ -49,7 +49,7 @@ const EmailSettings = (props: Readonly<{}>) => {
       <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
         {messages.settings_emailTemplates}
       </div>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
             <Link

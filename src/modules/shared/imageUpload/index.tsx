@@ -53,7 +53,7 @@ const ImageUpload = (props: Readonly<{}>) => {
   }
 
   return (
-    <Paper zDepth={1} rounded={false} style={{ width: 200 }}>
+    <Paper elevation={1} rounded={false} style={{ width: 200 }}>
       <Dropzone
         onDrop={onDrop}
         multiple={false}

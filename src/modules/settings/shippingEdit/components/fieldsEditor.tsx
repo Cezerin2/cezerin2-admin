@@ -20,7 +20,7 @@ const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
       return (
         <Paper
           className="paper-box"
-          zDepth={1}
+          elevation={1}
           rounded={false}
           key={index}
           style={{

@@ -27,7 +27,7 @@ const CustomerSummary = props => {
   const totalSpent = helper.formatCurrency(customer.total_spent, settings)
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div className={style.innerBox}>
         <div
           className={style.customerName}

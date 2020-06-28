@@ -544,7 +544,7 @@ class ProductImport extends React.Component {
                 </span>
               </p>
             </div>
-            <Paper className="paper-box" zDepth={1}>
+            <Paper className="paper-box" elevation={1}>
               <fieldset className="spread-sheet-table">
                 <div className="schedule padd-lr">
                   <div className="tbl-header">

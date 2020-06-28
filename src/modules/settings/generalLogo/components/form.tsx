@@ -11,7 +11,7 @@ const GeneralLogoSettingsForm = props => {
   const imageUrl = settings && settings.logo ? settings.logo : ""
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div style={{ padding: 30 }}>
         <ImageUpload
           uploading={false}

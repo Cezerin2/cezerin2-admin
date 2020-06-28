@@ -79,7 +79,7 @@ const EditPaymentMethodForm = (
 
   return (
     <form onSubmit={handleSubmit}>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div className={style.innerBox}>
           <div className="row">
             <div className="col-xs-12 col-sm-4">

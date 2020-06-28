@@ -41,7 +41,7 @@ const TokensList = (props: Readonly<{}>) => {
       <div style={{ margin: 20, color: "rgba(0, 0, 0, 0.52)" }}>
         {messages.settings_tokenHelp}
       </div>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>{listItems}</List>
         </div>

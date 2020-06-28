@@ -46,7 +46,7 @@ const OrderDetails = (props: Readonly<{}>) => {
         />
       </div>
       <div className="col-xs-12 col-sm-7 col-md-8 col--no-gutter scroll col-full-height">
-        <Paper className="paper-box" zDepth={1}>
+        <Paper className="paper-box" elevation={1}>
           <OrderItems
             order={order}
             settings={settings}

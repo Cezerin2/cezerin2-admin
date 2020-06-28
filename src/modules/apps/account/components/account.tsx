@@ -18,7 +18,7 @@ const AccountForm = ({ handleSubmit, pristine, submitting }) => (
         width: "100%",
       }}
     >
-      <Paper style={{ margin: "0px 20px" }} zDepth={1}>
+      <Paper style={{ margin: "0px 20px" }} elevation={1}>
         <div style={{ padding: "10px 30px 30px 30px" }}>
           <Field
             component={TextField}

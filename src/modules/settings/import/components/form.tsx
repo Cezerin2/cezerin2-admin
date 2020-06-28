@@ -14,7 +14,7 @@ const ImportSettings = (props: Readonly<{ onLoad: Function }>) => {
 
   return (
     <>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div style={{ width: "100%" }}>
           <List style={{ padding: 0 }}>
             <Link

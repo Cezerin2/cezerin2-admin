@@ -103,7 +103,7 @@ const OptionValues = ({
   ))
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div className="blue-title" style={{ padding: "20px 30px" }}>
         {messages.optionValues}
       </div>

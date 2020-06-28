@@ -178,7 +178,7 @@ const ProductVariantsGrid = ({
     : null
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div className={style.grid}>
         <div className={style.gridHeadRow}>
           <div className={style.gridCol}>{messages.products_sku}</div>

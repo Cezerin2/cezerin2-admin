@@ -21,7 +21,7 @@ const ServiceLogs = ({ logs }) => {
       <div className="gray-title" style={{ margin: "0px 0px 0px 20px" }}>
         {messages.serviceLogs}
       </div>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div className={style.logsBox}>{list}</div>
       </Paper>
     </div>

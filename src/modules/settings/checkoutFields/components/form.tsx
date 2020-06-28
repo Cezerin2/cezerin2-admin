@@ -31,7 +31,7 @@ const CheckoutFieldForm = (
         width: "100%",
       }}
     >
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <div className={style.innerBox}>
           <Field
             component={TextField}

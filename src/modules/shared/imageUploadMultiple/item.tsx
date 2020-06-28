@@ -6,7 +6,7 @@ import messages from "../../../lib/text"
 import style from "./style.module.sass"
 
 const GalleryItem = ({ url, alt, id, onDelete, onImageEdit }) => (
-  <Paper zDepth={1} rounded={false}>
+  <Paper elevation={1} rounded={false}>
     <div className={style.preview}>
       <img src={url} title={alt} />
     </div>

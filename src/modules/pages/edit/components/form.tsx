@@ -66,7 +66,7 @@ const EditPageForm = (props: Readonly<{}>) => {
   if (initialValues) {
     return (
       <form onSubmit={handleSubmit}>
-        <Paper className="paper-box" zDepth={1}>
+        <Paper className="paper-box" elevation={1}>
           <div className={style.innerBox}>
             <Field
               name="meta_title"

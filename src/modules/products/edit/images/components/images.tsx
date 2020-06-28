@@ -47,7 +47,7 @@ const ProductImages = (props: Readonly<{}>) => {
   const alt = imageData ? imageData.alt : ""
 
   return (
-    <Paper className="paper-box" zDepth={1}>
+    <Paper className="paper-box" elevation={1}>
       <div style={{ padding: "10px 10px 30px 10px" }}>
         <Gallery
           productId={productId}

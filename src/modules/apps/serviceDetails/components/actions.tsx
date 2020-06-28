@@ -64,7 +64,7 @@ const ServiceActions = ({ actions, serviceId, fetchServiceLogs }) => {
       <div className="gray-title" style={{ margin: "15px 0 15px 20px" }}>
         {messages.serviceActions}
       </div>
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <>{buttons}</>
       </Paper>
     </div>

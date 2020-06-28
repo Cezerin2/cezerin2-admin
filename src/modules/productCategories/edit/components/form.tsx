@@ -64,7 +64,7 @@ const ProductCategoryEditForm = ({
 
   if (categoryId) {
     return (
-      <Paper className="paper-box" zDepth={1}>
+      <Paper className="paper-box" elevation={1}>
         <form onSubmit={handleSubmit}>
           <div className={style.innerBox}>
             <Field
