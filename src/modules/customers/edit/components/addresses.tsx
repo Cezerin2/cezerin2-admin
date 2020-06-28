@@ -1,5 +1,5 @@
 import { Dialog, IconButton, MenuItem, Paper } from "@material-ui/core"
-import FontIcon from "material-ui/FontIcon"
+import { MoreVert } from "@material-ui/icons"
 import IconMenu from "material-ui/IconMenu"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
@@ -25,9 +25,7 @@ const Address = ({ address }) => (
 
 const iconButtonElement = (
   <IconButton touch>
-    <FontIcon color="rgb(189, 189, 189)" className="material-icons">
-      more_vert
-    </FontIcon>
+    <MoreVert color="rgb(189, 189, 189)" className="material-icons" />
   </IconButton>
 )
 

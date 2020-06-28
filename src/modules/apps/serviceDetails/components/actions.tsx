@@ -1,5 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper } from "@material-ui/core"
 import React, { useState } from "react"
 import api from "../../../../lib/api"
 import messages from "../../../../lib/text"
@@ -12,8 +11,9 @@ const ActionComponent = (props: {
 }) => {
   const [loading, setLoading] = useState(false)
 
+  const { action, serviceId, fetchServiceLogs } = props
+
   const handleActionCall = () => {
-    const { action, serviceId, fetchServiceLogs } = props
     setLoading(true)
 
     return api.webstore.services.actions
@@ -29,7 +29,6 @@ const ActionComponent = (props: {
       })
   }
 
-  const { action } = props
   return (
     <div className={style.action}>
       <div className="row middle-xs">
@@ -37,19 +36,19 @@ const ActionComponent = (props: {
           {action.description}
         </div>
         <div className="col-xs-5" style={{ textAlign: "right" }}>
-          <RaisedButton
-            label={action.name}
-            primary
-            disabled={loading}
-            onClick={handleActionCall}
-          />
+          <Button color="primary" disabled={loading} onClick={handleActionCall}>
+            {action.name}
+          </Button>
         </div>
       </div>
     </div>
   )
 }
 
-const ServiceActions = ({ actions, serviceId, fetchServiceLogs }) => {
+const ServiceActions = (
+  props: Readonly<{ actions; serviceId; fetchServiceLogs }>
+) => {
+  const { actions, serviceId, fetchServiceLogs } = props
   const buttons = actions.map((action: any, index: any) => (
     <ActionComponent
       key={index}

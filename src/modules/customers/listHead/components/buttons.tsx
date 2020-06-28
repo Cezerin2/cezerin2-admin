@@ -1,8 +1,5 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import FlatButton from "material-ui/FlatButton"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
+import { Button, Dialog, DialogActions, IconButton } from "@material-ui/core"
+import { Delete, Edit, Folder } from "@material-ui/icons"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
 import GroupSelect from "../../../../modules/customerGroups/select"
@@ -40,7 +37,7 @@ const Buttons = (props: Readonly<{}>) => {
     onSetGroup(groupId)
   }
 
-  const selectSetGroup = groupId => {
+  const selectSetGroup = (groupId: string) => {
     setGroupId(groupId)
   }
 
@@ -66,9 +63,7 @@ const Buttons = (props: Readonly<{}>) => {
               tooltip={messages.actions_edit}
               onClick={onEdit}
             >
-              <FontIcon color="#fff" className="material-icons">
-                edit
-              </FontIcon>
+              <Edit color="secondary" className="material-icons" />
             </IconButton>
           )}
           <IconButton
@@ -77,9 +72,7 @@ const Buttons = (props: Readonly<{}>) => {
             tooltip={messages.actions_delete}
             onClick={showDelete}
           >
-            <FontIcon color="#fff" className="material-icons">
-              delete
-            </FontIcon>
+            <Delete color="secondary" className="material-icons" />
           </IconButton>
           <IconButton
             touch
@@ -87,9 +80,7 @@ const Buttons = (props: Readonly<{}>) => {
             tooltip={messages.customers_setGroup}
             onClick={showSetGroup}
           >
-            <FontIcon color="#fff" className="material-icons">
-              folder
-            </FontIcon>
+            <Folder color="secondary" className="material-icons" />
           </IconButton>
           <DeleteConfirmation
             open={openDelete}
@@ -112,17 +103,12 @@ const Buttons = (props: Readonly<{}>) => {
               showAll={false}
             />
             <DialogActions>
-              <FlatButton
-                label={messages.cancel}
-                onClick={closeSetGroup}
-                style={{ marginRight: 10 }}
-              />
-              <FlatButton
-                label={messages.save}
-                primary
-                keyboardFocused
-                onClick={saveSetGroup}
-              />
+              <Button onClick={closeSetGroup} style={{ marginRight: 10 }}>
+                {messages.cancel}
+              </Button>
+              <Button color="primary" keyboardFocused onClick={saveSetGroup}>
+                {messages.save}
+              </Button>
             </DialogActions>
           </Dialog>
         </>

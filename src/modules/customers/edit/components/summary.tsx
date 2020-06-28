@@ -1,14 +1,14 @@
-import Dialog from "@material-ui/core/Dialog"
-import Paper from "@material-ui/core/Paper"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Dialog, Paper } from "@material-ui/core"
 import React, { useState } from "react"
 import * as helper from "../../../../lib/helper"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 import SummaryForm from "./summaryForm"
 
-const CustomerSummary = props => {
+const CustomerSummary = (props: Readonly<{}>) => {
   const [openSummaryEdit, setOpenSummaryEdit] = useState(false)
+
+  const { customer, settings, onCustomerSummaryUpdate } = props
 
   const showSummaryEdit = () => {
     setOpenSummaryEdit(true)
@@ -18,12 +18,11 @@ const CustomerSummary = props => {
     setOpenSummaryEdit(false)
   }
 
-  const saveSummaryEdit = customer => {
-    props.onCustomerSummaryUpdate(customer)
+  const saveSummaryEdit = (customer: string) => {
+    onCustomerSummaryUpdate(customer)
     hideSummaryEdit()
   }
 
-  const { customer, settings } = props
   const totalSpent = helper.formatCurrency(customer.total_spent, settings)
 
   return (
@@ -72,11 +71,9 @@ const CustomerSummary = props => {
         </div>
 
         <div style={{ marginTop: 20 }}>
-          <RaisedButton
-            label="Edit"
-            style={{ marginRight: 15 }}
-            onClick={showSummaryEdit}
-          />
+          <Button style={{ marginRight: 15 }} onClick={showSummaryEdit}>
+            Edit
+          </Button>
         </div>
 
         <Dialog
