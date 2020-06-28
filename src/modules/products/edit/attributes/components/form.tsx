@@ -81,13 +81,13 @@ const ProductAttributesForm = ({
           pristine ? "buttons-box-pristine" : "buttons-box-show"
         }`}
       >
-        <FlatButton
+        <Button
           className={style.button}
           onClick={reset}
           disabled={pristine || submitting}
         >
           {messages.cancel}
-        </FlatButton>
+        </Button>
         <Button
           type="submit"
           color="primary"

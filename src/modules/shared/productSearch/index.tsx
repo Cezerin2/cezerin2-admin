@@ -4,8 +4,8 @@ import {
   DialogActions,
   Table,
   TableBody,
+  TableCell,
   TableRow,
-  TableRowColumn,
   TextField,
 } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
@@ -36,12 +36,10 @@ const SearchResult = (props: any) => {
 
     return (
       <TableRow key={index} selected={isSelected}>
-        <TableRowColumn>{product.name}</TableRowColumn>
-        <TableRowColumn>{product.category_name}</TableRowColumn>
-        <TableRowColumn>{product.sku}</TableRowColumn>
-        <TableRowColumn style={{ textAlign: "right" }}>
-          {priceFormatted}
-        </TableRowColumn>
+        <TableCell>{product.name}</TableCell>
+        <TableCell>{product.category_name}</TableCell>
+        <TableCell>{product.sku}</TableCell>
+        <TableCell style={{ textAlign: "right" }}>{priceFormatted}</TableCell>
       </TableRow>
     )
   })

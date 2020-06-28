@@ -1,15 +1,14 @@
-import { Button, IconButton, MenuItem, Paper } from "@material-ui/core"
+import { Button, IconButton, MenuItem, Paper, Select } from "@material-ui/core"
 import { Delete } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import DropDownMenu from "material-ui/DropDownMenu"
 import React, { useState } from "react"
 import messages from "../../../../../lib/text"
 import style from "./style.module.sass"
 
 const VariantInput = (props: Readonly<{}>) => {
-  const [value, setValue] = useState(value)
+  const [value, setValue] = useState(props.value)
 
-  const { type, placeholder, value, variantId, onChange } = props
+  const { type, placeholder, variantId, onChange } = props
 
   const onBlur = () => {
     onChange(variantId, value)
@@ -65,7 +64,7 @@ const VariantRow = (
         ))
       return (
         <div key={option.id} className={style.gridCol}>
-          <DropDownMenu
+          <Select
             value={variantOptionValueId}
             style={{ width: "100%" }}
             underlineStyle={{ border: "none" }}
@@ -74,7 +73,7 @@ const VariantRow = (
             }}
           >
             {menuItems}
-          </DropDownMenu>
+          </Select>
         </div>
       )
     }

@@ -1,5 +1,5 @@
 import { IconButton, Paper, Snackbar } from "@material-ui/core"
-import { Delete, PhotoCamera } from "@material-ui/icons"
+import { Delete, FileCopy, PhotoCamera } from "@material-ui/icons"
 import React, { useEffect, useState } from "react"
 import Dropzone from "react-dropzone"
 import messages from "../../../lib/text"
@@ -80,7 +80,7 @@ const ImageUpload = (props: Readonly<{}>) => {
           }}
           tooltipPosition="top-right"
         >
-          <FileUpload color="rgba(0,0,0,0.5)" className="material-icons" />
+          <FileCopy color="primary" className="material-icons" />
         </IconButton>
         {hasPreview && (
           <IconButton

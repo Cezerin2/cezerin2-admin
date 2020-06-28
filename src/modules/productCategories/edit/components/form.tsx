@@ -1,4 +1,4 @@
-import { Button, Paper, TextField } from "@material-ui/core/Paper"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import api from "../../../../lib/api"

@@ -1,5 +1,11 @@
 import { List, ListItem } from "@material-ui/core"
-import { Folder, VisibilityOff } from "@material-ui/icons"
+import {
+  Folder,
+  GetApp,
+  Home,
+  Settings,
+  VisibilityOff,
+} from "@material-ui/icons"
 import { Link } from "@reach/router"
 import React, { useEffect } from "react"
 import messages from "../../../lib/text"
@@ -131,7 +137,7 @@ const Categories = (props: Readonly<{}>) => {
           primaryText={rootName}
           style={selectedId === "root" ? styles.selectedItem : null}
           innerDivStyle={styles.innerItem}
-          leftIcon={<FontIcon className="material-icons">home</FontIcon>}
+          leftIcon={<Home className="material-icons" />}
           onClick={handleClickRoot}
         />
       )}
@@ -142,7 +148,7 @@ const Categories = (props: Readonly<{}>) => {
           primaryText={allName}
           style={selectedId === "all" ? styles.selectedItem : null}
           innerDivStyle={styles.innerItem}
-          leftIcon={<FontIcon className="material-icons">folder</FontIcon>}
+          leftIcon={<Folder className="material-icons" />}
           onClick={handleClickAll}
         />
       )}
@@ -155,7 +161,7 @@ const Categories = (props: Readonly<{}>) => {
             className="treeItem"
             primaryText={messages.productCategories_titleEditMany}
             innerDivStyle={styles.innerItem}
-            leftIcon={<FontIcon className="material-icons">settings</FontIcon>}
+            leftIcon={<Settings className="material-icons" />}
           />
         </Link>
       )}
@@ -166,7 +172,7 @@ const Categories = (props: Readonly<{}>) => {
             className="treeItem"
             primaryText={messages.drawer_importing}
             innerDivStyle={styles.innerItem}
-            leftIcon={<FontIcon className="material-icons">get_app</FontIcon>}
+            leftIcon={<GetApp className="material-icons" />}
             onClick={handleClickImport}
           />
         </Link>

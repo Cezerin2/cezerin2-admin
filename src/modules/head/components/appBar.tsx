@@ -1,8 +1,6 @@
-import { AppBar } from "@material-ui/core"
-import { ChevronRight } from "@material-ui/icons"
+import { AppBar, IconButton } from "@material-ui/core"
+import { ArrowBack, ChevronRight, Menu } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
 import React, { useState } from "react"
 import messages from "../../../lib/text"
 import AppsHead from "../../../modules/apps/head"
@@ -65,7 +63,7 @@ const AppBarTop = (
   let title = messages.dashboard
   let leftButton = (
     <IconButton onClick={handleToggle}>
-      <FontIcon className="material-icons">menu</FontIcon>
+      <Menu className="material-icons" />
     </IconButton>
   )
   let rightElements = null
@@ -105,7 +103,7 @@ const AppBarTop = (
           {messages.drawer_importing}
           <ChevronRight
             style={{ top: 6 }}
-            color="#fff"
+            color="primary"
             className="material-icons"
           />
           {productCategoryName}
@@ -128,7 +126,7 @@ const AppBarTop = (
           {messages.orders_title}
           <ChevronRight
             style={{ top: 6 }}
-            color="#fff"
+            color="primary"
             className="material-icons"
           />
           {orderStatusName}
@@ -146,9 +144,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/orders">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -158,9 +154,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/orders">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -170,9 +164,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/customers">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -186,9 +178,7 @@ const AppBarTop = (
     leftButton = (
       <Link to={`/product/${productId}`}>
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -197,9 +187,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/products">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="Primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -211,9 +199,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/products">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -225,9 +211,11 @@ const AppBarTop = (
       title = (
         <span>
           {messages.customers_title}
-          <FontIcon style={{ top: 6 }} color="#fff" className="material-icons">
-            chevron_right
-          </FontIcon>
+          <ChevronRight
+            style={{ top: 6 }}
+            color="primary"
+            className="material-icons"
+          />
           {customerGroupName}
         </span>
       )
@@ -245,9 +233,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/customers">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -259,9 +245,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/email">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -270,9 +254,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/email">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -281,9 +263,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/email">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -292,9 +272,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/email">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -309,9 +287,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -320,9 +296,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -331,9 +305,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -342,9 +314,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -353,9 +323,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -364,9 +332,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -375,9 +341,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -386,9 +350,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -397,9 +359,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -408,9 +368,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -419,9 +377,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -430,9 +386,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -441,9 +395,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/checkout">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -458,9 +410,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/shipping">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -469,9 +419,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/payments">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -480,9 +428,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/shipping">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -492,9 +438,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/payments">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -506,9 +450,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -520,9 +462,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/pages">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -531,9 +471,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/pages">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -549,9 +487,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/tokens">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -560,9 +496,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/tokens">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -574,9 +508,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/redirects">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -585,9 +517,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/redirects">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -600,9 +530,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/webhooks">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -611,9 +539,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/settings/webhooks">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -627,9 +553,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/apps">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -638,9 +562,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/apps">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )
@@ -652,9 +574,7 @@ const AppBarTop = (
     leftButton = (
       <Link to="/apps">
         <IconButton>
-          <FontIcon color="#fff" className="material-icons">
-            arrow_back
-          </FontIcon>
+          <ArrowBack color="primary" className="material-icons" />
         </IconButton>
       </Link>
     )

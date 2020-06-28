@@ -1,5 +1,5 @@
 import { IconButton } from "@material-ui/core"
-import { Add } from "@material-ui/icons"
+import { Add, Delete } from "@material-ui/icons"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"

@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, IconButton } from "@material-ui/core"
-import { Delete, Edit, Folder } from "@material-ui/icons"
+import { Add, Delete, Edit, Folder } from "@material-ui/icons"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
 import GroupSelect from "../../../../modules/customerGroups/select"
@@ -120,9 +120,7 @@ const Buttons = (props: Readonly<{}>) => {
           tooltip={messages.customers_titleAdd}
           onClick={onCreate}
         >
-          <FontIcon color="#fff" className="material-icons">
-            add
-          </FontIcon>
+          <Add color="#fff" className="material-icons" />
         </IconButton>
       )}
     </>

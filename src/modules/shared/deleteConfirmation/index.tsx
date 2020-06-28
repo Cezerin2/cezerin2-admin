@@ -1,15 +1,14 @@
-import { Dialog, DialogActions } from "@material-ui/core"
+import { Button, Dialog, DialogActions } from "@material-ui/core"
 import React, { useState } from "react"
 import messages from "../../../lib/text"
 
 const ConfirmationDialog = (props: Readonly<{}>) => {
-  const [open, setOpen] = useState(open)
+  const [open, setOpen] = useState(props.open)
 
   const {
     isSingle = true,
     itemsCount = 0,
     itemName = "",
-    open,
     onCancel,
     onDelete,
   } = props

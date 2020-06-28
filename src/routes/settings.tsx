@@ -6,7 +6,7 @@ import {
   LocalShipping,
   Palette,
   Payment,
-  Settings,
+  Settings as SettingsIcon,
   ShoppingCart,
   SwapCalls,
   VpnKey,
@@ -54,10 +54,9 @@ const SettingsMenu = () => (
       to="/settings"
       exact
     >
-      <ListItem
-        primaryText={messages.settings_general}
-        leftIcon={<Settings className="material-icons" />}
-      />
+      <ListItem leftIcon={<SettingsIcon className="material-icons" />}>
+        {messages.settings_general}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
@@ -119,10 +118,9 @@ const SettingsMenu = () => (
       activeStyle={styles.linkActive}
       to="/settings/redirects"
     >
-      <ListItem
-        primaryText={messages.redirects}
-        leftIcon={<SwapCalls className="material-icons" />}
-      />
+      <ListItem leftIcon={<SwapCalls className="material-icons" />}>
+        {messages.redirects}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
@@ -138,10 +136,9 @@ const SettingsMenu = () => (
       activeStyle={styles.linkActive}
       to="/settings/tokens"
     >
-      <ListItem
-        primaryText={messages.settings_tokens}
-        leftIcon={<VpnKey className="material-icons" />}
-      />
+      <ListItem leftIcon={<VpnKey className="material-icons" />}>
+        {messages.settings_tokens}
+      </ListItem>
     </Link>
     {/* <NavLink style={styles.link} activeStyle={styles.linkActive} to="/settings/taxes"><ListItem primaryText={messages.settings_taxes} leftIcon={<FontIcon className="material-icons">attach_money</FontIcon>}/></NavLink>
     <NavLink style={styles.link} activeStyle={styles.linkActive} to="/settings/security"><ListItem primaryText={messages.settings_security} leftIcon={<FontIcon className="material-icons">security</FontIcon>}/></NavLink> */}

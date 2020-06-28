@@ -1,4 +1,4 @@
-import { Dialog } from "@material-ui/core"
+import { Button, Dialog } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { reduxForm } from "redux-form"
 import messages from "../../../../lib/text"

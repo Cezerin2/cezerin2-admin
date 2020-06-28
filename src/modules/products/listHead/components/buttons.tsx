@@ -1,8 +1,5 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import FlatButton from "material-ui/FlatButton"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
+import { Button, Dialog, DialogActions, IconButton } from "@material-ui/core"
+import { Add, Delete, Folder } from "@material-ui/icons"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
 import CategorySelect from "../../../../modules/productCategories/select"
@@ -40,7 +37,7 @@ const Buttons = (props: Readonly<{}>) => {
     onMoveTo(categoryIdMoveTo)
   }
 
-  const selectMoveTo = categoryId => {
+  const selectMoveTo = (categoryId: string) => {
     setCategoryIdMoveTo(categoryId)
   }
 
@@ -64,9 +61,7 @@ const Buttons = (props: Readonly<{}>) => {
             tooltip={messages.actions_delete}
             onClick={openDeletes}
           >
-            <FontIcon color="#fff" className="material-icons">
-              delete
-            </FontIcon>
+            <Delete color="#fff" className="material-icons" />
           </IconButton>
           <IconButton
             touch
@@ -74,9 +69,7 @@ const Buttons = (props: Readonly<{}>) => {
             tooltip={messages.actions_moveTo}
             onClick={showMoveTo}
           >
-            <FontIcon color="#fff" className="material-icons">
-              folder
-            </FontIcon>
+            <Folder color="primary" className="material-icons" />
           </IconButton>
           <DeleteConfirmation
             open={openDelete}
@@ -98,17 +91,12 @@ const Buttons = (props: Readonly<{}>) => {
               opened
             />
             <DialogActions>
-              <FlatButton
-                label={messages.cancel}
-                onClick={closeMoveTo}
-                style={{ marginRight: 10 }}
-              />
-              <FlatButton
-                label={messages.actions_moveHere}
-                primary
-                keyboardFocused
-                onClick={saveMoveTo}
-              />
+              <Button onClick={closeMoveTo} style={{ marginRight: 10 }}>
+                {messages.cancel}
+              </Button>
+              <Button coor="primary" keyboardFocused onClick={saveMoveTo}>
+                {messages.actions_moveHere}
+              </Button>
             </DialogActions>
           </Dialog>
         </>
@@ -119,9 +107,7 @@ const Buttons = (props: Readonly<{}>) => {
         tooltip={messages.addProduct}
         onClick={onCreate}
       >
-        <FontIcon color="#fff" className="material-icons">
-          add
-        </FontIcon>
+        <Add color="primary" className="material-icons" />
       </IconButton>
     </>
   )

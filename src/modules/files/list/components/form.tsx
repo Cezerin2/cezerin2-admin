@@ -1,5 +1,5 @@
 import { IconButton, MenuItem, Paper } from "@material-ui/core"
-import FontIcon from "material-ui/FontIcon"
+import { MoreVert } from "@material-ui/icons"
 import IconMenu from "material-ui/IconMenu"
 import moment from "moment"
 import React, { useEffect, useState } from "react"
@@ -11,9 +11,7 @@ import style from "./style.module.sass"
 
 const iconButtonElement = (
   <IconButton touch>
-    <FontIcon color="rgb(189, 189, 189)" className="material-icons">
-      more_vert
-    </FontIcon>
+    <MoreVert color="secondary" className="material-icons" />
   </IconButton>
 )
 
