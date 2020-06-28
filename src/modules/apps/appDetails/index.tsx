@@ -4,7 +4,8 @@ import apps from "../../../apps"
 import AppDescription from "./description"
 import style from "./style.module.sass"
 
-const AppDetails = ({ match }) => {
+const AppDetails = (props: Readonly<{ match: any }>) => {
+  const { match } = props
   const { appKey } = match.params
   const app = apps.find(a => a.Description.key === appKey)
   const AppModule = app.App

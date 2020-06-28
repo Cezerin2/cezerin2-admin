@@ -1,3 +1,4 @@
+import { Dispatch } from "redux"
 import api from "../../lib/api"
 import * as t from "./actionTypes"
 
@@ -40,31 +41,47 @@ const receiveServiceLogs = (serviceLogs: any) => ({
 
 export const fetchAccount = () => (
   dispatch: (arg0: { type: string; account: any }) => void
-) =>
-  api.webstore.account.retrieve().then(({ json }) => {
+) => {
+  try {
+    const { json } = api.webstore.account.retrieve()
     dispatch(receiveAccount(json))
-  })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const updateAccount = (account: any) => (
   dispatch: (arg0: { type: string; account: any }) => void
-) =>
-  api.webstore.account.update(account).then(({ json }) => {
+) => {
+  try {
+    const { json } = api.webstore.account.update(account)
     dispatch(receiveAccount(json))
-  })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const updateDeveloperAccount = (account: any) => (
   dispatch: (arg0: { type: string; account: any }) => void
-) =>
-  api.webstore.account.updateDeveloper(account).then(({ json }) => {
+) => {
+  try {
+    const { json } = api.webstore.account.updateDeveloper(account)
     dispatch(receiveAccount(json))
-  })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const fetchServices = () => (
   dispatch: (arg0: { type: string; services: any }) => void
-) =>
-  api.webstore.services.list().then(({ json }) => {
+) => {
+  try {
+    const { json } = api.webstore.services.list()
     dispatch(receiveServices(json))
-  })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const fetchService = (serviceId: any) => (
   dispatch: (arg0: {
@@ -73,15 +90,19 @@ export const fetchService = (serviceId: any) => (
     type?: string
     service?: any
   }) => void
-) =>
-  api.webstore.services.retrieve(serviceId).then(({ json }) => {
+) => {
+  try {
+    const { json } = api.webstore.services.retrieve(serviceId)
     const service = json
     dispatch(receiveService(service))
     if (service.enabled) {
       dispatch(fetchServiceSettings(serviceId))
       dispatch(fetchServiceLogs(serviceId))
     }
-  })
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const enableService = (serviceId: any) => (
   dispatch: (arg0: {
@@ -109,35 +130,35 @@ export const disableService = (serviceId: any) => (
   })
 }
 
-export const fetchServiceSettings = (serviceId: any) => (
-  dispatch: (arg0: { type: string; serviceSettings?: any }) => void
+export const fetchServiceSettings = (serviceId: string) => (
+  dispatch: Dispatch
 ) => {
   dispatch(requestServiceSettings())
-  return api.webstore.services.settings
-    .retrieve(serviceId)
-    .then(({ json }) => {
-      const serviceSettings = json
-      dispatch(receiveServiceSettings(serviceSettings))
-    })
-    .catch(() => {})
+  try {
+    const { json } = api.webstore.services.settings.retrieve(serviceId)
+    const serviceSettings = json
+    return dispatch(receiveServiceSettings(serviceSettings))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const updateServiceSettings = (serviceId: any, settings: any) => (
-  dispatch: (arg0: (dispatch: any, getState: any) => any) => void
-) =>
-  api.webstore.services.settings
-    .update(serviceId, settings)
-    .then(() => {
-      dispatch(fetchServiceSettings(serviceId))
-    })
-    .catch(() => {})
+  dispatch: Dispatch
+) => {
+  try {
+    api.webstore.services.settings.update(serviceId, settings)
+    dispatch(fetchServiceSettings(serviceId))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
-export const fetchServiceLogs = (serviceId: any) => (
-  dispatch: (arg0: { type: string; serviceLogs: any }) => void
-) =>
-  api.webstore.services.logs
-    .list(serviceId)
-    .then(({ json }) => {
-      dispatch(receiveServiceLogs(json))
-    })
-    .catch(() => {})
+export const fetchServiceLogs = (serviceId: string) => (dispatch: Dispatch) => {
+  try {
+    const { json } = api.webstore.services.logs.list(serviceId)
+    dispatch(receiveServiceLogs(json))
+  } catch (error) {
+    console.error(error)
+  }
+}
