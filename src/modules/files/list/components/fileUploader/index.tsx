@@ -1,5 +1,4 @@
-import { Button } from "@material-ui/core"
-import Snackbar from "material-ui/Snackbar"
+import { Button, Snackbar } from "@material-ui/core"
 import React from "react"
 import Dropzone from "react-dropzone"
 import messages from "../../../../../lib/text"

@@ -1,17 +1,17 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
 import style from "./style.module.sass"
 
-const EmailSettings = props => {
-  useEffect(() => {
-    props.onLoad()
-  }, [])
+const EmailSettings = (
+  props: Readonly<{ handleSubmit; pristine; submitting; onLoad }>
+) => {
+  const { handleSubmit, pristine, submitting, onLoad } = props
 
-  const { handleSubmit, pristine, submitting } = props
+  useEffect(() => {
+    onLoad()
+  }, [])
 
   return (
     <form
@@ -68,13 +68,14 @@ const EmailSettings = props => {
           </>
         </div>
         <div className="buttons-box">
-          <RaisedButton
+          <Button
             type="submit"
-            label={messages.save}
-            primary
+            color="primary"
             className={style.button}
             disabled={pristine || submitting}
-          />
+          >
+            {messages.save}
+          </Button>
         </div>
       </Paper>
     </form>

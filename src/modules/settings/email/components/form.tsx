@@ -1,16 +1,16 @@
-import Paper from "@material-ui/core/Paper"
+import { List, ListItem, Paper } from "@material-ui/core"
+import { KeyboardArrowRight } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
-import React from "react"
+import React, { useEffect } from "react"
 import messages from "../../../../lib/text"
 
 const EmailSettings = (props: Readonly<{}>) => {
+  const { emailSettings, onLoad } = props
+
   useEffect(() => {
     onLoad()
   }, [])
 
-  const { emailSettings, onLoad } = props
   const smtpHint =
     emailSettings && emailSettings.host && emailSettings.host.length > 0
       ? emailSettings.host
@@ -23,11 +23,7 @@ const EmailSettings = (props: Readonly<{}>) => {
           <List style={{ padding: 0 }}>
             <Link to="/settings/email/smtp" style={{ textDecoration: "none" }}>
               <ListItem
-                rightIcon={
-                  <FontIcon className="material-icons">
-                    keyboard_arrow_right
-                  </FontIcon>
-                }
+                rightIcon={<KeyboardArrowRight className="material-icons" />}
                 primaryText={
                   <div className="row">
                     <div className="col-xs-6">
@@ -57,26 +53,20 @@ const EmailSettings = (props: Readonly<{}>) => {
               style={{ textDecoration: "none" }}
             >
               <ListItem
-                rightIcon={
-                  <FontIcon className="material-icons">
-                    keyboard_arrow_right
-                  </FontIcon>
-                }
-                primaryText={messages.settings_orderConfirmation}
-              />
+                rightIcon={<KeyboardArrowRight className="material-icons" />}
+              >
+                {messages.settings_orderConfirmation}
+              </ListItem>
             </Link>
             <Link
               to="/settings/email/templates/register_doi_en"
               style={{ textDecoration: "none" }}
             >
               <ListItem
-                rightIcon={
-                  <FontIcon className="material-icons">
-                    keyboard_arrow_right
-                  </FontIcon>
-                }
-                primaryText={messages.settings_customerRegistration}
-              />
+                rightIcon={<KeyboardArrowRight className="material-icons" />}
+              >
+                {messages.settings_customerRegistration}
+              </ListItem>
             </Link>
             {/* <Link
 								to="/settings/email/templates/register_doi_de"
@@ -108,14 +98,9 @@ const EmailSettings = (props: Readonly<{}>) => {
               to="/settings/email/templates/forgot_password_en"
               style={{ textDecoration: "none" }}
             >
-              <ListItem
-                rightIcon={
-                  <FontIcon className="material-icons">
-                    keyboard_arrow_right
-                  </FontIcon>
-                }
-                primaryText={messages.settings_customerRecovery}
-              />
+              <ListItem rightIcon={<FontIcon className="material-icons" />}>
+                {messages.settings_customerRecovery}
+              </ListItem>
             </Link>
             {/* <Link
 								to="/settings/email/templates/forgot_password_de"

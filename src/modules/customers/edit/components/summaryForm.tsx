@@ -1,6 +1,4 @@
-import { Select, TextField } from "@material-ui/core"
-import MenuItem from "@material-ui/core/MenuItem"
-import FlatButton from "material-ui/FlatButton"
+import { Button, MenuItem, Select, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { Field, reduxForm } from "redux-form"
 import api from "../../../../lib/api"
@@ -89,14 +87,15 @@ const CustomerEditForm = (props: any) => {
         />
       </>
       <div className={style.shippingButtons}>
-        <FlatButton label={messages.cancel} onClick={onCancel} />
-        <FlatButton
-          label={messages.save}
-          primary
+        <Button label={messages.cancel} onClick={onCancel}></Button>
+        <Button
+          color="primary"
           type="submit"
           style={{ marginLeft: 12 }}
           disabled={pristine || submitting}
-        />
+        >
+          {messages.save}
+        </Button>
       </div>
     </form>
   )

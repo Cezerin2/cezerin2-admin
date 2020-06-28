@@ -1,5 +1,4 @@
-import { Select, TextField } from "@material-ui/core"
-import MenuItem from "material-ui/MenuItem"
+import { MenuItem, Select, TextField } from "@material-ui/core"
 import React from "react"
 import { Field, FieldArray } from "redux-form"
 import {

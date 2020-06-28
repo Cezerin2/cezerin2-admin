@@ -1,10 +1,10 @@
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
+import { IconButton } from "@material-ui/core"
+import { Add } from "@material-ui/icons"
 import React, { useState } from "react"
 import messages from "../../../../lib/text"
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
 
-const Buttons = props => {
+const Buttons = (props: Readonly<{}>) => {
   const [openDelete, setOpenDelete] = useState(false)
 
   function showDeletes() {
@@ -36,9 +36,7 @@ const Buttons = props => {
             tooltipPosition="bottom-left"
             onClick={showDeletes}
           >
-            <FontIcon color="#fff" className="material-icons">
-              delete
-            </FontIcon>
+            <Delete color="#fff" className="material-icons" />
           </IconButton>
           <DeleteConfirmation
             open={openDelete}
@@ -56,9 +54,7 @@ const Buttons = props => {
         tooltip={messages.customerGroups_titleAdd}
         onClick={onCreate}
       >
-        <FontIcon color="#fff" className="material-icons">
-          add
-        </FontIcon>
+        <Add color="primary" className="material-icons" />
       </IconButton>
     </span>
   )

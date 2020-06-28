@@ -1,12 +1,10 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../../lib/text"
 import style from "./style.module.sass"
 
-const validate = values => {
+const validate = (values: {}) => {
   const errors = {}
   const requiredFields = ["from", "to"]
 
@@ -19,7 +17,7 @@ const validate = values => {
   return errors
 }
 
-const EditRedirectForm = props => {
+const EditRedirectForm = (props: Readonly<{}>) => {
   useEffect(() => {
     props.onLoad()
   }, [])
@@ -50,13 +48,14 @@ const EditRedirectForm = props => {
               pristine && !isAdd ? "buttons-box-pristine" : "buttons-box-show"
             }`}
           >
-            <RaisedButton
+            <Button
               type="submit"
-              label={isAdd ? messages.add : messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {isAdd ? messages.add : messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

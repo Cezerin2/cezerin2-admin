@@ -1,7 +1,5 @@
-import Paper from "@material-ui/core/Paper"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
-import Snackbar from "material-ui/Snackbar"
+import { IconButton, Paper, Snackbar } from "@material-ui/core"
+import { Delete, PhotoCamera } from "@material-ui/icons"
 import React, { useEffect, useState } from "react"
 import Dropzone from "react-dropzone"
 import messages from "../../../lib/text"
@@ -15,15 +13,11 @@ const ImageUpload = (props: Readonly<{}>) => {
     onDelete()
   }
 
-  //componentWillReceiveProps(nextProps) {
-  useEffect(
-    nextProps => {
-      setImagePreview(nextProps.imageUrl)
-    },
-    [props]
-  )
+  useEffect(() => {
+    setImagePreview(props.imageUrl)
+  }, [props.imageUrl])
 
-  const onDrop = files => {
+  const onDrop = (files: []) => {
     const form = new FormData()
     form.append("file", files[0])
     onUpload(form)
@@ -36,12 +30,10 @@ const ImageUpload = (props: Readonly<{}>) => {
 
   let htmlPreview = (
     <div className={style.noImage}>
-      <FontIcon
+      <PhotoCamera
         style={{ fontSize: 90, color: "#cccccc" }}
         className="material-icons"
-      >
-        photo_camera
-      </FontIcon>
+      />
       <div className={style.dropText}>{messages.help_dropHere}</div>
     </div>
   )
@@ -88,9 +80,7 @@ const ImageUpload = (props: Readonly<{}>) => {
           }}
           tooltipPosition="top-right"
         >
-          <FontIcon color="rgba(0,0,0,0.5)" className="material-icons">
-            file_upload
-          </FontIcon>
+          <FileUpload color="rgba(0,0,0,0.5)" className="material-icons" />
         </IconButton>
         {hasPreview && (
           <IconButton
@@ -99,9 +89,7 @@ const ImageUpload = (props: Readonly<{}>) => {
             onClick={onDelete}
             tooltipPosition="top-right"
           >
-            <FontIcon color="rgba(0,0,0,0.5)" className="material-icons">
-              delete
-            </FontIcon>
+            <Delete color="primary" className="material-icons" />
           </IconButton>
         )}
       </div>

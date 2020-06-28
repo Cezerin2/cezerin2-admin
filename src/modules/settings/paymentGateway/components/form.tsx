@@ -1,6 +1,4 @@
-import Dialog from "@material-ui/core/Dialog"
-import FlatButton from "material-ui/FlatButton"
-import RaisedButton from "material-ui/RaisedButton"
+import { Dialog } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { reduxForm } from "redux-form"
 import messages from "../../../../lib/text"
@@ -12,15 +10,12 @@ const EditPaymentGatewayForm = (props: Readonly<{}>) => {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    props.onLoad()
+    onLoad()
   }, [])
 
-  //componentWillReceiveProps(nextProps) {
-  useEffect(nextProps => {
-    if (nextProps.gateway !== props.gateway) {
-      props.onLoad(nextProps.gateway)
-    }
-  }, [])
+  useEffect(() => {
+    onLoad(props.gateway)
+  }, [props.gateway])
 
   const handleOpen = () => {
     setOpen(true)
@@ -30,7 +25,7 @@ const EditPaymentGatewayForm = (props: Readonly<{}>) => {
     setOpen(false)
   }
 
-  const { handleSubmit, pristine, submitting, initialValues } = props
+  const { handleSubmit, pristine, submitting, initialValues, onLoad } = props
   const gatewayDetails = AVAILABLE_PAYMENT_GATEWAYS.find(
     item => item.key === props.gateway
   )
@@ -38,11 +33,9 @@ const EditPaymentGatewayForm = (props: Readonly<{}>) => {
   if (props.gateway && props.gateway.length > 0) {
     return (
       <>
-        <RaisedButton
-          onClick={handleOpen}
-          label={messages.drawer_settings}
-          style={{ margin: "15px 0 30px 0" }}
-        />
+        <Button onClick={handleOpen} style={{ margin: "15px 0 30px 0" }}>
+          {messages.drawer_settings}
+        </Button>
 
         <Dialog
           title={gatewayDetails.name}
@@ -60,15 +53,16 @@ const EditPaymentGatewayForm = (props: Readonly<{}>) => {
               <GatewaySettings gateway={props.gateway} />
 
               <div className={style.buttons}>
-                <FlatButton label={messages.cancel} onClick={handleClose} />
-                <FlatButton
-                  label={messages.save}
-                  primary
+                <Button onClick={handleClose}>{messages.cancel}</Button>
+                <Button
+                  color="primary"
                   type="submit"
                   onClick={handleClose}
                   style={{ marginLeft: 12 }}
                   disabled={pristine || submitting}
-                />
+                >
+                  {messages.save}
+                </Button>
               </div>
             </form>
           </div>

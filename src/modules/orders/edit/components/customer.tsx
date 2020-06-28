@@ -1,7 +1,5 @@
-import { Dialog, Divider, Paper } from "@material-ui/core"
+import { Button, Dialog, Divider, Paper } from "@material-ui/core"
 import { Link } from "@reach/router"
-import FlatButton from "material-ui/FlatButton"
-import RaisedButton from "material-ui/RaisedButton"
 import React, { useState } from "react"
 import * as helper from "../../../../lib/helper"
 import messages from "../../../../lib/text"
@@ -193,14 +191,12 @@ const OrderCustomer = (
           <ShippingAddress order={order} settings={settings} />
 
           {allowEdit && (
-            <RaisedButton
-              label={messages.edit}
-              style={{ marginRight: 15 }}
-              onClick={showShippingEdit}
-            />
+            <Button style={{ marginRight: 15 }} onClick={showShippingEdit}>
+              {messages.edit}
+            </Button>
           )}
           <a href={mapUrl} target="_blank">
-            <FlatButton label="View map" />
+            <Button>View map</Button>
           </a>
 
           <BillingAddress address={order.billing_address} settings={settings} />
