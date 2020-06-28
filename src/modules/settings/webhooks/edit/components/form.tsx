@@ -1,6 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React, { useEffect } from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../../lib/text"
@@ -34,10 +32,17 @@ const validate = values => {
 
 const EditWebhookForm = (props: Readonly<{}>) => {
   useEffect(() => {
-    props.onLoad()
+    onLoad()
   }, [])
 
-  const { handleSubmit, pristine, submitting, initialValues, webhookId } = props
+  const {
+    handleSubmit,
+    pristine,
+    submitting,
+    initialValues,
+    webhookId,
+    onLoad,
+  } = props
   const isAdd = webhookId === null || webhookId === undefined
 
   return (
@@ -85,13 +90,14 @@ const EditWebhookForm = (props: Readonly<{}>) => {
               pristine && !isAdd ? "buttons-box-pristine" : "buttons-box-show"
             }`}
           >
-            <RaisedButton
+            <Button
               type="submit"
-              label={isAdd ? messages.add : messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {isAdd ? messages.add : messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

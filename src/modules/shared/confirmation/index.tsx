@@ -1,6 +1,4 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import FlatButton from "material-ui/FlatButton"
+import { Dialog, DialogActions } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 
 const ConfirmationDialog = (
@@ -17,12 +15,9 @@ const ConfirmationDialog = (
 ) => {
   const [open, setOpen] = useState(props.open)
 
-  //componentWillReceiveProps(nextProps) {
-  useEffect(nextProps => {
-    if (open !== nextProps.open) {
-      setOpen(nextProps.open)
-    }
-  }, [])
+  useEffect(() => {
+    setOpen(props.open)
+  }, [props.open])
 
   const handleCancel = () => {
     setOpen(false)
@@ -57,17 +52,12 @@ const ConfirmationDialog = (
     >
       <div style={{ wordWrap: "break-word" }}>{description}</div>
       <DialogActions>
-        <FlatButton
-          label={cancelLabel}
-          onClick={handleCancel}
-          style={{ marginRight: 10 }}
-        />
-        <FlatButton
-          label={submitLabel}
-          primary
-          keyboardFocused
-          onClick={handleSubmit}
-        />
+        <Button onClick={handleCancel} style={{ marginRight: 10 }}>
+          {cancelLabel}
+        </Button>
+        <Button color="primary" keyboardFocused onClick={handleSubmit}>
+          {submitLabel}
+        </Button>
       </DialogActions>
     </Dialog>
   )

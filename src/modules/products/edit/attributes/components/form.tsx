@@ -1,14 +1,11 @@
-import { Paper } from "@material-ui/core"
-import FlatButton from "material-ui/FlatButton"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, IconButton, Paper } from "@material-ui/core"
+import { Delete } from "@material-ui/icons"
 import React from "react"
 import { Field, FieldArray, reduxForm } from "redux-form"
 import messages from "../../../../../lib/text"
 import style from "./style.module.sass"
 
-const AttributesGrid = ({ fields, meta: { touched, error, submitFailed } }) => (
+const AttributesGrid = ({ fields }) => (
   <>
     <div className="row row--no-gutter middle-xs">
       <div className={`col-xs-5 col--no-gutter ${style.head}`}>
@@ -52,13 +49,11 @@ const AttributesGrid = ({ fields, meta: { touched, error, submitFailed } }) => (
               onClick={() => fields.remove(index)}
               tabIndex={-1}
             >
-              <FontIcon
+              <Delete
                 color="#a1a1a1"
                 className="material-icons"
                 data-index={index}
-              >
-                delete
-              </FontIcon>
+              />
             </IconButton>
           </div>
         </div>
@@ -66,10 +61,7 @@ const AttributesGrid = ({ fields, meta: { touched, error, submitFailed } }) => (
     })}
 
     <div style={{ margin: 30 }}>
-      <RaisedButton
-        label={messages.addAttribute}
-        onClick={() => fields.push({})}
-      />
+      <Button onClick={() => fields.push({})}>{messages.addAttribute}</Button>
     </div>
   </>
 )
@@ -90,18 +82,20 @@ const ProductAttributesForm = ({
         }`}
       >
         <FlatButton
-          label={messages.cancel}
           className={style.button}
           onClick={reset}
           disabled={pristine || submitting}
-        />
-        <RaisedButton
+        >
+          {messages.cancel}
+        </FlatButton>
+        <Button
           type="submit"
-          label={messages.save}
-          primary
+          color="primary"
           className={style.button}
           disabled={pristine || submitting}
-        />
+        >
+          {messages.save}
+        </Button>
       </div>
     </Paper>
   </form>

@@ -1,7 +1,6 @@
-import Paper from "@material-ui/core/Paper"
+import { List, ListItem, Paper } from "@material-ui/core"
 import { Link } from "@reach/router"
 import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
 import messages from "../../../../lib/text"
 

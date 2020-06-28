@@ -1,11 +1,10 @@
-import RaisedButton from "material-ui/RaisedButton"
-import Snackbar from "material-ui/Snackbar"
+import { Button, Snackbar } from "@material-ui/core"
 import React from "react"
 import Dropzone from "react-dropzone"
 import messages from "../../../lib/text"
 import style from "./style.module.sass"
 
-const MultiUploader = props => {
+const MultiUploader = (props: Readonly<{}>) => {
   const onDrop = files => {
     const form = new FormData()
     files.map(file => {
@@ -47,14 +46,15 @@ const MultiUploader = props => {
       </Dropzone>
 
       {!uploading && (
-        <RaisedButton
-          primary
-          label={messages.chooseImage}
+        <Button
+          color="primary"
           style={{ marginLeft: 20, marginTop: 10 }}
           onClick={() => {
             dropzone.open()
           }}
-        />
+        >
+          {messages.chooseImage}
+        </Button>
       )}
 
       <Snackbar open={uploading} message={messages.messages_uploading} />

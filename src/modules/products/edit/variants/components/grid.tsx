@@ -1,28 +1,19 @@
-import Paper from "@material-ui/core/Paper"
+import { Button, IconButton, MenuItem, Paper } from "@material-ui/core"
+import { Delete } from "@material-ui/icons"
 import { Link } from "@reach/router"
 import DropDownMenu from "material-ui/DropDownMenu"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
-import MenuItem from "material-ui/MenuItem"
-import RaisedButton from "material-ui/RaisedButton"
 import React, { useState } from "react"
 import messages from "../../../../../lib/text"
 import style from "./style.module.sass"
 
 const VariantInput = (props: Readonly<{}>) => {
-  const [value, setValue] = useState(props.value)
-  // onChange =onChange.bind(this)
-  //  onBlur =onBlur.bind(this)
+  const [value, setValue] = useState(value)
 
-  const onChange = e => {
-    setValue(e.target.value)
+  const { type, placeholder, value, variantId, onChange } = props
+
+  const onBlur = () => {
+    onChange(variantId, value)
   }
-
-  const onBlur = e => {
-    props.onChange(props.variantId, value)
-  }
-
-  const { type, placeholder } = props
 
   return (
     <input
@@ -30,23 +21,36 @@ const VariantInput = (props: Readonly<{}>) => {
       className={style.textInput}
       placeholder={placeholder}
       value={value}
-      onChange={onChange}
+      onChange={event => setValue(event.target.value)}
       onBlur={onBlur}
       min="0"
     />
   )
 }
 
-const VariantRow = ({
-  variant,
-  options,
-  onSkuChange,
-  onPriceChange,
-  onStockChange,
-  onWeightChange,
-  onOptionChange,
-  onDeleteVariant,
-}) => {
+const VariantRow = (
+  props: Readonly<{
+    variant
+    options
+    onSkuChange
+    onPriceChange
+    onStockChange
+    onWeightChange
+    onOptionChange
+    onDeleteVariant
+  }>
+) => {
+  const {
+    variant,
+    options,
+    onSkuChange,
+    onPriceChange,
+    onStockChange,
+    onWeightChange,
+    onOptionChange,
+    onDeleteVariant,
+  } = props
+
   const cols = options.map((option, index) => {
     const variantOption = variant.options.find(i => i.option_id === option.id)
     const variantOptionValueId = variantOption ? variantOption.value_id : null
@@ -55,7 +59,9 @@ const VariantRow = ({
       const menuItems = option.values
         .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
         .map((value, index) => (
-          <MenuItem key={index} value={value.id} primaryText={value.name} />
+          <MenuItem key={index} value={value.id}>
+            {value.name}
+          </MenuItem>
         ))
       return (
         <div key={option.id} className={style.gridCol}>
@@ -122,9 +128,7 @@ const VariantRow = ({
           }}
           tabIndex={-1}
         >
-          <FontIcon color="#a1a1a1" className="material-icons">
-            delete
-          </FontIcon>
+          <Delete color="#a1a1a1" className="material-icons" />
         </IconButton>
       </div>
     </div>
@@ -191,13 +195,14 @@ const ProductVariantsGrid = ({
         {variantRows}
       </div>
       <div className={style.innerBox}>
-        <RaisedButton
-          label={messages.addVariant}
+        <Button
           onClick={createVariant}
           style={{ marginRight: 20 }}
           disabled={!hasOptions}
-        />
-        <RaisedButton label={messages.addOption} onClick={createOption} />
+        >
+          {messages.addVariant}
+        </Button>
+        <Button onClick={createOption}>{messages.addOption}</Button>
       </div>
     </Paper>
   )

@@ -1,13 +1,13 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import FlatButton from "material-ui/FlatButton"
-import FontIcon from "material-ui/FontIcon"
+import { Button, Dialog, DialogActions } from "@material-ui/core"
+import { Create } from "@material-ui/icons"
 import React, { useState } from "react"
 import messages from "../../../../../lib/text"
 import CategorySelect from "../../../../../modules/productCategories/select"
 
 const ProductCategorySelect = (props: Readonly<{}>) => {
   const [open, setOpen] = useState(false)
+
+  const { categories, input } = props
 
   const close = () => {
     setOpen(false)
@@ -17,15 +17,9 @@ const ProductCategorySelect = (props: Readonly<{}>) => {
     setOpen(true)
   }
 
-  const handleSelect = categoryId => {
-    props.input.onChange(categoryId)
+  const handleSelect = (categoryId: string) => {
+    input.onChange(categoryId)
   }
-
-  const {
-    categories,
-    input,
-    meta: { touched, error },
-  } = props
 
   const selectedCategoryId = input.value
   const category = categories.find(item => item.id === selectedCategoryId)
@@ -46,28 +40,20 @@ const ProductCategorySelect = (props: Readonly<{}>) => {
           opened={false}
         />
         <DialogActions>
-          <FlatButton
-            label={messages.cancel}
-            onClick={close}
-            style={{ marginRight: 10 }}
-          />
-          <FlatButton
-            label={messages.save}
-            primary
-            keyboardFocused
-            onClick={close}
-          />
+          <Button onClick={close} style={{ marginRight: 10 }}>
+            {messages.cancel}
+          </Button>
+          <Button color="primary" keyboardFocused onClick={close}>
+            {messages.save}
+          </Button>
         </DialogActions>
       </Dialog>
-      <FlatButton
-        label={categoryName}
+      <Button
         onClick={open}
-        icon={
-          <FontIcon color="#777" className="material-icons">
-            create
-          </FontIcon>
-        }
-      />
+        icon={<Create color="primary" className="material-icons" />}
+      >
+        {categoryName}
+      </Button>
     </>
   )
 }

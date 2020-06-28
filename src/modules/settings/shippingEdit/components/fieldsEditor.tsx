@@ -1,16 +1,18 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
+import {
+  Button,
+  IconButton,
+  MenuItem,
+  Paper,
+  TextField,
+} from "@material-ui/core"
+import { MoreVert } from "@material-ui/icons"
 import IconMenu from "material-ui/IconMenu"
-import MenuItem from "material-ui/MenuItem"
-import RaisedButton from "material-ui/RaisedButton"
 import React from "react"
 import { Field } from "redux-form"
 import messages from "../../../../lib/text"
 import { CustomToggle } from "../../../../modules/shared/form"
 
-const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
+const FieldsEditor = ({ fields }) => (
   <>
     {fields.map((field, index) => {
       const fieldKey = `${field}.key`
@@ -62,9 +64,7 @@ const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
                 anchorOrigin={{ horizontal: "right", vertical: "top" }}
                 iconButtonElement={
                   <IconButton touch>
-                    <FontIcon color="#777" className="material-icons">
-                      more_vert
-                    </FontIcon>
+                    <MoreVert color="#777" className="material-icons" />
                   </IconButton>
                 }
               >
@@ -92,7 +92,7 @@ const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
     })}
 
     <div style={{ margin: "20px 0px" }}>
-      <RaisedButton label={messages.add} onClick={() => fields.push({})} />
+      <Button label={messages.add} onClick={() => fields.push({})}></Button>
     </div>
   </>
 )

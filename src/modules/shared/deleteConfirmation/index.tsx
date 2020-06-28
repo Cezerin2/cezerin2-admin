@@ -1,21 +1,22 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import FlatButton from "material-ui/FlatButton"
+import { Dialog, DialogActions } from "@material-ui/core"
 import React, { useState } from "react"
 import messages from "../../../lib/text"
 
 const ConfirmationDialog = (props: Readonly<{}>) => {
-  const [open, setOpen] = useState(props.open)
+  const [open, setOpen] = useState(open)
 
-  //componentWillReceiveProps(nextProps) {
-  useEffect(
-    nextProps => {
-      if (open !== nextProps.open) {
-        setOpen(nextProps.open)
-      }
-    },
-    [props]
-  )
+  const {
+    isSingle = true,
+    itemsCount = 0,
+    itemName = "",
+    open,
+    onCancel,
+    onDelete,
+  } = props
+
+  useEffect(() => {
+    setOpen(open)
+  }, [open])
 
   const close = () => {
     setOpen(false)
@@ -23,19 +24,17 @@ const ConfirmationDialog = (props: Readonly<{}>) => {
 
   const handleCancel = () => {
     close()
-    if (props.onCancel) {
-      props.onCancel()
+    if (onCancel) {
+      onCancel()
     }
   }
 
   const handleDelete = () => {
     close()
-    if (props.onDelete) {
-      props.onDelete()
+    if (onDelete) {
+      onDelete()
     }
   }
-
-  const { isSingle = true, itemsCount = 0, itemName = "" } = props
 
   const title = isSingle
     ? messages.singleDeleteTitle.replace("{name}", itemName)
@@ -58,17 +57,12 @@ const ConfirmationDialog = (props: Readonly<{}>) => {
         {description}
       </div>
       <DialogActions>
-        <FlatButton
-          label={messages.cancel}
-          onClick={handleCancel}
-          style={{ marginRight: 10 }}
-        />
-        <FlatButton
-          label={messages.actions_delete}
-          primary
-          keyboardFocused
-          onClick={handleDelete}
-        />
+        <Button onClick={handleCancel} style={{ marginRight: 10 }}>
+          {messages.cancel}
+        </Button>
+        <Button color="primary" keyboardFocused onClick={handleDelete}>
+          {messages.actions_delete}
+        </Button>
       </DialogActions>
     </Dialog>
   )

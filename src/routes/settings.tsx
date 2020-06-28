@@ -1,11 +1,21 @@
+import { List, ListItem } from "@material-ui/core"
+import {
+  Email,
+  GetApp,
+  Http,
+  LocalShipping,
+  Palette,
+  Payment,
+  Settings,
+  ShoppingCart,
+  SwapCalls,
+  VpnKey,
+} from "@material-ui/icons"
 import { Link, Router } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React from "react"
 import messages from "../lib/text"
 import Checkout from "../modules/settings/checkout"
 import CheckoutFields from "../modules/settings/checkoutFields"
-import Email from "../modules/settings/email"
 import EmailTemplate from "../modules/settings/emailTemplates"
 import General from "../modules/settings/general"
 import GeneralLogo from "../modules/settings/generalLogo"
@@ -46,7 +56,7 @@ const SettingsMenu = () => (
     >
       <ListItem
         primaryText={messages.settings_general}
-        leftIcon={<FontIcon className="material-icons">settings</FontIcon>}
+        leftIcon={<Settings className="material-icons" />}
       />
     </Link>
     <Link
@@ -54,52 +64,45 @@ const SettingsMenu = () => (
       activeStyle={styles.linkActive}
       to="/settings/shipping"
     >
-      <ListItem
-        primaryText={messages.settings_shipping}
-        leftIcon={
-          <FontIcon className="material-icons">local_shipping</FontIcon>
-        }
-      />
+      <ListItem leftIcon={<LocalShipping className="material-icons" />}>
+        {messages.settings_shipping}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
       activeStyle={styles.linkActive}
       to="/settings/payments"
     >
-      <ListItem
-        primaryText={messages.settings_payments}
-        leftIcon={<FontIcon className="material-icons">payment</FontIcon>}
-      />
+      <ListItem leftIcon={<Payment className="material-icons" />}>
+        {messages.settings_payments}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
       activeStyle={styles.linkActive}
       to="/settings/theme"
     >
-      <ListItem
-        primaryText={messages.settings_theme}
-        leftIcon={<FontIcon className="material-icons">palette</FontIcon>}
-      />
+      <ListItem leftIcon={<Palette className="material-icons" />}>
+        {messages.settings_theme}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
       activeStyle={styles.linkActive}
       to="/settings/checkout"
     >
-      <ListItem
-        primaryText={messages.settings_checkout}
-        leftIcon={<FontIcon className="material-icons">shopping_cart</FontIcon>}
-      />
+      <ListItem leftIcon={<ShoppingCart className="material-icons" />}>
+        {messages.settings_checkout}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
       activeStyle={styles.linkActive}
       to="/settings/email"
     >
-      <ListItem
-        primaryText={messages.settings_emails}
-        leftIcon={<FontIcon className="material-icons">email</FontIcon>}
-      />
+      <ListItem leftIcon={<Email className="material-icons" />}>
+        {messages.settings_emails}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
@@ -107,10 +110,9 @@ const SettingsMenu = () => (
       to="/settings/import"
       exact={true}
     >
-      <ListItem
-        primaryText={messages.drawer_importing}
-        leftIcon={<FontIcon className="material-icons">get_app</FontIcon>}
-      />
+      <ListItem leftIcon={<GetApp className="material-icons" />}>
+        {messages.drawer_importing}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
@@ -119,7 +121,7 @@ const SettingsMenu = () => (
     >
       <ListItem
         primaryText={messages.redirects}
-        leftIcon={<FontIcon className="material-icons">swap_calls</FontIcon>}
+        leftIcon={<SwapCalls className="material-icons" />}
       />
     </Link>
     <Link
@@ -127,10 +129,9 @@ const SettingsMenu = () => (
       activeStyle={styles.linkActive}
       to="/settings/webhooks"
     >
-      <ListItem
-        primaryText={messages.webhooks}
-        leftIcon={<FontIcon className="material-icons">http</FontIcon>}
-      />
+      <ListItem leftIcon={<Http className="material-icons" />}>
+        {messages.webhooks}
+      </ListItem>
     </Link>
     <Link
       style={styles.link}
@@ -139,7 +140,7 @@ const SettingsMenu = () => (
     >
       <ListItem
         primaryText={messages.settings_tokens}
-        leftIcon={<FontIcon className="material-icons">vpn_key</FontIcon>}
+        leftIcon={<VpnKey className="material-icons" />}
       />
     </Link>
     {/* <NavLink style={styles.link} activeStyle={styles.linkActive} to="/settings/taxes"><ListItem primaryText={messages.settings_taxes} leftIcon={<FontIcon className="material-icons">attach_money</FontIcon>}/></NavLink>

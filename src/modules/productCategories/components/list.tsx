@@ -1,6 +1,6 @@
+import { List, ListItem } from "@material-ui/core"
+import { Folder, VisibilityOff } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
-import { List, ListItem } from "material-ui/List"
 import React, { useEffect } from "react"
 import messages from "../../../lib/text"
 
@@ -16,13 +16,13 @@ const styles = {
   },
 }
 
-const FolderIcon = <FontIcon className="material-icons">folder</FontIcon>
-const DraftIcon = <FontIcon className="material-icons">visibility_off</FontIcon>
+const FolderIcon = <Folder className="material-icons" />
+const DraftIcon = <VisibilityOff className="material-icons" />
 
-const Item = props => {
+const Item = (props: Readonly<{}>) => {
   const handleClick = () => {
-    const { item } = props
-    props.onSelect(item.id)
+    const { item, onSelect } = props
+    onSelect(item.id)
   }
 
   const { item, opened, selectedId, nestedItems } = props
@@ -45,8 +45,21 @@ const Item = props => {
 }
 
 const Categories = (props: Readonly<{}>) => {
+  const {
+    selectedId,
+    items,
+    showAll = false,
+    showRoot = false,
+    showManage = false,
+    showImport = true,
+    rootName = messages.productCategories_root,
+    allName = messages.productCategories_all,
+    opened = false,
+    onLoad,
+  } = props
+
   useEffect(() => {
-    props.onLoad()
+    onLoad()
   }, [])
 
   function getItem(selectedId, allItems, item, opened) {
@@ -106,18 +119,6 @@ const Categories = (props: Readonly<{}>) => {
       )[0].style.display = "block"
     }
   }
-
-  const {
-    selectedId,
-    items,
-    showAll = false,
-    showRoot = false,
-    showManage = false,
-    showImport = true,
-    rootName = messages.productCategories_root,
-    allName = messages.productCategories_all,
-    opened = false,
-  } = props
 
   const rows = items
     .filter(item => item.parent_id === null)

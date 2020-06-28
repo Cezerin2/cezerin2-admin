@@ -1,6 +1,5 @@
-import { Checkbox } from "@material-ui/core"
+import { Checkbox, List, ListItem } from "@material-ui/core"
 import { Folder, VisibilityOff } from "@material-ui/icons"
-import { List, ListItem } from "material-ui/List"
 import React from "react"
 
 const styles = {

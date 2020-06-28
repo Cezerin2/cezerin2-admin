@@ -1,7 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import FlatButton from "material-ui/FlatButton"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core/Paper"
 import React from "react"
 import { Field, reduxForm } from "redux-form"
 import api from "../../../../lib/api"
@@ -121,19 +118,21 @@ const ProductCategoryEditForm = ({
               pristine ? "buttons-box-pristine" : "buttons-box-show"
             }`}
           >
-            <FlatButton
-              label={messages.cancel}
+            <Button
               className={style.button}
               onClick={reset}
               disabled={pristine || submitting}
-            />
-            <RaisedButton
+            >
+              {messages.cancel}
+            </Button>
+            <Button
               type="submit"
-              label={messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting || isSaving}
-            />
+            >
+              {messages.save}
+            </Button>
           </div>
         </form>
       </Paper>

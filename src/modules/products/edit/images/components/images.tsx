@@ -1,8 +1,10 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import Paper from "@material-ui/core/Paper"
-import FlatButton from "material-ui/FlatButton"
-import TextField from "material-ui/TextField"
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  Paper,
+  TextField,
+} from "@material-ui/core"
 import React, { useState } from "react"
 import messages from "../../../../../lib/text"
 import Gallery from "../../../../../modules/shared/imageUploadMultiple"
@@ -10,6 +12,16 @@ import Gallery from "../../../../../modules/shared/imageUploadMultiple"
 const ProductImages = (props: Readonly<{}>) => {
   const [openEdit, setOpenEdit] = useState(false)
   const [imageData, setImageData] = useState(null)
+
+  const {
+    productId,
+    images,
+    onImageDelete,
+    onImageSort,
+    onImageUpload,
+    uploadingImages,
+    onImageUpdate,
+  } = props
 
   const closeEdit = () => {
     setOpenEdit(false)
@@ -19,13 +31,13 @@ const ProductImages = (props: Readonly<{}>) => {
     setOpenEdit(true)
   }
 
-  const handleEditOpen = image => {
+  const handleEditOpen = (image: string) => {
     setImageData(image)
     openEdits()
   }
 
   const handleEditSave = () => {
-    props.onImageUpdate(imageData)
+    onImageUpdate(imageData)
     closeEdit()
   }
 
@@ -36,14 +48,6 @@ const ProductImages = (props: Readonly<{}>) => {
     setImageData(newImageData)
   }
 
-  const {
-    productId,
-    images,
-    onImageDelete,
-    onImageSort,
-    onImageUpload,
-    uploadingImages,
-  } = props
   const alt = imageData ? imageData.alt : ""
 
   return (
@@ -75,17 +79,12 @@ const ProductImages = (props: Readonly<{}>) => {
             />
           </div>
           <DialogActions>
-            <FlatButton
-              label={messages.cancel}
-              onClick={closeEdit}
-              style={{ marginRight: 10 }}
-            />
-            <FlatButton
-              label={messages.save}
-              primary
-              keyboardFocused
-              onClick={handleEditSave}
-            />
+            <Button onClick={closeEdit} style={{ marginRight: 10 }}>
+              {messages.cancel}
+            </Button>
+            <Button color="primary" keyboardFocused onClick={handleEditSave}>
+              {messages.save}
+            </Button>
           </DialogActions>
         </Dialog>
       </div>

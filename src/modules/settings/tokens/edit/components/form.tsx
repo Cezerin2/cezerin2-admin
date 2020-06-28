@@ -1,6 +1,4 @@
-import Paper from "@material-ui/core/Paper"
-import TextField from "@material-ui/core/TextField"
-import RaisedButton from "material-ui/RaisedButton"
+import { Button, Paper, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import { Field, reduxForm } from "redux-form"
 import messages from "../../../../../lib/text"
@@ -55,14 +53,6 @@ const validate = values => {
 const EditTokenForm = (props: Readonly<{}>) => {
   const [showRevokeDialog, setShowRevokeDialog] = useState(false)
 
-  const handleRevoke = () => {
-    setShowRevokeDialog(true)
-  }
-
-  useEffect(() => {
-    onLoad()
-  }, [])
-
   const {
     handleSubmit,
     pristine,
@@ -73,6 +63,15 @@ const EditTokenForm = (props: Readonly<{}>) => {
     onDelete,
     onLoad,
   } = props
+
+  const handleRevoke = () => {
+    setShowRevokeDialog(true)
+  }
+
+  useEffect(() => {
+    onLoad()
+  }, [])
+
   const isTokenAdded = !!newToken
   const isAdd = tokenId === null || tokenId === undefined
 
@@ -112,20 +111,22 @@ const EditTokenForm = (props: Readonly<{}>) => {
           </div>
           <div className="buttons-box">
             {!isAdd && (
-              <RaisedButton
-                label={messages.settings_revokeAccess}
-                secondary
+              <Button
+                color="secondary"
                 style={{ float: "left" }}
                 onClick={handleRevoke}
-              />
+              >
+                {messages.settings_revokeAccess}
+              </Button>
             )}
-            <RaisedButton
+            <Button
               type="submit"
-              label={isAdd ? messages.settings_generateToken : messages.save}
-              primary
+              color="primary"
               className={style.button}
               disabled={pristine || submitting}
-            />
+            >
+              {isAdd ? messages.settings_generateToken : messages.save}
+            </Button>
           </div>
         </Paper>
       </form>

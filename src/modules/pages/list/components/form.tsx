@@ -1,6 +1,6 @@
 import { Divider, List, ListItem, Paper } from "@material-ui/core"
+import { KeyboardArrowRight, LockOutlined } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
 import React, { useEffect } from "react"
 
 const PageItem = ({ page }) => {
@@ -11,13 +11,9 @@ const PageItem = ({ page }) => {
       <Divider />
       <Link to={`/pages/${page.id}`} style={{ textDecoration: "none" }}>
         <ListItem
-          rightIcon={
-            <FontIcon className="material-icons">keyboard_arrow_right</FontIcon>
-          }
+          rightIcon={<KeyboardArrowRight className="material-icons" />}
           leftIcon={
-            page.is_system ? (
-              <FontIcon className="material-icons">lock_outline</FontIcon>
-            ) : null
+            page.is_system ? <LockOutlined className="material-icons" /> : null
           }
           style={!page.enabled ? { color: "rgba(0, 0, 0, 0.3)" } : {}}
           primaryText={
@@ -34,12 +30,13 @@ const PageItem = ({ page }) => {
   )
 }
 
-const PagesList = (props: Readonly<{}>) => {
+const PagesList = (props: Readonly<{ pages }>) => {
+  const { pages } = props
+
   useEffect(() => {
     props.onLoad()
   }, [])
 
-  const { pages } = props
   const listItems = pages.map((page, index) => (
     <PageItem key={index} page={page} />
   ))

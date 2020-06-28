@@ -1,7 +1,5 @@
-import Dialog from "@material-ui/core/Dialog"
-import DialogActions from "@material-ui/core/DialogActions"
-import FlatButton from "material-ui/FlatButton"
-import FontIcon from "material-ui/FontIcon"
+import { Dialog, DialogActions } from "@material-ui/core"
+import { Add } from "@material-ui/icons"
 import React, { useState } from "react"
 import messages from "../../../../../lib/text"
 import CategoryMultiselect from "../../../../../modules/productCategories/components/multiselectList"
@@ -20,15 +18,19 @@ const CategoryItemActions = ({
   />
 )
 
-const CategoryItem = ({ categoryName, actions }) => (
+const CategoryItem = ({ categoryName, actions }: { categoryName; actions }) => (
   <span className="react-tagsinput-tag">
     {categoryName}
     {actions}
   </span>
 )
 
-const ProductCategoryMultiSelect = (props: Readonly<{}>) => {
+const ProductCategoryMultiSelect = (
+  props: Readonly<{ categories; fields }>
+) => {
   const [open, setOpen] = useState(false)
+
+  const { categories, fields } = props
 
   const close = () => {
     setOpen(false)
@@ -38,26 +40,21 @@ const ProductCategoryMultiSelect = (props: Readonly<{}>) => {
     setOpen(true)
   }
 
-  const handleCheck = categoryId => {
-    const selectedIds = props.fields.getAll()
+  const handleCheck = (categoryId: string) => {
+    const selectedIds = fields.getAll()
     if (selectedIds && selectedIds.includes(categoryId)) {
       // remove
-      props.fields.forEach((name, index, fields) => {
+      fields.forEach((name, index, fields) => {
         if (fields.get(index) === categoryId) {
           fields.remove(index)
         }
       })
     } else {
       // add
-      props.fields.push(categoryId)
+      fields.push(categoryId)
     }
   }
 
-  const {
-    categories,
-    fields,
-    meta: { touched, error, submitFailed },
-  } = props
   const selectedIds = fields.getAll()
 
   return (
@@ -90,28 +87,19 @@ const ProductCategoryMultiSelect = (props: Readonly<{}>) => {
             onCheck={handleCheck}
           />
           <DialogActions>
-            <FlatButton
-              label={messages.cancel}
-              onClick={close}
-              style={{ marginRight: 10 }}
-            />
-            <FlatButton
-              label={messages.save}
-              primary
-              keyboardFocused
-              onClick={close}
-            />
+            <Button onClick={close} style={{ marginRight: 10 }}>
+              {messages.cancel}
+            </Button>
+            <Button color="primary" keyboardFocused onClick={close}>
+              {messages.save}
+            </Button>
           </DialogActions>
         </Dialog>
-        <FlatButton
+        <Button
           style={{ minWidth: 52 }}
           onClick={open}
-          icon={
-            <FontIcon color="#333" className="material-icons">
-              add
-            </FontIcon>
-          }
-        />
+          icon={<Add color="primary" className="material-icons" />}
+        ></Button>
       </span>
     </div>
   )

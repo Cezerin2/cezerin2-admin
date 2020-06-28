@@ -1,6 +1,6 @@
+import { IconButton } from "@material-ui/core"
+import { Add } from "@material-ui/icons"
 import { Link } from "@reach/router"
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
 import React from "react"
 import messages from "../../../../lib/text"
 
@@ -12,9 +12,7 @@ const Buttons = () => (
         tooltipPosition="bottom-left"
         tooltip={messages.settings_addPage}
       >
-        <FontIcon color="#fff" className="material-icons">
-          add
-        </FontIcon>
+        <Add color="secondary" className="material-icons" />
       </IconButton>
     </Link>
   </span>
