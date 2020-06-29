@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { Button, Paper } from "@material-ui/core"
 import React from "react"
 import api from "../../../../../lib/api"
@@ -68,7 +66,7 @@ class ProductImport extends React.Component {
         }
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
       })
   }
 
@@ -571,7 +569,7 @@ class ProductImport extends React.Component {
               <div className="buttons-box">
                 <Button
                   files={files}
-                  primary={true}
+                  color="primary"
                   keyboardFocused={true}
                   onClick={this.fetchData}
                   className={"spread-sheet-save-btn"}
@@ -590,5 +588,5 @@ class ProductImport extends React.Component {
 /*ProductImport.propTypes = {
 	onStartImportProducts: PropTypes.func.isRequired
 }*/
-module.exports = ProductImport
+
 export default ProductImport

@@ -97,15 +97,16 @@ const CustomerOrder = ({ order, settings }) => {
 const CustomerOrders = (props: Readonly<{}>) => {
   const [orders, setOrders] = useState([])
 
-  useEffect(() => {
-    api.orders
-      .list({ customer_id: props.customerId })
-      .then(({ status, json }) => {
-        setOrders(json.data)
-      })
-  }, [])
-
   const { settings } = props
+
+  useEffect(() => {
+    const { json } = api.orders.list({ customer_id: props.customerId })
+    try {
+      setOrders(json.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
 
   let orderItems = []
   if (orders.length > 0) {

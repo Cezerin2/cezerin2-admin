@@ -6,7 +6,7 @@ import style from "./style.module.sass"
 
 const ActionComponent = (props: {
   action: any
-  serviceId?: any
+  serviceId?: string
   fetchServiceLogs?: any
 }) => {
   const [loading, setLoading] = useState(false)
@@ -15,18 +15,16 @@ const ActionComponent = (props: {
 
   const handleActionCall = () => {
     setLoading(true)
-
-    return api.webstore.services.actions
-      .call(serviceId, action.id)
-      .then(() => {
-        setLoading(false)
-        fetchServiceLogs()
-      })
-      .catch((error: any) => {
-        alert(error)
-        setLoading(false)
-        fetchServiceLogs()
-      })
+    try {
+      api.webstore.services.actions.call(serviceId, action.id)
+      setLoading(false)
+      fetchServiceLogs()
+    } catch (error) {
+      console.error(error)
+      alert(error)
+      setLoading(false)
+      fetchServiceLogs()
+    }
   }
 
   return (
@@ -46,7 +44,7 @@ const ActionComponent = (props: {
 }
 
 const ServiceActions = (
-  props: Readonly<{ actions; serviceId; fetchServiceLogs }>
+  props: Readonly<{ actions: any; serviceId: string; fetchServiceLogs: string }>
 ) => {
   const { actions, serviceId, fetchServiceLogs } = props
   const buttons = actions.map((action: any, index: any) => (

@@ -28,14 +28,17 @@ const LoginForm = () => {
     setError(null)
   }
 
-  CezerinClient.authorizeInWebStore(
+  const { status, json } = CezerinClient.authorizeInWebStore(
     email,
     `${window.location.origin}/admin`
-  ).then(({ status, json }) => {
+  )
+  try {
     setIsFetching(false)
     setEmailIsSent(status === 200)
     setError(status !== 200 && json ? json.message : null)
-  })
+  } catch (error) {
+    console.error(error)
+  }
 
   useEffect(() => {
     auth.checkTokenFromUrl()

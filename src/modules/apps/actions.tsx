@@ -104,30 +104,26 @@ export const fetchService = (serviceId: any) => (
   }
 }
 
-export const enableService = (serviceId: any) => (
-  dispatch: (arg0: {
-    (dispatch: any, getState: any): any
-    type?: string
-  }) => void
-) => {
+export const enableService = (serviceId: any) => (dispatch: Dispatch) => {
   dispatch(requestEnableDisableService())
-  return api.webstore.services.enable(serviceId).then(() => {
+  try {
+    api.webstore.services.enable(serviceId)
     dispatch(receiveEnableDisableService())
     dispatch(fetchService(serviceId))
-  })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
-export const disableService = (serviceId: any) => (
-  dispatch: (arg0: {
-    (dispatch: any, getState: any): any
-    type?: string
-  }) => void
-) => {
+export const disableService = (serviceId: any) => (dispatch: Dispatch) => {
   dispatch(requestEnableDisableService())
-  return api.webstore.services.disable(serviceId).then(() => {
+  try {
+    api.webstore.services.disable(serviceId)
     dispatch(receiveEnableDisableService())
     dispatch(fetchService(serviceId))
-  })
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const fetchServiceSettings = (serviceId: string) => (

@@ -1,3 +1,4 @@
+import { Dispatch } from "redux"
 import api from "../../lib/api"
 import * as t from "./actionTypes"
 
@@ -21,48 +22,37 @@ function filesUploadEnd() {
 }
 
 export function fetchFiles() {
-  return (
-    dispatch: (arg0: { type: string; files: any }) => void,
-    getState: any
-  ) =>
-    api.files
-      .list()
-      .then(({ status, json }) => {
-        dispatch(receiveFiles(json))
-      })
-      .catch((error: any) => {})
+  return (dispatch: Dispatch) => {
+    const { json } = api.files.list()
+    try {
+      dispatch(receiveFiles(json))
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 export function uploadFiles(form: any) {
-  return (
-    dispatch: (arg0: {
-      (dispatch: any, getState: any): any
-      type?: string
-    }) => void,
-    getState: any
-  ) => {
+  return (dispatch: Dispatch, getState: any) => {
     dispatch(filesUploadStart())
-    return api.files
-      .upload(form)
-      .then(() => {
-        dispatch(filesUploadEnd())
-        dispatch(fetchFiles())
-      })
-      .catch((error: any) => {
-        dispatch(filesUploadEnd())
-      })
+    try {
+      api.files.upload(form)
+      dispatch(filesUploadEnd())
+      dispatch(fetchFiles())
+    } catch (error) {
+      console.error(error)
+      dispatch(filesUploadEnd())
+    }
   }
 }
 
 export function deleteFile(fileName: any) {
-  return (
-    dispatch: (arg0: (dispatch: any, getState: any) => any) => void,
-    getState: any
-  ) =>
-    api.files
-      .delete(fileName)
-      .then(() => {
-        dispatch(fetchFiles())
-      })
-      .catch((error: any) => {})
+  return (dispatch: Dispatch) => {
+    try {
+      api.files.delete(fileName)
+      dispatch(fetchFiles())
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }

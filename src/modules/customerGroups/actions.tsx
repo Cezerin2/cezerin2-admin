@@ -1,3 +1,4 @@
+import { Dispatch } from "redux"
 import api from "../../lib/api"
 import messages from "../../lib/text"
 import * as t from "./actionTypes"
@@ -67,35 +68,32 @@ function successDeleteGroup(id: any) {
 }
 
 function fetchGroups() {
-  return (
-    dispatch: (arg0: { type: string; items?: any; error?: any }) => void
-  ) => {
+  return (dispatch: Dispatch) => {
     dispatch(requestGroups())
-    return api.customerGroups
-      .list()
-      .then(({ status, json }) => {
-        json = json.sort(
-          (a: { position: number }, b: { position: number }) =>
-            a.position - b.position
-        )
+    const { status, json } = api.customerGroups.list()
+    try {
+      json = json.sort(
+        (a: { position: number }, b: { position: number }) =>
+          a.position - b.position
+      )
 
-        json.forEach(
-          (
-            element: any,
-            index: string | number,
-            theArray: { [x: string]: { name: string } }
-          ) => {
-            if (theArray[index].name === "") {
-              theArray[index].name = `<${messages.draft}>`
-            }
+      json.forEach(
+        (
+          element: any,
+          index: string | number,
+          theArray: { [x: string]: { name: string } }
+        ) => {
+          if (theArray[index].name === "") {
+            theArray[index].name = `<${messages.draft}>`
           }
-        )
+        }
+      )
 
-        dispatch(receiveGroups(json))
-      })
-      .catch((error: any) => {
-        dispatch(receiveErrorGroups(error))
-      })
+      dispatch(receiveGroups(json))
+    } catch (error) {
+      console.error(error)
+      dispatch(receiveErrorGroups(error))
+    }
   }
 }
 
@@ -108,10 +106,7 @@ function shouldFetchGroups(state: { customerGroups: any }) {
 }
 
 export function fetchGroupsIfNeeded() {
-  return (
-    dispatch: (arg0: (dispatch: any) => any) => any,
-    getState: () => any
-  ) => {
+  return (dispatch: Dispatch, getState: () => any) => {
     if (shouldFetchGroups(getState())) {
       return dispatch(fetchGroups())
     }
@@ -119,67 +114,47 @@ export function fetchGroupsIfNeeded() {
 }
 
 export function updateGroup(data: { id: any }) {
-  return (
-    dispatch: (arg0: {
-      (dispatch: any): any
-      type?: string
-      error?: any
-    }) => void,
-    getState: any
-  ) => {
+  return (dispatch: Dispatch) => {
     dispatch(requestUpdateGroup(data.id))
-    return api.customerGroups
-      .update(data.id, data)
-      .then(({ status, json }) => {
-        dispatch(receiveUpdateGroup())
-        dispatch(fetchGroups())
-      })
-      .catch((error: any) => {
-        dispatch(errorUpdateGroup(error))
-      })
+    try {
+      dispatch(receiveUpdateGroup())
+      dispatch(fetchGroups())
+    } catch (error) {
+      console.error(error)
+      dispatch(errorUpdateGroup(error))
+    }
+    return api.customerGroups.update(data.id, data)
   }
 }
 
 export function createGroup(data: { id: any }) {
-  return (
-    dispatch: (arg0: {
-      (dispatch: any): any
-      type?: string
-      selectedId?: any
-    }) => void,
-    getState: any
-  ) =>
-    api.customerGroups
-      .create(data)
-      .then(({ status, json }) => {
-        dispatch(successCreateGroup(json.id))
-        dispatch(fetchGroups())
-        dispatch(selectGroup(json.id))
-      })
-      .catch((error: any) => {
-        // dispatch error
-        console.log(error)
-      })
+  return (dispatch: Dispatch) => {
+    const { json } = api.customerGroups.create(data)
+    try {
+      dispatch(successCreateGroup(json.id))
+      dispatch(fetchGroups())
+      dispatch(selectGroup(json.id))
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 export function deleteGroup(id: any) {
-  return (
-    dispatch: (arg0: { (dispatch: any): any; type?: string }) => void,
-    getState: any
-  ) =>
-    api.customerGroups
-      .delete(id)
-      .then(({ status, json }) => {
-        if (status === 200) {
-          dispatch(successDeleteGroup(id))
-          dispatch(deselectGroup())
-          dispatch(fetchGroups())
-        } else {
-          throw status
-        }
-      })
-      .catch((error: any) => {
-        // dispatch error
-        console.log(error)
-      })
+  return (dispatch: Dispatch) => {
+    const { status } = api.customerGroups.delete(id)
+    try {
+      if (status === 200) {
+        dispatch(successDeleteGroup(id))
+        dispatch(deselectGroup())
+        dispatch(fetchGroups())
+      } else {
+        console.warn(status)
+        throw status
+      }
+    } catch (error) {
+      console.error(error)
+      console.warn(status)
+    }
+  }
 }
