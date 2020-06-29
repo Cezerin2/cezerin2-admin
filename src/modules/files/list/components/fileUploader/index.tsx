@@ -4,15 +4,15 @@ import Dropzone from "react-dropzone"
 import messages from "../../../../../lib/text"
 import style from "./style.module.sass"
 
-const MultiUploader = (props: Readonly<{ uploading }>) => {
-  const { uploading } = props
+const MultiUploader = (props: Readonly<{ uploading; onUpload: Function }>) => {
+  const { uploading, onUpload } = props
 
   const onDrop = files => {
     const form = new FormData()
     files.map(file => {
       form.append("file", file)
     })
-    props.onUpload(form)
+    onUpload(form)
   }
 
   return (

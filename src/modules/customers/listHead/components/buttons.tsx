@@ -6,40 +6,20 @@ import GroupSelect from "../../../../modules/customerGroups/select"
 import DeleteConfirmation from "../../../../modules/shared/deleteConfirmation"
 import Search from "./search"
 
-const Buttons = (props: Readonly<{}>) => {
-  const [groupId, setGroupId] = useState(null)
+const Buttons = (
+  props: Readonly<{
+    search: string
+    setSearch: Function
+    selectedCount: number
+    onDelete: Function
+    onCreate: Function
+    onEdit: Function
+    onSetGroup: Function
+  }>
+) => {
+  const [groupID, setGroupID] = useState("")
   const [openSetGroup, setOpenSetGroup] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
-
-  const showSetGroup = () => {
-    setOpenSetGroup(true)
-  }
-
-  const showDelete = () => {
-    setOpenDelete(true)
-  }
-
-  const closeSetGroup = () => {
-    setOpenSetGroup(false)
-  }
-
-  const closeDelete = () => {
-    setOpenDelete(false)
-  }
-
-  const deleteCustomers = () => {
-    setOpenDelete(false)
-    onDelete()
-  }
-
-  const saveSetGroup = () => {
-    setOpenSetGroup(false)
-    onSetGroup(groupId)
-  }
-
-  const selectSetGroup = (groupId: string) => {
-    setGroupId(groupId)
-  }
 
   const {
     search,
@@ -50,6 +30,16 @@ const Buttons = (props: Readonly<{}>) => {
     onEdit,
     onSetGroup,
   } = props
+
+  const deleteCustomers = () => {
+    setOpenDelete(false)
+    onDelete()
+  }
+
+  const saveSetGroup = () => {
+    setOpenSetGroup(false)
+    onSetGroup(groupID)
+  }
 
   return (
     <>
@@ -69,8 +59,7 @@ const Buttons = (props: Readonly<{}>) => {
           <IconButton
             touch
             tooltipPosition="bottom-left"
-            tooltip={messages.actions_delete}
-            onClick={showDelete}
+            onClick={() => setOpenDelete(true)}
           >
             <Delete color="secondary" className="material-icons" />
           </IconButton>
@@ -78,7 +67,7 @@ const Buttons = (props: Readonly<{}>) => {
             touch
             tooltipPosition="bottom-left"
             tooltip={messages.customers_setGroup}
-            onClick={showSetGroup}
+            onClick={() => setOpenSetGroup(true)}
           >
             <Folder color="secondary" className="material-icons" />
           </IconButton>
@@ -86,7 +75,7 @@ const Buttons = (props: Readonly<{}>) => {
             open={openDelete}
             isSingle={false}
             itemsCount={selectedCount}
-            onCancel={closeDelete}
+            onCancel={() => setOpenDelete(false)}
             onDelete={deleteCustomers}
           />
           <Dialog
@@ -97,8 +86,8 @@ const Buttons = (props: Readonly<{}>) => {
             autoScrollBodyContent
           >
             <GroupSelect
-              onSelect={selectSetGroup}
-              selectedId={groupId}
+              onSelect={groupID => setGroupID(groupID)}
+              selectedId={groupID}
               showRoot
               showAll={false}
             />
@@ -106,7 +95,7 @@ const Buttons = (props: Readonly<{}>) => {
               <Button onClick={closeSetGroup} style={{ marginRight: 10 }}>
                 {messages.cancel}
               </Button>
-              <Button color="primary" keyboardFocused onClick={saveSetGroup}>
+              <Button color="primary" onClick={saveSetGroup}>
                 {messages.save}
               </Button>
             </DialogActions>
@@ -120,7 +109,7 @@ const Buttons = (props: Readonly<{}>) => {
           tooltip={messages.customers_titleAdd}
           onClick={onCreate}
         >
-          <Add color="#fff" className="material-icons" />
+          <Add color="primary" className="material-icons" />
         </IconButton>
       )}
     </>

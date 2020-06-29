@@ -1,3 +1,4 @@
+import { Dispatch } from "redux"
 import api from "../../lib/api"
 import messages from "../../lib/text"
 import * as t from "./actionTypes"
@@ -8,21 +9,21 @@ function requestCategories() {
   }
 }
 
-function receiveCategories(items) {
+function receiveCategories(items: string) {
   return {
     type: t.CATEGORIES_RECEIVE,
     items,
   }
 }
 
-function receiveErrorCategories(error) {
+function receiveErrorCategories(error: string) {
   return {
     type: t.CATEGORIES_FAILURE,
     error,
   }
 }
 
-export function selectCategory(id) {
+export function selectCategory(id: string) {
   return {
     type: t.CATEGORIES_SELECT,
     selectedId: id,
@@ -35,7 +36,7 @@ export function deselectCategory() {
   }
 }
 
-function requestUpdateCategory(id) {
+function requestUpdateCategory() {
   return {
     type: t.CATEGORY_UPDATE_REQUEST,
   }
@@ -47,33 +48,33 @@ function receiveUpdateCategory() {
   }
 }
 
-function errorUpdateCategory(error) {
+function errorUpdateCategory(error: string) {
   return {
     type: t.CATEGORY_UPDATE_FAILURE,
     error,
   }
 }
 
-function successCreateCategory(id) {
+function successCreateCategory() {
   return {
     type: t.CATEGORY_CREATE_SUCCESS,
   }
 }
 
-function successDeleteCategory(id) {
+function successDeleteCategory() {
   return {
     type: t.CATEGORY_DELETE_SUCCESS,
   }
 }
 
-function successMoveUpDownCategory(newPosition) {
+function successMoveUpDownCategory(newPosition: string) {
   return {
     type: t.CATEGORY_MOVE_UPDOWN_SUCCESS,
     position: newPosition,
   }
 }
 
-function successReplaceCategory(newParentId) {
+function successReplaceCategory() {
   return {
     type: t.CATEGORY_REPLACE_SUCCESS,
   }
@@ -92,26 +93,25 @@ function imageUploadEnd() {
 }
 
 export function fetchCategories() {
-  return dispatch => {
+  return (dispatch: Dispatch) => {
     dispatch(requestCategories())
-    return api.productCategories
-      .list()
-      .then(({ status, json }) => {
-        json.forEach((element, index, theArray) => {
-          if (theArray[index].name === "") {
-            theArray[index].name = `<${messages.draft}>`
-          }
-        })
+    const { json } = api.productCategories.list()
+    try {
+      json.forEach((element, index, theArray) => {
+        if (theArray[index].name === "") {
+          theArray[index].name = `<${messages.draft}>`
+        }
+      })
 
-        dispatch(receiveCategories(json))
-      })
-      .catch(error => {
-        dispatch(receiveErrorCategories(error))
-      })
+      dispatch(receiveCategories(json))
+    } catch (error) {
+      console.error(error)
+      dispatch(receiveErrorCategories(error))
+    }
   }
 }
 
-function shouldFetchCategories(state) {
+function shouldFetchCategories(state: {}) {
   const categories = state.productCategories
   if (categories.isFetched || categories.isFetching) {
     return false
@@ -120,85 +120,77 @@ function shouldFetchCategories(state) {
 }
 
 export function fetchCategoriesIfNeeded() {
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState: Function) => {
     if (shouldFetchCategories(getState())) {
       return dispatch(fetchCategories())
     }
   }
 }
 
-function sendUpdateCategory(id, data) {
-  return dispatch => {
-    dispatch(requestUpdateCategory(id))
-    return api.productCategories
-      .update(id, data)
-      .then(({ status, json }) => {
-        dispatch(receiveUpdateCategory())
-        dispatch(fetchCategories())
-      })
-      .catch(error => {
-        dispatch(errorUpdateCategory(error))
-      })
+function sendUpdateCategory(id: string, data: string) {
+  return (dispatch: Dispatch) => {
+    dispatch(requestUpdateCategory())
+    try {
+      api.productCategories.update(id, data)
+      dispatch(receiveUpdateCategory())
+      dispatch(fetchCategories())
+    } catch (error) {
+      console.error(error)
+      dispatch(errorUpdateCategory(error))
+    }
   }
 }
 
-export function updateCategory(data) {
-  return (dispatch, getState) => dispatch(sendUpdateCategory(data.id, data))
+export function updateCategory(data: { id: string }) {
+  return (dispatch: Dispatch) => dispatch(sendUpdateCategory(data.id, data))
 }
 
 export function createCategory() {
-  return (dispatch, getState) =>
-    api.productCategories
-      .create({ enabled: false })
-      .then(({ status, json }) => {
-        dispatch(successCreateCategory(json.id))
-        dispatch(fetchCategories())
-        dispatch(selectCategory(json.id))
-      })
-      .catch(error => {
-        // dispatch error
-        console.log(error)
-      })
-}
-
-export function deleteImage() {
-  return (dispatch, getState) => {
-    const state = getState()
-    const categoryId = state.productCategories.selectedId
-
-    return api.productCategories
-      .deleteImage(categoryId)
-      .then(({ status, json }) => {
-        if (status === 200) {
-          dispatch(fetchCategories())
-        } else {
-          throw status
-        }
-      })
-      .catch(error => {
-        // dispatch error
-        console.log(error)
-      })
+  return (dispatch: Dispatch) => {
+    const { json } = api.productCategories.create({ enabled: false })
+    try {
+      dispatch(successCreateCategory(json.id))
+      dispatch(fetchCategories())
+      dispatch(selectCategory(json.id))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function deleteCategory(id) {
-  return (dispatch, getState) =>
-    api.productCategories
-      .delete(id)
-      .then(({ status, json }) => {
-        if (status === 200) {
-          dispatch(successDeleteCategory(id))
-          dispatch(deselectCategory())
-          dispatch(fetchCategories())
-        } else {
-          throw status
-        }
-      })
-      .catch(error => {
-        // dispatch error
-        console.log(error)
-      })
+export function deleteImage() {
+  return (dispatch: Dispatch, getState: Function) => {
+    const state = getState()
+    const categoryId = state.productCategories.selectedId
+
+    const { status } = api.productCategories.deleteImage(categoryId)
+    try {
+      if (status === 200) {
+        dispatch(fetchCategories())
+      } else {
+        throw status
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}
+
+export function deleteCategory(id: string) {
+  return (dispatch: Dispatch) => {
+    const { status } = api.productCategories.delete(id)
+    try {
+      if (status === 200) {
+        dispatch(successDeleteCategory())
+        dispatch(deselectCategory())
+        dispatch(fetchCategories())
+      } else {
+        throw status
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 }
 
 function moveCategory(allCategories = [], selectedCategory, isUp = true) {
@@ -226,28 +218,24 @@ function moveCategory(allCategories = [], selectedCategory, isUp = true) {
     if (allCategories.length > 0) {
       const targetCategory = allCategories[0]
       const newPosition = targetCategory.position
-
-      api.productCategories
-        .update(selectedCategory.id, { position: targetCategory.position })
-        .then(() => {
-          api.productCategories
-            .update(targetCategory.id, { position: selectedCategory.position })
-            .then(() => {
-              resolve(newPosition)
-            })
-            .catch(err => {
-              reject(err)
-            })
+      try {
+        api.productCategories.update(selectedCategory.id, {
+          position: targetCategory.position,
         })
-        .catch(err => {
-          reject(err)
+        api.productCategories.update(targetCategory.id, {
+          position: selectedCategory.position,
         })
+        resolve(newPosition)
+      } catch (error) {
+        console.error(error)
+        reject(error)
+      }
     }
   })
 }
 
 export function moveUpCategory() {
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState: Function) => {
     const state = getState()
     const allCategories = state.productCategories.items
     const selectedCategory = allCategories.find(
@@ -266,7 +254,7 @@ export function moveUpCategory() {
 }
 
 export function moveDownCategory() {
-  return (dispatch, getState) => {
+  return (dispatch: Dispatch, getState: Function) => {
     const state = getState()
     const allCategories = state.productCategories.items
     const selectedCategory = allCategories.find(
@@ -289,34 +277,29 @@ export function replaceCategory(parentId) {
     const selectedCategory = state.productCategories.items.find(
       item => item.id === state.productCategories.selectedId
     )
-
-    return api.productCategories
-      .update(selectedCategory.id, { parent_id: parentId })
-      .then(({ status, json }) => {
-        dispatch(successReplaceCategory())
-        dispatch(fetchCategories())
-      })
-      .catch(error => {
-        // dispatch error
-        console.log(error)
-      })
+    try {
+      api.productCategories.update(selectedCategory.id, { parent_id: parentId })
+      dispatch(successReplaceCategory())
+      dispatch(fetchCategories())
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
-export function uploadImage(form) {
-  return (dispatch, getState) => {
+export function uploadImage(form: string) {
+  return (dispatch: Dispatch, getState: Function) => {
     const state = getState()
     const categoryId = state.productCategories.selectedId
 
     dispatch(imageUploadStart())
-    return api.productCategories
-      .uploadImage(categoryId, form)
-      .then(() => {
-        dispatch(imageUploadEnd())
-        dispatch(fetchCategories())
-      })
-      .catch(error => {
-        dispatch(imageUploadEnd())
-      })
+    try {
+      api.productCategories.uploadImage(categoryId, form)
+      dispatch(imageUploadEnd())
+      dispatch(fetchCategories())
+    } catch (error) {
+      console.error(error)
+      dispatch(imageUploadEnd())
+    }
   }
 }

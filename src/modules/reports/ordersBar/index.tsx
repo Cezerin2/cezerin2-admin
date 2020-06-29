@@ -5,9 +5,9 @@ import messages from "../../../lib/text"
 import BarChart from "./barChart"
 import * as utils from "./utils"
 
-const OrdersBar = (props: Readonly<{}>) => {
-  const [ordersData, setOdersData] = useState(null)
-  const [salesData, setSalesData] = useState(null)
+const OrdersBar = () => {
+  const [ordersData, setOdersData] = useState({})
+  const [salesData, setSalesData] = useState({})
 
   useEffect(() => {
     fetchData()
@@ -25,17 +25,16 @@ const OrdersBar = (props: Readonly<{}>) => {
         .toISOString(),
     }
 
-    api.orders
-      .list(filter)
-      .then(({ status, json }) => {
-        const reportData = utils.getReportDataFromOrders(json)
-        const ordersData = utils.getOrdersDataFromReportData(reportData)
-        const salesData = utils.getSalesDataFromReportData(reportData)
-        setState({ ordersData, salesData })
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    const { json } = api.orders.list(filter)
+    try {
+      const reportData = utils.getReportDataFromOrders(json)
+      const ordersData = utils.getOrdersDataFromReportData(reportData)
+      const salesData = utils.getSalesDataFromReportData(reportData)
+      setOdersData(ordersData)
+      setSalesData(salesData)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

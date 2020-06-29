@@ -1,17 +1,16 @@
-import React from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router"
 import {
-  fetchCustomers,
-  deleteCustomers,
-  setGroup,
-  setFilterSearch,
   createDraftCustomer,
+  deleteCustomers,
   editCustomer,
+  fetchCustomers,
+  setFilterSearch,
+  setGroup,
 } from "../actions"
 import Buttons from "./components/buttons"
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: {}) => ({
   search: state.customers.search,
   selectedCount: state.customers.selected.length,
 })

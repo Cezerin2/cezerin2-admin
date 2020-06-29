@@ -3,7 +3,17 @@ import React from "react"
 import { Bar } from "react-chartjs-2"
 import style from "./style.module.sass"
 
-const BarChart = ({ data, title, subTitle, legendDisplay }) => (
+const BarChart = ({
+  data,
+  title,
+  subTitle,
+  legendDisplay,
+}: {
+  data: {}
+  title: string
+  subTitle?: string
+  legendDisplay: boolean
+}) => (
   <div className="row row--no-gutter">
     <div className="col--no-gutter col-xs-12">
       <Paper className="paper-box" elevation={1}>

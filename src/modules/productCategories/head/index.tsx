@@ -1,23 +1,23 @@
-import React from "react"
 import { connect } from "react-redux"
 import { withRouter } from "react-router"
+import { Dispatch } from "redux"
 import { reset } from "redux-form"
 import {
-  deleteCategory,
-  moveUpCategory,
-  moveDownCategory,
-  replaceCategory,
   createCategory,
+  deleteCategory,
+  moveDownCategory,
+  moveUpCategory,
+  replaceCategory,
 } from "../actions"
 import Buttons from "./components/buttons"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   selected: state.productCategories.items.find(
     item => item.id === state.productCategories.selectedId
   ),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   onMoveUp: () => {
     dispatch(moveUpCategory())
   },

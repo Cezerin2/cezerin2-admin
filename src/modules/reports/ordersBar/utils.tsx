@@ -11,19 +11,19 @@ const chartColors = {
   grey: "rgb(201, 203, 207)",
 }
 
-const transparentize = (color, opacity) => {
+const transparentize = (color: string, opacity: string) => {
   const alpha = opacity === undefined ? 0.5 : 1 - opacity
   return Color(color).alpha(alpha).rgbString()
 }
 
-const getOrdersByDate = (orders, dateMoment) =>
+const getOrdersByDate = (orders: string, dateMoment: string) =>
   orders.filter(order => moment(order.date_placed).isSame(dateMoment, "day"))
 
-const filterSuccessOrders = order =>
+const filterSuccessOrders = (order: {}) =>
   order.paid === true || order.closed === true
-const filterNewOrders = order => !order.paid && !order.closed
+const filterNewOrders = (order: {}) => !order.paid && !order.closed
 
-export const getReportDataFromOrders = ordersResponse => {
+export const getReportDataFromOrders = (ordersResponse: { data: string }) => {
   const reportItems = []
   const dateFrom = moment().subtract(1, "months")
   const dateTo = moment()
@@ -55,7 +55,7 @@ export const getReportDataFromOrders = ordersResponse => {
   return reportItems
 }
 
-export const getOrdersDataFromReportData = reportData => {
+export const getOrdersDataFromReportData = (reportData: []) => {
   const labels = reportData.map(item => item.date)
   const successData = reportData.map(item => item.success)
   const newData = reportData.map(item => item.new)
@@ -79,7 +79,7 @@ export const getOrdersDataFromReportData = reportData => {
   }
 }
 
-export const getSalesDataFromReportData = reportData => {
+export const getSalesDataFromReportData = (reportData: []) => {
   const labels = reportData.map(item => item.date)
   const revenueData = reportData.map(item => item.revenue)
 
