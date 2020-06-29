@@ -253,3 +253,5 @@ const APPLICATION_DATA_COUNTRIES = {
   ZM: "Zambia",
   ZW: "Zimbabwe",
 }
+
+export default APPLICATION_DATA_COUNTRIES
