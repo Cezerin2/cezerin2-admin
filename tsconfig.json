@@ -12,29 +12,8 @@
     "removeComments": true,
     "jsx": "react",
     "allowJs": true,
-
+    "resolveJsonModule": true,
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
-
-    // // Older
-    //  "lib": ["dom", "dom.iterable", "esnext"],
-    // "allowJs": true,
-    //   "skipLibCheck": true,
-    // "esModuleInterop": true,
-    //   "allowSyntheticDefaultImports": true,\
-    //  "noImplicitReturns": false,
-    //  "noUnusedLocals": false,\
-    //  "sourceMap": true,
-    //  "strict": false,
-    //  "forceConsistentCasingInFileNames": false,\
-    //  "moduleResolution": "node",
-    //  "resolveJsonModule": true,
-    //   "isolatedModules": true,
-    //   "noEmit": true,
-    // "noEmitOnError": false,
-    //  "noImplicitAny": false,
-    //  "strictNullChecks": false,\
-    //  "noUnusedParameters": false,
-    //  "downlevelIteration": true
   },
   "compileOnSave": true,
   "include": ["src"]
