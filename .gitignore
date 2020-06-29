@@ -1,10 +1,8 @@
 .vscode/*
 !.vscode/launch.json
 node_modules
-public/index.html
 dist/*
 npm-debug.log*
-*.zip
 .idea
 *.log
 *.js
