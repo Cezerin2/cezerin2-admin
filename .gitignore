@@ -5,7 +5,6 @@ public/index.html
 dist/*
 npm-debug.log*
 *.zip
-*lock.json
 .idea
 *.log
 *.js
