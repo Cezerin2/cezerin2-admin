@@ -140,6 +140,8 @@
   "settings_kilogram": "quilograma",
   "settings_pound": "libra",
   "settings_ounce": "onça",
+  "settings_pound": "pound",
+  "settings_ounce": "ounce",
   "missing_dashboardsettings": "Google Sheets Settings Missing.",
   "setup_google_spreadsheet": "Setup Google Sheets at Admin - Settings - Product import.",
   "settings_apikey": "Google Sheets API Key",
