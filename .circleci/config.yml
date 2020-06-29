@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:14
 
     working_directory: ~/repo
 
@@ -19,9 +19,7 @@ jobs:
           paths:
             - node_modules
           key: dependency-cache-{{ checksum "package.json" }}
-    #  - run:
-    #      name: Compile
-    #      command: npm run compile
-    #  - run:
-    #      name: Build
-    #      command: npm run build
+
+     - run:
+         name: Build
+         command: npm run build
