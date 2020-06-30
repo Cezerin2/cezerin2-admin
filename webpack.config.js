@@ -151,13 +151,13 @@ module.exports = {
       chunkFilename: "css/bundle-[contenthash].css",
     }),
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: "public/index.html",
       language: applicationConfig.language,
       inject: "body",
       filename: "index.html",
     }),
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: "public/index.html",
       language: applicationConfig.language,
       inject: "body",
       filename: "404.html",

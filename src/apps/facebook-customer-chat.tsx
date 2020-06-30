@@ -1,5 +1,4 @@
-import RaisedButton from "material-ui/RaisedButton"
-import TextField from "material-ui/TextField"
+import { Button, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import api from "../lib/api"
 import messages from "../lib/text"
@@ -26,23 +25,13 @@ export const App = () => {
   const [pageID, setPageID] = useState("")
   const [minimized, setMinimized] = useState("false")
 
-  const handlePageIdChange = event => {
-    setPageID(event.target.value)
-  }
-
-  const handleMinimizedChange = event => {
-    setMinimized(event.target.value)
-  }
-
   const fetchSettings = () => {
-    api.apps.settings.retrieve("facebook-customer-chat")
+    const { json } = api.apps.settings.retrieve("facebook-customer-chat")
     try {
-      ;({ json }) => {
-        const appSettings = json
-        if (appSettings) {
-          setPageID(appSettings.pageId)
-          setMinimized(appSettings.minimized)
-        }
+      const appSettings: { pageId: string; minimized: string } = json
+      if (appSettings) {
+        setPageID(appSettings.pageId)
+        setMinimized(appSettings.minimized)
       }
     } catch (error) {
       console.error(error)
@@ -78,27 +67,26 @@ export const App = () => {
         type="text"
         fullWidth
         value={pageID}
-        onChange={handlePageIdChange}
-        floatingLabelText="Page ID"
+        onChange={event => setPageID(event.target.value)}
+        label="Page ID"
       />
 
       <TextField
         type="text"
         fullWidth
         value={minimized}
-        onChange={handleMinimizedChange}
-        floatingLabelText="minimized"
-        hintText="false"
+        onChange={event => setMinimized(event.target.value)}
+        label="minimized"
+        helperText="false"
       />
 
-      <div style={{ textAlign: "right" }}>
-        <RaisedButton
-          label={messages.save}
-          primary
-          disabled={false}
-          onClick={updateSettings}
-        />
-      </div>
+      <Button
+        color="primary"
+        onClick={updateSettings}
+        style={{ textAlign: "right" }}
+      >
+        {messages.save}
+      </Button>
     </>
   )
 }
