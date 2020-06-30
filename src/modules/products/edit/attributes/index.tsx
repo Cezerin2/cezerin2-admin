@@ -3,11 +3,11 @@ import { withRouter } from "react-router"
 import { updateProduct } from "../../actions"
 import ProductAttributesForm from "./components/form"
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   initialValues: state.products.editProduct,
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   onSubmit: values => {
     dispatch(
       updateProduct({
