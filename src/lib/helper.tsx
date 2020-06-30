@@ -1,39 +1,53 @@
 import messages from "./text"
 
-export const formatNumber = (number, settings) => {
+export const formatNumber = (
+  number: number,
+  settings: {
+    decimalNumber: number
+    decimalSeparator: string
+    thousandSeparator: string
+    currencyFormat: string
+  }
+) => {
   const x = 3
-  const floatNumber = parseFloat(number || 0) || 0
+  const floatNumber = number || 0
 
-  const re = `\\d(?=(\\d{${x}})+${settings.decimal_number > 0 ? "\\D" : "$"})`
+  const re = `\\d(?=(\\d{${x}})+${settings.decimalNumber > 0 ? "\\D" : "$"})`
 
-  const num = floatNumber.toFixed(Math.max(0, ~~settings.decimal_number))
+  const num = floatNumber.toFixed(Math.max(0, ~~settings.decimalNumber))
 
-  return (settings.decimal_separator
-    ? num.replace(".", settings.decimal_separator)
+  return (settings.decimalSeparator
+    ? num.replace(".", settings.decimalSeparator)
     : num
-  ).replace(new RegExp(re, "g"), `$&${settings.thousand_separator}`)
+  ).replace(new RegExp(re, "g"), `$&${settings.thousandSeparator}`)
 }
 
 const amountPattern = "{amount}"
-export const formatCurrency = (number = 0, settings) =>
-  settings.currency_format.replace(
-    amountPattern,
-    formatNumber(number, settings)
-  )
+export const formatCurrency = (
+  number = 0,
+  settings: {
+    decimalNumber: number
+    decimalSeparator: string
+    thousandSeparator: string
+    currencyFormat: string
+  }
+) => {
+  settings.currencyFormat.replace(amountPattern, formatNumber(number, settings))
+}
 
 export const formatFileSize = (bytes = 0) => {
   const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
   if (bytes === 0) {
     return "n/a"
   }
-  const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
   if (i === 0) {
     return `${bytes} ${sizes[i]}`
   }
   return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`
 }
 
-export const getThumbnailUrl = (originalUrl, width) => {
+export const getThumbnailUrl = (originalUrl: string, width: string) => {
   if (originalUrl && originalUrl.length > 0) {
     const pos = originalUrl.lastIndexOf("/")
     const thumbnailUrl = `${originalUrl.substring(
@@ -45,7 +59,7 @@ export const getThumbnailUrl = (originalUrl, width) => {
   return ""
 }
 
-export const getOrderFieldLabelByKey = key => {
+export const getOrderFieldLabelByKey = (key: string) => {
   switch (key) {
     case "full_name":
       return messages.fullName
