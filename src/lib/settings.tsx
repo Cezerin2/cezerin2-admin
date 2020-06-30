@@ -1,1 +1,2 @@
-export default APPLICATION_CONFIG
+import Config from "../config"
+export default Config
