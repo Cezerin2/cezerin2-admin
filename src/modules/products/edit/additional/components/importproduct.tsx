@@ -3,7 +3,11 @@ import React, { useEffect, useRef, useState } from "react"
 import api from "../../../../../lib/api"
 import messages from "../../../../../lib/text"
 
-const updateProductArray: { category_name: any; sub_category_name: any; draft: {} }[] = []
+const updateProductArray: {
+  category_name: any
+  sub_category_name: any
+  draft: {}
+}[] = []
 const categoryIdArray = []
 const imageFilesArray: { id: any; url: any }[] = []
 
@@ -337,17 +341,14 @@ const ProductImport = (props: Readonly<{}>) => {
     }
   }
 
-  useEffect(() => {
-    let spreadsheetApiCredentials = null
-    document.getElementsByClassName("product-list")[0].style.display = "none"
-
+  async function getSpreadsheetApi() {
     // fetch product import spreadsheet data from settings and set api credentials for google
     const { json } = api.settings.retrieveImportSettings()
-    spreadsheetApiCredentials = `https://sheets.googleapis.com/v4/spreadsheets/${json.sheetid}/values:batchGet?ranges=${json.range}&majorDimension=ROWS&key=${json.apikey}`
+    const spreadsheetApiCredentials = `https://sheets.googleapis.com/v4/spreadsheets/${json.sheetid}/values:batchGet?ranges=${json.range}&majorDimension=ROWS&key=${json.apikey}`
 
     try {
-      await fetch(spreadsheetApiCredentials)
-      (      response: { json: () => any }) => response.json()
+      const response = fetch(spreadsheetApiCredentials)
+      await response.json()
       const batchRowValues = data.valueRanges[0].values
 
       let counter = 0
@@ -379,6 +380,11 @@ const ProductImport = (props: Readonly<{}>) => {
       console.error(error)
       setDashboardsettings(false)
     }
+  }
+
+  useEffect(() => {
+    document.getElementsByClassName("product-list")[0].style.display = "none"
+    getSpreadsheetApi()
   }, [])
 
   let keyCounter = 0
