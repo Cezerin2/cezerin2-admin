@@ -1,9 +1,10 @@
+import { toNumber } from "lodash"
 import messages from "./text"
 
 const LOGIN_PATH = "/apps/login"
 const HOME_PATH = "/apps"
 
-const getParameterByName = (name, url) => {
+const getParameterByName = (name: string, url: string) => {
   if (!url) url = window.location.href
   name = name.replace(/[\[\]]/g, "\\$&")
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`)
@@ -14,24 +15,24 @@ const getParameterByName = (name, url) => {
 }
 
 export const validateCurrentToken = () => {
-  if (location.pathname !== LOGIN_PATH) {
+  if (window.location.pathname !== LOGIN_PATH) {
     if (!isCurrentTokenValid()) {
-      location.replace(LOGIN_PATH)
+      window.location.replace(LOGIN_PATH)
     }
   }
 }
 
 export const checkTokenFromUrl = () => {
-  if (location.pathname === LOGIN_PATH) {
-    const token = getParameterByName("webstoretoken")
+  if (window.location.pathname === LOGIN_PATH) {
+    const token = getParameterByName("webstoretoken", "")
     if (token && token !== "") {
       const tokenData = parseJWT(token)
 
       if (tokenData) {
-        const expiration_date = tokenData.exp * 1000
-        if (expiration_date > Date.now()) {
-          saveToken({ token, email: tokenData.email, expiration_date })
-          location.replace(HOME_PATH)
+        const expirationDate = tokenData.exp * 1000
+        if (expirationDate > Date.now()) {
+          saveToken({ token, email: tokenData.email, expirationDate })
+          window.location.replace(HOME_PATH)
         } else {
           alert(messages.tokenExpired)
         }
@@ -39,12 +40,12 @@ export const checkTokenFromUrl = () => {
         alert(messages.tokenInvalid)
       }
     } else if (isCurrentTokenValid()) {
-      location.replace(HOME_PATH)
+      window.location.replace(HOME_PATH)
     }
   }
 }
 
-const parseJWT = jwt => {
+const parseJWT = (jwt: string) => {
   try {
     const payload = jwt.split(".")[1]
     const tokenData = JSON.parse(atob(payload))
@@ -54,17 +55,21 @@ const parseJWT = jwt => {
   }
 }
 
-const saveToken = data => {
+const saveToken = (data: {
+  token: string
+  email: string
+  expirationDate: number
+}) => {
   localStorage.setItem("webstore_token", data.token)
   localStorage.setItem("webstore_email", data.email)
-  localStorage.setItem("webstore_exp", data.expiration_date)
+  localStorage.setItem("webstore_exp", data.expirationDate.toString())
 }
 
 export const isCurrentTokenValid = () => {
-  const expiration_date = localStorage.getItem("webstore_exp")
+  const expirationDate = localStorage.getItem("webstore_exp")
   return (
     localStorage.getItem("webstore_token") &&
-    expiration_date &&
-    expiration_date > Date.now()
+    expirationDate &&
+    toNumber(expirationDate) > Date.now()
   )
 }
