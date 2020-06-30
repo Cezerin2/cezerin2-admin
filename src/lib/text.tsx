@@ -13,36 +13,37 @@ switch (lang) {
   case "en":
     selected = en
     break
-  case "en":
+  case "en_US":
     selected = en_US
     break
-  case "en":
+  case "fr":
     selected = fr
     break
-  case "en":
+  case "it":
     selected = it
     break
-  case "en":
+  case "pt_BR":
     selected = pt_BR
     break
-  case "en":
+  case "ru":
     selected = ru
     break
-  case "en":
+  case "si":
     selected = si
     break
-  case "en":
+  case "ta":
     selected = ta
     break
-  case "en":
+  case "uk":
     selected = uk
     break
-  case "en":
+  case "zh_CN":
     selected = zh_CN
     break
 
   default:
     console.warn("Invalid language selected!")
+    selected = en_US
     break
 }
 
