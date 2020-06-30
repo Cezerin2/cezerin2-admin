@@ -1,175 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Dashboard</title>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#1976D2" />
-    <link rel="manifest" href="/assets/manifest.json" />
-    <link rel="shortcut icon" href="/assets/images/shortcut.png" />
+    <meta name="description" content="Cezerin Admin App" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <!--
+  <link rel="shortcut icon" href="/assets/images/shortcut.png" />
+  -->
+
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>Dashboard</title>
   </head>
-
   <body>
-    <style>
-      .showbox {
-        margin-top: 50px;
-      }
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
 
-      .loader {
-        position: relative;
-        margin: 0 auto;
-        width: 50px;
-      }
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
 
-      .loader:before {
-        content: "";
-        display: block;
-        padding-top: 100%;
-      }
-
-      .loader-product-import {
-        position: relative;
-        top: 7px;
-        left: 15px;
-        margin: 0 auto;
-        width: 25px;
-      }
-
-      .circular {
-        -webkit-animation: rotate 2s linear infinite;
-        animation: rotate 2s linear infinite;
-        height: 100%;
-        -webkit-transform-origin: center center;
-        transform-origin: center center;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        margin: auto;
-      }
-
-      .path {
-        stroke-dasharray: 1, 200;
-        stroke-dashoffset: 0;
-        -webkit-animation: dash 1.5s ease-in-out infinite,
-          color 6s ease-in-out infinite;
-        animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
-        stroke-linecap: round;
-      }
-
-      @-webkit-keyframes rotate {
-        100% {
-          -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
-
-      @keyframes rotate {
-        100% {
-          -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
-
-      @-webkit-keyframes dash {
-        0% {
-          stroke-dasharray: 1, 200;
-          stroke-dashoffset: 0;
-        }
-        50% {
-          stroke-dasharray: 89, 200;
-          stroke-dashoffset: -35px;
-        }
-        100% {
-          stroke-dasharray: 89, 200;
-          stroke-dashoffset: -124px;
-        }
-      }
-
-      @keyframes dash {
-        0% {
-          stroke-dasharray: 1, 200;
-          stroke-dashoffset: 0;
-        }
-        50% {
-          stroke-dasharray: 89, 200;
-          stroke-dashoffset: -35px;
-        }
-        100% {
-          stroke-dasharray: 89, 200;
-          stroke-dashoffset: -124px;
-        }
-      }
-
-      @-webkit-keyframes color {
-        100%,
-        0% {
-          stroke: #d62d20;
-        }
-        40% {
-          stroke: #0057e7;
-        }
-        66% {
-          stroke: #008744;
-        }
-        80%,
-        90% {
-          stroke: #ffa700;
-        }
-      }
-
-      @keyframes color {
-        100%,
-        0% {
-          stroke: #d62d20;
-        }
-        40% {
-          stroke: #0057e7;
-        }
-        66% {
-          stroke: #008744;
-        }
-        80%,
-        90% {
-          stroke: #ffa700;
-        }
-      }
-    </style>
-
-    <div id="root">
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <!-- Load Spinner -->
+    <div
+      style="
+        background-color: rgb(25, 118, 210);
+        height: 64px;
+        box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px,
+          rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+      "
+    >
       <div
         style="
-          background-color: rgb(25, 118, 210);
-          height: 64px;
-          box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px,
-            rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+          color: #fff;
+          font-size: 18px;
+          padding-left: 68px;
+          line-height: 64px;
         "
-      >
-        <div
-          style="
-            color: #fff;
-            font-size: 18px;
-            padding-left: 68px;
-            line-height: 64px;
-          "
-        ></div>
-      </div>
-      <div class="showbox">
-        <div class="loader">
-          <svg class="circular" viewBox="25 25 50 50">
-            <circle
-              class="path"
-              cx="50"
-              cy="50"
-              r="20"
-              fill="none"
-              stroke-width="2"
-              stroke-miterlimit="10"
-            />
-          </svg>
-        </div>
+      ></div>
+    </div>
+    <div class="showbox">
+      <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+          <circle
+            class="path"
+            cx="50"
+            cy="50"
+            r="20"
+            fill="none"
+            stroke-width="2"
+            stroke-miterlimit="10"
+          />
+        </svg>
       </div>
     </div>
 
