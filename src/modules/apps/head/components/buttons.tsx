@@ -1,18 +1,15 @@
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
+import { IconButton, MenuItem } from "@material-ui/core"
+import { MoreVert } from "@material-ui/icons"
+import { Link } from "@reach/router"
 import IconMenu from "material-ui/IconMenu"
-import MenuItem from "material-ui/MenuItem"
 import React from "react"
-import { Link } from "react-router-dom"
 import messages from "../../../../lib/text"
 
 const WebStoreMenu = () => (
   <IconMenu
     iconButtonElement={
       <IconButton touch>
-        <FontIcon color="#fff" className="material-icons">
-          more_vert
-        </FontIcon>
+        <MoreVert color="primary" className="material-icons" />
       </IconButton>
     }
     targetOrigin={{ horizontal: "right", vertical: "top" }}
