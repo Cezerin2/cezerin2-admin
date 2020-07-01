@@ -1,9 +1,9 @@
-import MenuItem from "material-ui/MenuItem"
-import SelectField from "material-ui/SelectField"
+import { MenuItem, Select } from "@material-ui/core"
 import Toggle from "material-ui/Toggle"
 import React from "react"
 import messages from "../../../../lib/text"
 import style from "./style.css"
+// import style from "./style.module.sass"
 
 export default ({
   active,
@@ -40,26 +40,20 @@ export default ({
       toggled={on_sale}
       className={style.toggle}
     />
-    <SelectField
+    <Select
       value={stock_status}
       onChange={(event, index, value) => {
         setStock(value)
       }}
-      floatingLabelText={messages.products_stockStatus}
+      label={messages.products_stockStatus}
       fullWidth
     >
-      <MenuItem value="all" primaryText={messages.all} />
-      <MenuItem value="available" primaryText={messages.products_inStock} />
-      <MenuItem
-        value="out_of_stock"
-        primaryText={messages.products_outOfStock}
-      />
-      <MenuItem value="backorder" primaryText={messages.products_backorder} />
-      <MenuItem value="preorder" primaryText={messages.products_preorder} />
-      <MenuItem
-        value="discontinued"
-        primaryText={messages.products_discontinued}
-      />
-    </SelectField>
+      <MenuItem value="all">{messages.all}</MenuItem>
+      <MenuItem value="available">{messages.products_inStock}</MenuItem>
+      <MenuItem value="out_of_stock">{messages.products_outOfStock}</MenuItem>
+      <MenuItem value="backorder">{messages.products_backorder}</MenuItem>
+      <MenuItem value="preorder">{messages.products_preorder} </MenuItem>
+      <MenuItem value="discontinued">{messages.products_discontinued}</MenuItem>
+    </Select>
   </div>
 )

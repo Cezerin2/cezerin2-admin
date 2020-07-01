@@ -1,19 +1,22 @@
 import { connect } from "react-redux"
-import { selectGroup, fetchGroupsIfNeeded } from "../actions"
+import { Dispatch } from "redux"
 import { fetchCustomers } from "../../customers/actions"
+import { fetchGroupsIfNeeded, selectGroup } from "../actions"
 import List from "../components/list"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: {
+  customerGroups: { items: string; selectedId: string }
+}) => ({
   items: state.customerGroups.items,
   selectedId: state.customerGroups.selectedId,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   onLoad: () => {
     dispatch(fetchGroupsIfNeeded())
   },
-  onSelect: groupId => {
-    dispatch(selectGroup(groupId))
+  onSelect: (groupID: string) => {
+    dispatch(selectGroup(groupID))
     dispatch(fetchCustomers())
   },
 })

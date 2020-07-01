@@ -1,18 +1,20 @@
-import FontIcon from "material-ui/FontIcon"
-import IconButton from "material-ui/IconButton"
+import {
+  Button,
+  IconButton,
+  MenuItem,
+  Paper,
+  TextField,
+} from "@material-ui/core"
+import { MoreVert } from "@material-ui/icons"
 import IconMenu from "material-ui/IconMenu"
-import MenuItem from "material-ui/MenuItem"
-import Paper from "material-ui/Paper"
-import RaisedButton from "material-ui/RaisedButton"
 import React from "react"
 import { Field } from "redux-form"
-import { TextField } from "redux-form-material-ui"
 import messages from "../../../../lib/text"
 import { CustomToggle } from "../../../../modules/shared/form"
 
-const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
+const FieldsEditor = ({ fields }: { fields: any }) => (
   <>
-    {fields.map((field, index) => {
+    {fields.map((field: string, index: number) => {
       const fieldKey = `${field}.key`
       const fieldLabel = `${field}.label`
       const fieldRequired = `${field}.required`
@@ -20,8 +22,7 @@ const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
       return (
         <Paper
           className="paper-box"
-          zDepth={1}
-          rounded={false}
+          elevation={1}
           key={index}
           style={{
             padding: "0px 20px",
@@ -61,28 +62,23 @@ const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
                 targetOrigin={{ horizontal: "right", vertical: "top" }}
                 anchorOrigin={{ horizontal: "right", vertical: "top" }}
                 iconButtonElement={
-                  <IconButton touch>
-                    <FontIcon color="#777" className="material-icons">
-                      more_vert
-                    </FontIcon>
+                  <IconButton>
+                    <MoreVert color="primary" className="material-icons" />
                   </IconButton>
                 }
               >
-                <MenuItem
-                  primaryText={messages.actions_delete}
-                  onClick={() => fields.remove(index)}
-                />
+                <MenuItem onClick={() => fields.remove(index)}>
+                  {messages.actions_delete}
+                </MenuItem>
                 {index > 0 && (
-                  <MenuItem
-                    primaryText={messages.actions_moveUp}
-                    onClick={() => fields.move(index, index - 1)}
-                  />
+                  <MenuItem onClick={() => fields.move(index, index - 1)}>
+                    {messages.actions_moveUp}
+                  </MenuItem>
                 )}
                 {index + 1 < fields.length && (
-                  <MenuItem
-                    primaryText={messages.actions_moveDown}
-                    onClick={() => fields.move(index, index + 1)}
-                  />
+                  <MenuItem onClick={() => fields.move(index, index + 1)}>
+                    {messages.actions_moveDown}
+                  </MenuItem>
                 )}
               </IconMenu>
             </div>
@@ -91,9 +87,9 @@ const FieldsEditor = ({ fields, meta: { touched, error, submitFailed } }) => (
       )
     })}
 
-    <div style={{ margin: "20px 0px" }}>
-      <RaisedButton label={messages.add} onClick={() => fields.push({})} />
-    </div>
+    <Button onClick={() => fields.push({})} style={{ margin: "20px 0px" }}>
+      {messages.add}
+    </Button>
   </>
 )
 

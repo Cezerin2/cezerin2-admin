@@ -1,14 +1,17 @@
-import settings from "../lib/settings"
-import messages from "../lib/text"
+import { Dispatch } from "redux"
 import { fetchOrders } from "../modules/orders/actions"
 import { installReceive } from "../modules/settings/actions"
+import settings from "./settings"
+import messages from "./text"
 
 const AUTO_RECONNECT_INTERVAL = 1000 // 1 seconds
 const ORDER_CREATED = "order.created"
 const THEME_INSTALLED = "theme.installed"
-let store = null
+let store: {
+  dispatch: Dispatch
+}
 
-export const connectToWebSocket = reduxStore => {
+export const connectToWebSocket = (reduxStore: { dispatch: Dispatch }) => {
   store = reduxStore
   connect()
 }
@@ -33,22 +36,26 @@ const getWebSocketUrlFromCurrentLocation = () => {
   return `${wsProtocol}//${window.location.host}`
 }
 
-const onMessage = event => {
+const onMessage = (event: { data: string }) => {
   try {
     const message = JSON.parse(event.data)
     eventHandler(message)
-  } catch (err) {}
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 const onOpen = () => {
   if (settings.developerMode === true) {
-    console.log("Connection established.")
+    console.info("Connection established.")
   }
 }
 
-const onError = () => {}
+const onError = () => {
+  console.error("Error happened")
+}
 
-const onClose = event => {
+const onClose = (event: { code: number }) => {
   if (event.code !== 1000) {
     if (settings.developerMode === true) {
       console.log(`WebSocket connection closed with code: ${event.code}.`)
@@ -60,7 +67,11 @@ const onClose = event => {
   }
 }
 
-const showNotification = (title, body, requireInteraction = false) => {
+const showNotification = (
+  title: string,
+  body: string,
+  requireInteraction = false
+) => {
   const msg = new Notification(title, {
     body,
     tag: "dashboard",
@@ -68,15 +79,24 @@ const showNotification = (title, body, requireInteraction = false) => {
   })
 
   msg.addEventListener("click", event => {
-    parent.focus()
+    event.target.parent.focus()
     event.target.close()
   })
 }
 
-const eventHandler = ({ event, payload }) => {
+const eventHandler = (
+  props: Readonly<{
+    event
+    payload: {
+      number: string
+      shipping_address: { full_name: string; city: string }
+    }
+  }>
+) => {
+  const { event, payload } = props
+
   switch (event) {
     case THEME_INSTALLED:
-      const fileName = payload
       store.dispatch(installReceive())
       showNotification(messages.settings_theme, messages.themeInstalled)
       break

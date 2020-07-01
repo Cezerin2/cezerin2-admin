@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 const applicationConfig = require("./build/config.js")
-const applicationText = require(`./locales/${applicationConfig.language}.json`)
 const CopyPlugin = require("copy-webpack-plugin")
 
 module.exports = {
@@ -140,24 +139,18 @@ module.exports = {
       patterns: [{ from: "public", to: "assets" }],
     }),
     new CleanWebpackPlugin(),
-    new webpack.DefinePlugin({
-      APPLICATION_CONFIG: JSON.stringify(applicationConfig),
-    }),
-    new webpack.DefinePlugin({
-      APPLICATION_TEXT: JSON.stringify(applicationText),
-    }),
     new MiniCssExtractPlugin({
       filename: "css/bundle-[contenthash].css",
       chunkFilename: "css/bundle-[contenthash].css",
     }),
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: "public/index.html",
       language: applicationConfig.language,
       inject: "body",
       filename: "index.html",
     }),
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: "public/index.html",
       language: applicationConfig.language,
       inject: "body",
       filename: "404.html",
