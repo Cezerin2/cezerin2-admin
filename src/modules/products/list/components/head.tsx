@@ -1,9 +1,9 @@
-import Subheader from "material-ui/Subheader"
+import { ListSubheader } from "@material-ui/core"
 import React from "react"
 import messages from "../../../../lib/text"
 
 const Head = ({ onSelectAll }) => (
-  <Subheader>
+  <ListSubheader>
     <div className="row row--no-gutter middle-xs">
       <div className="col-xs-6 col--no-gutter">
         <div className="row row--no-gutter middle-xs">
@@ -22,7 +22,7 @@ const Head = ({ onSelectAll }) => (
         {messages.products_price}
       </div>
     </div>
-  </Subheader>
+  </ListSubheader>
 )
 
 export default Head

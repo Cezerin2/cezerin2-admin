@@ -1,16 +1,16 @@
 import { connect } from "react-redux"
 import { withRouter } from "react-router"
 import {
-  fetchProducts,
-  fetchMoreProducts,
-  selectProduct,
-  deselectProduct,
-  selectAllProduct,
   deselectAllProduct,
+  deselectProduct,
+  fetchMoreProducts,
+  fetchProducts,
+  selectAllProduct,
+  selectProduct,
 } from "../actions"
 import List from "./components/list"
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state: any) => ({
   settings: state.settings.settings,
   items: state.products.items,
   selected: state.products.selected,
@@ -19,7 +19,7 @@ const mapStateToProps = (state, ownProps) => ({
   totalCount: state.products.totalCount,
 })
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   onLoad: () => {
     dispatch(fetchProducts())
   },
