@@ -1,13 +1,13 @@
 import { connect } from "react-redux"
 import {
-  fetchShippingMethod,
-  updateShippingMethod,
   createShippingMethod,
+  fetchShippingMethod,
   receiveShippingMethod,
+  updateShippingMethod,
 } from "../actions"
 import Form from "./components/form"
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps: any) => {
   const { methodId } = ownProps.match.params
   return {
     methodId,
@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch: Function, ownProps: any) => ({
   onLoad: () => {
     const { methodId } = ownProps.match.params
     if (methodId) {

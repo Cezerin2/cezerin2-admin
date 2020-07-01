@@ -6,7 +6,7 @@ const mapStateToProps = state => ({
   initialValues: state.settings.emailSettings,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   onLoad: () => {
     dispatch(fetchEmailSettings())
   },

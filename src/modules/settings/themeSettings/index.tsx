@@ -7,11 +7,11 @@ const mapStateToProps = state => ({
   settingsSchema: state.settings.themeSettingsSchema,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   onLoad: () => {
     dispatch(fetchThemeSettings())
   },
-  onSubmit: values => {
+  onSubmit: (values: string) => {
     dispatch(updateThemeSettings(values))
   },
 })

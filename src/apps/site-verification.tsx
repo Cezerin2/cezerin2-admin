@@ -1,5 +1,4 @@
-import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
+import { Button, TextField } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import api from "../lib/api"
 import messages from "../lib/text"
@@ -28,22 +27,6 @@ export const SiteVerification = () => {
   const [bing, setBing] = useState("")
   const [pinterest, setPinterest] = useState("")
   const [yandex, setYandex] = useState("")
-
-  const handleGoogleChange = event => {
-    setGoogle(event.target.value)
-  }
-
-  const handleBingChange = event => {
-    setBing(event.target.value)
-  }
-
-  const handlePinterestChange = event => {
-    setPinterest(event.target.value)
-  }
-
-  const handleYandexChange = event => {
-    setYandex(event.target.value)
-  }
 
   const fetchSettings = () => {
     api.apps.settings
@@ -90,34 +73,34 @@ export const SiteVerification = () => {
       <TextField
         type="text"
         value={google}
-        onChange={handleGoogleChange}
-        floatingLabelText="Google"
+        onChange={event => setGoogle(event.target.value)}
+        label="Google"
         fullWidth
-        hintText={GOOGLE_EXAMPLE}
+        helperText={GOOGLE_EXAMPLE}
       />
       <TextField
         type="text"
         value={bing}
-        onChange={handleBingChange}
-        floatingLabelText="Bing"
+        onChange={event => setBing(event.target.value)}
+        label="Bing"
         fullWidth
-        hintText={BING_EXAMPLE}
+        helperText={BING_EXAMPLE}
       />
       <TextField
         type="text"
         value={pinterest}
-        onChange={handlePinterestChange}
-        floatingLabelText="Pinterest"
+        onChange={event => setPinterest(event.target.value)}
+        label="Pinterest"
         fullWidth
-        hintText={PINTEREST_EXAMPLE}
+        helperText={PINTEREST_EXAMPLE}
       />
       <TextField
         type="text"
         value={yandex}
-        onChange={handleYandexChange}
-        floatingLabelText="Yandex"
+        onChange={event => setYandex(event.target.value)}
+        label="Yandex"
         fullWidth
-        hintText={YANDEX_EXAMPLE}
+        helperText={YANDEX_EXAMPLE}
       />
       <div style={{ textAlign: "right", marginTop: 20 }}>
         <Button color="primary" onClick={updateSettings}>

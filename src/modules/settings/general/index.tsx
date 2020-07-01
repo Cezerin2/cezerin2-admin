@@ -2,15 +2,15 @@ import { connect } from "react-redux"
 import { fetchSettings, updateSettings } from "../actions"
 import Form from "./components/form"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: { settings: { settings: string } }) => ({
   initialValues: state.settings.settings,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   onLoad: () => {
     dispatch(fetchSettings())
   },
-  onSubmit: values => {
+  onSubmit: (values: string) => {
     dispatch(updateSettings(values))
   },
 })
