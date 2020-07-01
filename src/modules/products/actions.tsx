@@ -8,35 +8,35 @@ function requestProduct() {
   }
 }
 
-function receiveProduct(item) {
+function receiveProduct(item: string) {
   return {
     type: t.PRODUCT_DETAIL_RECEIVE,
     item,
   }
 }
 
-function receiveProductError(error) {
+function receiveProductError(error: string) {
   return {
     type: t.PRODUCT_DETAIL_FAILURE,
     error,
   }
 }
 
-function receiveImages(images) {
+function receiveImages(images: string) {
   return {
     type: t.PRODUCT_IMAGES_RECEIVE,
     images,
   }
 }
 
-function receiveVariants(variants) {
+function receiveVariants(variants: string) {
   return {
     type: t.PRODUCT_VARIANTS_RECEIVE,
     variants,
   }
 }
 
-function receiveOptions(options) {
+function receiveOptions(options: string) {
   return {
     type: t.PRODUCT_OPTIONS_RECEIVE,
     options,
@@ -79,21 +79,21 @@ function receiveProducts({ has_more, total_count, data }) {
   }
 }
 
-function receiveProductsError(error) {
+function receiveProductsError(error: string) {
   return {
     type: t.PRODUCTS_FAILURE,
     error,
   }
 }
 
-export function selectProduct(id) {
+export function selectProduct(id: string) {
   return {
     type: t.PRODUCTS_SELECT,
     productId: id,
   }
 }
 
-export function deselectProduct(id) {
+export function deselectProduct(id: string) {
   return {
     type: t.PRODUCTS_DESELECT,
     productId: id,
@@ -112,7 +112,7 @@ export function selectAllProduct() {
   }
 }
 
-export function setFilter(filter) {
+export function setFilter(filter: string) {
   return {
     type: t.PRODUCTS_SET_FILTER,
     filter,
@@ -137,21 +137,21 @@ function requestUpdateProduct() {
   }
 }
 
-function receiveUpdateProduct(item) {
+function receiveUpdateProduct(item: string) {
   return {
     type: t.PRODUCT_UPDATE_SUCCESS,
     item,
   }
 }
 
-function errorUpdateProduct(error) {
+function errorUpdateProduct(error: string) {
   return {
     type: t.PRODUCT_UPDATE_FAILURE,
     error,
   }
 }
 
-function successCreateProduct(id) {
+function successCreateProduct() {
   return {
     type: t.PRODUCT_CREATE_SUCCESS,
   }
@@ -169,7 +169,7 @@ function imagesUploadEnd() {
   }
 }
 
-const getFilter = (state, offset = 0) => {
+const getFilter = (state: any, offset = 0) => {
   const searchTerm = state.products.filter.search
   const sortOrder = searchTerm && searchTerm.length > 0 ? "search" : "name"
 
@@ -209,7 +209,7 @@ const getFilter = (state, offset = 0) => {
 }
 
 export function fetchProducts() {
-  return (dispatch, getState) => {
+  return (dispatch: Function, getState: any) => {
     const state = getState()
     if (state.products.loadingItems) {
       // do nothing
@@ -232,7 +232,7 @@ export function fetchProducts() {
 }
 
 export function fetchMoreProducts() {
-  return (dispatch, getState) => {
+  return (dispatch: Function, getState: any) => {
     const state = getState()
     if (!state.products.loadingItems) {
       dispatch(requestMoreProducts())
