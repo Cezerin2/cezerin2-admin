@@ -75,7 +75,7 @@ const LoginForm = () => {
               onKeyPress={handleKeyPress}
               label={messages.email}
               fullWidth
-              hintStyle={{ width: "100%" }}
+              style={{ width: "100%" }}
               helperText={messages.email}
             />
           </div>
