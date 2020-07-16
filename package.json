@@ -43,7 +43,7 @@
     "@types/redux-form": "^8.2.6",
     "cezerin2-client": "^0.38.0",
     "chart.js": "^2.9.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "material-ui": "^0.20.2",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
