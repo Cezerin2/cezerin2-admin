@@ -63,7 +63,7 @@
     "redux-form-material-ui": "^4.3.4",
     "redux-thunk": "^2.3.0",
     "slug": "^3.3.0",
-    "stripe": "^8.68.0",
+    "stripe": "^8.96.0",
     "typescript": "~3.9.6",
     "ws": "^7.3.1"
   },
